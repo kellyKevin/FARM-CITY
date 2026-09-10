@@ -1,0 +1,254 @@
+"use client";
+
+import React, { useState, useEffect } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { Search, Sprout, MessageSquare, Plus, CheckCircle2, MapPin, Truck, ShieldCheck, FileText } from "lucide-react";
+import { getStoredProducts } from "@/lib/storage";
+import { Product } from "@/data/mockData";
+import { useCart } from "@/context/CartContext";
+
+export default function SeedlingsPage() {
+  const [seedlings, setSeedlings] = useState<Product[]>([]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedSubCategory, setSelectedSubCategory] = useState("All");
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
+
+  const { addToCart } = useCart();
+
+  useEffect(() => {
+    const all = getStoredProducts().filter((p) => p.category === "seedlings");
+    setSeedlings(all);
+  }, []);
+
+  const categories = ["All", "Fruit Seedlings", "Tree & Nut Seedlings", "Coffee"];
+
+  const filteredSeedlings = seedlings.filter((p) => {
+    const matchesSearch = p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      (p.scientificName && p.scientificName.toLowerCase().includes(searchQuery.toLowerCase())) ||
+      p.description.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesCategory = selectedSubCategory === "All" || p.subCategory === selectedSubCategory;
+    return matchesSearch && matchesCategory;
+  });
+
+  const handleQuickAdd = (product: Product) => {
+    addToCart({
+      id: product.id,
+      name: product.name,
+      category: product.category,
+      price: product.price,
+      unit: product.unit,
+      quantity: 1,
+      image: product.image
+    });
+    setToastMessage(`Added 1 ${product.name} to cart!`);
+    setTimeout(() => setToastMessage(null), 3000);
+  };
+
+  const generateWhatsAppLink = (product: Product) => {
+    const msg = encodeURIComponent(
+      `Hello Farm City, I am interested in buying seedlings:\n\nSeedling: ${product.name}\nPrice: KSh ${product.price}/seedling\nLocation/County: [Enter your location]\nRequired Quantity: [Enter quantity]\n\nPlease advise on delivery schedule and total cost.`
+    );
+    return `https://wa.me/254711911690?text=${msg}`;
+  };
+
+  return (
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-10">
+      {/* Toast Notification */}
+      {toastMessage && (
+        <div className="fixed top-24 right-6 z-50 bg-emerald-800 text-white px-5 py-3 rounded-xl shadow-2xl flex items-center gap-3 animate-bounce border border-emerald-600">
+          <CheckCircle2 size={20} className="text-emerald-300" />
+          <span className="font-semibold text-sm">{toastMessage}</span>
+        </div>
+      )}
+
+      {/* Hero Banner */}
+      <div className="bg-gradient-to-br from-emerald-950 via-emerald-900 to-slate-900 text-white p-8 sm:p-12 rounded-3xl shadow-xl relative overflow-hidden">
+        <div className="max-w-3xl space-y-4 relative z-10">
+          <div className="inline-flex items-center gap-2 bg-emerald-800/80 text-emerald-300 text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-wider border border-emerald-600/40">
+            <MapPin size={14} /> Physical Nursery: Kapseret, Eldoret • Countrywide Dispatch
+          </div>
+          <h1 className="text-3xl sm:text-5xl font-black tracking-tight leading-tight">
+            Certified & Grafted <br />
+            <span className="text-emerald-400">Quality Seedlings Catalogue</span>
+          </h1>
+          <p className="text-xs sm:text-sm text-emerald-100 leading-relaxed max-w-2xl">
+            Supplying high-yielding Grafted Hass Avocado, Grafted Passion Fruit, Macadamia, Coffee, Tree Tomato, Apple, Dragon Fruit, and Pixie Orange seedlings to farmers across Kenya.
+          </p>
+          <div className="pt-2 flex flex-wrap gap-4">
+            <Link
+              href="/bulk-institutional"
+              className="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold px-5 py-3 rounded-xl shadow-md transition-all text-xs sm:text-sm flex items-center gap-2"
+            >
+              <FileText size={16} />
+              <span>REQUEST BULK SEEDLING QUOTE</span>
+            </Link>
+            <a
+              href="https://wa.me/254711911690?text=Hello%20Farm%20City%20Eldoret%20Nursery%2C%20I%20need%20seedlings%20catalogue%20info"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-green-600 hover:bg-green-500 text-white font-bold px-5 py-3 rounded-xl transition-all text-xs sm:text-sm flex items-center gap-2"
+            >
+              <MessageSquare size={16} />
+              <span>WHATSAPP SEEDLING INQUIRY</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      {/* Filter and Search */}
+      <div className="flex flex-col md:flex-row items-center justify-between gap-4 bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+        <div className="relative w-full md:w-80">
+          <Search size={18} className="absolute left-3.5 top-3 text-slate-400" />
+          <input
+            type="text"
+            placeholder="Search seedlings e.g. Hass Avocado, Coffee..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:border-emerald-600 text-slate-800"
+          />
+        </div>
+
+        <div className="flex items-center gap-2 overflow-x-auto w-full md:w-auto pb-2 md:pb-0">
+          {categories.map((cat) => (
+            <button
+              key={cat}
+              onClick={() => setSelectedSubCategory(cat)}
+              className={`px-3.5 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-colors ${
+                selectedSubCategory === cat
+                  ? "bg-emerald-800 text-white shadow-sm"
+                  : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+              }`}
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Seedlings Catalogue Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        {filteredSeedlings.map((product) => (
+          <div
+            key={product.id}
+            className="bg-white rounded-2xl overflow-hidden border border-emerald-100 shadow-sm hover:shadow-md transition-all flex flex-col justify-between group"
+          >
+            <div>
+              <div className="relative h-56 w-full bg-slate-100 overflow-hidden">
+                <Image
+                  src={product.image}
+                  alt={product.name}
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+                <div className="absolute top-3 left-3 bg-emerald-900 text-emerald-200 text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">
+                  {product.subCategory}
+                </div>
+              </div>
+
+              <div className="p-5 space-y-3">
+                <div>
+                  <h3 className="font-bold text-slate-900 text-base">{product.name}</h3>
+                  {product.scientificName && (
+                    <p className="text-[11px] italic text-emerald-700 font-medium">{product.scientificName}</p>
+                  )}
+                  <p className="text-xs text-slate-600 line-clamp-3 mt-1.5">{product.description}</p>
+                </div>
+
+                <div className="text-xs bg-emerald-50/60 p-3 rounded-xl space-y-1.5 border border-emerald-100/80">
+                  <p className="flex justify-between text-slate-700">
+                    <span className="font-medium">Availability:</span>
+                    <span className="font-bold text-emerald-800">{product.stockStatus}</span>
+                  </p>
+                  <p className="flex justify-between text-slate-700">
+                    <span className="font-medium">Minimum Order:</span>
+                    <span className="font-semibold text-slate-800">{product.minOrder || "5 seedlings"}</span>
+                  </p>
+                  <p className="text-[11px] text-slate-500 pt-1 border-t border-emerald-100">
+                    <Truck size={12} className="inline mr-1 text-emerald-700" />
+                    {product.deliveryInfo}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="p-5 pt-0 space-y-3">
+              <div className="flex items-center justify-between border-t border-slate-100 pt-3">
+                <div>
+                  <span className="text-xs text-slate-400">Price: </span>
+                  <span className="text-xl font-black text-emerald-800">KSh {product.price}</span>
+                  <span className="text-xs text-slate-500"> / seedling</span>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-2">
+                <button
+                  onClick={() => handleQuickAdd(product)}
+                  className="bg-emerald-800 hover:bg-emerald-900 text-white text-xs font-bold py-2.5 rounded-xl transition-colors flex items-center justify-center gap-1"
+                >
+                  <Plus size={14} />
+                  <span>Add Cart</span>
+                </button>
+
+                <a
+                  href={generateWhatsAppLink(product)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-green-600 hover:bg-green-700 text-white text-xs font-bold py-2.5 rounded-xl transition-colors flex items-center justify-center gap-1"
+                >
+                  <MessageSquare size={14} />
+                  <span>Order WhatsApp</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Nursery Quality Assurance */}
+      <div className="bg-slate-900 text-white p-8 rounded-3xl space-y-6">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 border-b border-slate-800 pb-6">
+          <div>
+            <span className="text-xs font-bold text-emerald-400 uppercase tracking-widest">Kapseret Nursery Operations</span>
+            <h2 className="text-2xl font-extrabold mt-1">Nursery Assurance & Grafting Standards</h2>
+            <p className="text-xs text-slate-300 mt-1 max-w-2xl">
+              All seedlings at our Eldoret nursery are propagated under strict sanitary agronomic conditions. Scions are taken from verified mother orchards to ensure maximum fruit quality and early maturity.
+            </p>
+          </div>
+          <Link
+            href="/bulk-institutional"
+            className="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-extrabold px-6 py-3 rounded-xl transition-colors whitespace-nowrap"
+          >
+            GET COMMERCIAL ORCHARD QUOTE
+          </Link>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-xs text-slate-300">
+          <div className="flex items-start gap-3">
+            <ShieldCheck size={24} className="text-emerald-400 shrink-0" />
+            <div>
+              <p className="font-bold text-white text-sm mb-1">Disease Resistant Rootstocks</p>
+              <p>Specialized rootstocks resistant to soil-borne pathogens and root rot.</p>
+            </div>
+          </div>
+
+          <div className="flex items-start gap-3">
+            <Truck size={24} className="text-emerald-400 shrink-0" />
+            <div>
+              <p className="font-bold text-white text-sm mb-1">Countrywide Farm Dispatch</p>
+              <p>Safe packaging with protective crates ensuring arrival without root disturbance.</p>
+            </div>
+          </div>
+
+          <div className="flex items-start gap-3">
+            <Sprout size={24} className="text-emerald-400 shrink-0" />
+            <div>
+              <p className="font-bold text-white text-sm mb-1">Field Agronomy Advisory</p>
+              <p>Free field planting guidelines provided with every seedling order.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
