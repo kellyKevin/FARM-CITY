@@ -391,6 +391,57 @@ export const INITIAL_SEEDLING_PRODUCTS: Product[] = [
     image: "/images/seedlings/mango.jpg",
     featured: true,
     scientificName: "Mangifera indica"
+  },
+  {
+    id: "sd-rosemary",
+    name: "Rosemary Herb Seedlings",
+    category: "seedlings",
+    subCategory: "Herbs & Spices",
+    price: 50,
+    unit: "seedling",
+    availableUnits: ["Per seedling", "Bundle of 10"],
+    stockStatus: "In Stock",
+    stockCount: 3000,
+    minOrder: "5 seedlings",
+    deliveryInfo: "Nationwide seedling delivery",
+    description: "Aromatic, perennial rosemary seedlings. Easy to grow in gardens, pots, or commercial herb farming.",
+    image: "/images/seedlings/rosemary.jpg",
+    featured: true,
+    scientificName: "Salvia rosmarinus"
+  },
+  {
+    id: "sd-lemon-grass",
+    name: "Lemon Grass Seedlings",
+    category: "seedlings",
+    subCategory: "Herbs & Spices",
+    price: 40,
+    unit: "seedling",
+    availableUnits: ["Per seedling", "Bundle of 10"],
+    stockStatus: "In Stock",
+    stockCount: 2500,
+    minOrder: "5 seedlings",
+    deliveryInfo: "Nationwide seedling delivery",
+    description: "Fast-growing, aromatic lemon grass slips/seedlings ideal for herbal tea, essential oil extraction, and natural soil conservation.",
+    image: "/images/seedlings/lemon-grass.jpg",
+    featured: true,
+    scientificName: "Cymbopogon citratus"
+  },
+  {
+    id: "sd-strawberry",
+    name: "Strawberry Seedlings & Runners",
+    category: "seedlings",
+    subCategory: "Fruit Seedlings",
+    price: 30,
+    unit: "seedling",
+    availableUnits: ["Per seedling", "Bundle of 20", "100+ Bulk"],
+    stockStatus: "In Stock",
+    stockCount: 6000,
+    minOrder: "10 seedlings",
+    deliveryInfo: "Nationwide seedling delivery",
+    description: "High-yielding Chandler and San Andreas strawberry runners. Fast fruiting with sweet, juicy red berries.",
+    image: "/images/seedlings/strawberry.jpg",
+    featured: true,
+    scientificName: "Fragaria × ananassa"
   }
 ];
 
