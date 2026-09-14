@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Phone, Mail, MapPin, Clock, MessageSquare } from "lucide-react";
 
 export default function Footer() {
@@ -10,9 +11,11 @@ export default function Footer() {
           {/* Brand Info */}
           <div className="space-y-4">
             <div className="flex items-center gap-2">
-              <img
+              <Image
                 src="/images/logo.jpeg"
                 alt="Farm City Logo"
+                width={140}
+                height={48}
                 className="h-12 w-auto object-contain rounded-lg bg-white p-1"
               />
             </div>
