@@ -517,6 +517,76 @@ export const INITIAL_FARMER_RESOURCES: FarmerResource[] = [
     date: "July 2026",
     readTime: "7 min read",
     image: "/images/seedlings/macadamia.jpg"
+  },
+  {
+    id: "guide-coffee-farming",
+    title: "Coffee Farming Guide: Cultivating High-Yield Ruiru 11 & Batian",
+    category: "Coffee Farming",
+    summary: "Complete guide on soil requirements, spacing, disease resistance, shade management, and harvesting Ruiru 11 and Batian coffee varieties.",
+    content: `
+      ### 1. Selection of Varieties
+      Ruiru 11 and Batian varieties are highly recommended due to their resistance to Coffee Berry Disease (CBD) and Coffee Leaf Rust (CLR), reducing chemical spray costs significantly.
+
+      ### 2. Spacing & Hole Preparation
+      - **Spacing:** 2m x 2m (1,000 trees per acre) or 1.5m x 1.5m for high density planting.
+      - **Hole Preparation:** Dig holes 2ft x 2ft x 2ft (60cm x 60cm x 60cm) 3 months prior to rain season. Mix topsoil with well-decomposed manure (15-20kg) and CAN/DSP fertilizer as recommended.
+
+      ### 3. Pruning & Canopy Management
+      Establish a single-stem or double-stem system. Regular desuckering and capping at 1.5m prevents overcrowding and enhances cherry development.
+
+      ### 4. Harvesting & Quality Preservation
+      Hand-pick red ripe cherries. Avoid picking green or over-ripe cherries to maintain premium grade export standard.
+    `,
+    author: "Kapseret Agronomy Center",
+    date: "October 2026",
+    readTime: "8 min read",
+    image: "/images/seedlings/coffee.jpg"
+  },
+  {
+    id: "guide-orchard-management",
+    title: "Commercial Orchard Management: Pruning, Mulching & Soil Nutrition",
+    category: "Orchard Management",
+    summary: "Best management practices for established fruit orchards including irrigation scheduling, canopy design, weed suppression, and organic fertilization.",
+    content: `
+      ### 1. Irrigation & Water Conservation
+      Establish drip irrigation systems or basins around fruit trees. Water deeply during flowering and fruit setting stages to prevent premature fruit drop.
+
+      ### 2. Mulching & Soil Health
+      Apply a 15cm organic mulch ring around tree trunks (keeping 10cm clearance from the main stem to prevent stem rot). Mulching suppresses weeds and maintains soil moisture.
+
+      ### 3. Structural Pruning
+      Prune dead, diseased, or crossing branches to encourage center light penetration. Formative pruning in year 1-2 establishes a strong branch framework capable of supporting heavy yields.
+
+      ### 4. Integrated Pest & Disease Control
+      Monitor orchards weekly for scale insects, thrips, and fruit flies. Combine sticky traps, biological controls, and organic neem sprays.
+    `,
+    author: "Farm City Technical Agronomists",
+    date: "October 2026",
+    readTime: "6 min read",
+    image: "/images/seedlings/avocado-fuerte.jpg"
+  },
+  {
+    id: "guide-seedling-care",
+    title: "Nursery to Field: Essential Seedling Care & Transplanting Protocol",
+    category: "Seedling Care",
+    summary: "How to care for grafted fruit and herb seedlings upon arrival, hardening off techniques, transplanting steps, and early growth protection.",
+    content: `
+      ### 1. Unpacking & Acclimatization
+      Upon delivery, place seedlings under partial shade immediately. Water them well and allow them 3-5 days to recover from transit stress before field transplanting.
+
+      ### 2. Hardening Off
+      Gradually expose potted seedlings to full direct sunlight over 7 days. This strengthens seedling cuticle tissues and reduces transplant shock.
+
+      ### 3. Proper Transplanting Technique
+      Transplant during cool early morning or late afternoon hours. Carefully slit the polybag without disturbing the root ball. Ensure graft union remains 5cm above soil level.
+
+      ### 4. Staking & Protective Mulch
+      Install protective wooden stakes for top-heavy grafted fruit trees and apply a light mulch ring. Water thoroughly immediately after planting.
+    `,
+    author: "Kapseret Nursery Operations",
+    date: "October 2026",
+    readTime: "5 min read",
+    image: "/images/seedlings/avocado-hass.jpg"
   }
 ];
 
