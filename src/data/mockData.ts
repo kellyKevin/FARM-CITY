@@ -357,6 +357,40 @@ export const INITIAL_SEEDLING_PRODUCTS: Product[] = [
     image: "/images/seedlings/coffee.jpg",
     featured: true,
     scientificName: "Coffea arabica"
+  },
+  {
+    id: "sd-fuerte-avocado",
+    name: "Grafted Fuerte Avocado Seedlings",
+    category: "seedlings",
+    subCategory: "Fruit Seedlings",
+    price: 150,
+    unit: "seedling",
+    availableUnits: ["Per seedling", "Bundle of 10", "100+ Bulk"],
+    stockStatus: "In Stock",
+    stockCount: 3000,
+    minOrder: "5 seedlings",
+    deliveryInfo: "Dispatched nationwide from Kapseret Nursery, Eldoret",
+    description: "High quality grafted Fuerte avocado seedlings. Smooth green skin, high oil content, and excellent local and export demand.",
+    image: "/images/seedlings/avocado-fuerte.jpg",
+    featured: false,
+    scientificName: "Persea americana 'Fuerte'"
+  },
+  {
+    id: "sd-grafted-mango",
+    name: "Grafted Mango Seedlings (Apple / Ngowe / Kent)",
+    category: "seedlings",
+    subCategory: "Fruit Seedlings",
+    price: 150,
+    unit: "seedling",
+    availableUnits: ["Per seedling", "Bundle of 10", "100+ Bulk"],
+    stockStatus: "In Stock",
+    stockCount: 4000,
+    minOrder: "5 seedlings",
+    deliveryInfo: "Nationwide seedling delivery via courier and farm transport",
+    description: "Premium grafted mango varieties (Apple, Ngowe, Kent). Early maturing, disease resistant with sweet fibreless fruits.",
+    image: "/images/seedlings/mango.jpg",
+    featured: true,
+    scientificName: "Mangifera indica"
   }
 ];
 

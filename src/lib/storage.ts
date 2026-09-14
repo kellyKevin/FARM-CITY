@@ -14,7 +14,33 @@ export const getStoredProducts = (): Product[] => {
     return initial;
   }
   try {
-    return JSON.parse(saved);
+    let products: Product[] = JSON.parse(saved);
+    const initialAll = [...INITIAL_FRESH_PRODUCTS, ...INITIAL_SEEDLING_PRODUCTS];
+    const initialMap = new Map(initialAll.map(p => [p.id, p]));
+
+    let updated = false;
+    products = products.map(p => {
+      const match = initialMap.get(p.id);
+      if (match && p.category === "seedlings" && match.image !== p.image) {
+        updated = true;
+        return { ...p, image: match.image };
+      }
+      return p;
+    });
+
+    // Also append any missing initial seedling products (such as newly added ones like mango or fuerte avocado)
+    const existingIds = new Set(products.map(p => p.id));
+    for (const seedling of INITIAL_SEEDLING_PRODUCTS) {
+      if (!existingIds.has(seedling.id)) {
+        products.push(seedling);
+        updated = true;
+      }
+    }
+
+    if (updated) {
+      localStorage.setItem(PRODUCTS_KEY, JSON.stringify(products));
+    }
+    return products;
   } catch (err) {
     console.error("Error loading products from local storage", err);
     return [...INITIAL_FRESH_PRODUCTS, ...INITIAL_SEEDLING_PRODUCTS];
