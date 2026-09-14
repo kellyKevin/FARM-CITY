@@ -516,7 +516,7 @@ export default function Home() {
             <div className="lg:col-span-6 grid grid-cols-2 gap-4">
               <div className="relative h-48 sm:h-56 rounded-2xl overflow-hidden border border-slate-700">
                 <Image
-                  src="https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?auto=format&fit=crop&q=80&w=800"
+                  src="/images/seedlings/avocado-nursery.jpg"
                   alt="Farm City Nursery Eldoret"
                   fill
                   className="object-cover"
@@ -524,7 +524,7 @@ export default function Home() {
               </div>
               <div className="relative h-48 sm:h-56 rounded-2xl overflow-hidden border border-slate-700">
                 <Image
-                  src="https://images.unsplash.com/photo-1592417817098-8f3d6eb231fc?auto=format&fit=crop&q=80&w=800"
+                  src="/images/seedlings/citrus-orange-2.jpg"
                   alt="Seedling Production"
                   fill
                   className="object-cover"

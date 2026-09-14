@@ -235,7 +235,7 @@ export const INITIAL_SEEDLING_PRODUCTS: Product[] = [
     minOrder: "5 seedlings",
     deliveryInfo: "Dispatched nationwide from Kapseret Nursery, Eldoret to all 47 counties",
     description: "High-yielding, disease-resistant grafted Hass avocado seedlings. Fast fruiting (2-3 years) with high export market demand.",
-    image: "https://images.unsplash.com/photo-1523049673857-eb18f1d7b578?auto=format&fit=crop&q=80&w=800",
+    image: "/images/seedlings/avocado-hass.jpg",
     featured: true,
     scientificName: "Persea americana 'Hass'"
   },
@@ -252,7 +252,7 @@ export const INITIAL_SEEDLING_PRODUCTS: Product[] = [
     minOrder: "10 seedlings",
     deliveryInfo: "Nationwide delivery via courier / farm transport",
     description: "Grafted purple and yellow passion fruit seedlings. Grafted on resistant rootstocks for longevity and high juice yield.",
-    image: "https://images.unsplash.com/photo-1589131238382-7f7229a43a0e?auto=format&fit=crop&q=80&w=800",
+    image: "/images/seedlings/passion.jpg",
     featured: true,
     scientificName: "Passiflora edulis"
   },
@@ -269,7 +269,7 @@ export const INITIAL_SEEDLING_PRODUCTS: Product[] = [
     minOrder: "10 seedlings",
     deliveryInfo: "Countrywide seedling dispatch",
     description: "Red and yellow sweet tree tomato seedlings ready for transplanting. Rapid growth and continuous fruiting.",
-    image: "https://images.unsplash.com/photo-1592924357228-91a4daadcfea?auto=format&fit=crop&q=80&w=800",
+    image: "/images/seedlings/tree-tomato.jpg",
     featured: true,
     scientificName: "Solanum betaceum"
   },
@@ -286,7 +286,7 @@ export const INITIAL_SEEDLING_PRODUCTS: Product[] = [
     minOrder: "5 seedlings",
     deliveryInfo: "Safe packaging & countrywide delivery",
     description: "Premium grafted macadamia varieties (MRG 20 & INTEG 1). Excellent nut size, oil ratio and commercial value.",
-    image: "https://images.unsplash.com/photo-1508747703725-719777637510?auto=format&fit=crop&q=80&w=800",
+    image: "/images/seedlings/macadamia.jpg",
     featured: true,
     scientificName: "Macadamia integrifolia"
   },
@@ -303,7 +303,7 @@ export const INITIAL_SEEDLING_PRODUCTS: Product[] = [
     minOrder: "5 seedlings",
     deliveryInfo: "Nationwide seedling supply",
     description: "Seedless, extra sweet Pixie orange grafted seedlings. Highly profitable commercial fruit suitable for various climatic zones.",
-    image: "https://images.unsplash.com/photo-1547514701-42782101795e?auto=format&fit=crop&q=80&w=800",
+    image: "/images/seedlings/citrus-orange.jpg",
     featured: true,
     scientificName: "Citrus reticulata 'Pixie'"
   },
@@ -320,7 +320,7 @@ export const INITIAL_SEEDLING_PRODUCTS: Product[] = [
     minOrder: "2 seedlings",
     deliveryInfo: "Nationwide seedling delivery",
     description: "Red and white flesh dragon fruit cuttings/seedlings. High-value exotic superfood crop with premium market prices.",
-    image: "https://images.unsplash.com/photo-1527325678964-549216468488?auto=format&fit=crop&q=80&w=800",
+    image: "/images/seedlings/dragon-fruit.jpg",
     featured: false,
     scientificName: "Hylocereus undatus"
   },
@@ -337,7 +337,7 @@ export const INITIAL_SEEDLING_PRODUCTS: Product[] = [
     minOrder: "2 seedlings",
     deliveryInfo: "Carefully wrapped and delivered nationwide",
     description: "Highland & lowland adapted apple seedlings (Wambugu, Anna, Rome Beauty). High yields and large crisp fruit.",
-    image: "https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?auto=format&fit=crop&q=80&w=800",
+    image: "/images/seedlings/apple.jpg",
     featured: true,
     scientificName: "Malus domestica"
   },
@@ -354,7 +354,7 @@ export const INITIAL_SEEDLING_PRODUCTS: Product[] = [
     minOrder: "20 seedlings",
     deliveryInfo: "Bulk transport arranged to major coffee regions",
     description: "Disease resistant (CBD & CLR resistant) high-yield Ruiru 11 and Batian coffee seedlings ready for field transplanting.",
-    image: "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&q=80&w=800",
+    image: "/images/seedlings/coffee.jpg",
     featured: true,
     scientificName: "Coffea arabica"
   }
@@ -393,7 +393,7 @@ export const INITIAL_FARMER_RESOURCES: FarmerResource[] = [
     author: "Farm City Agronomy Team (Kapseret Nursery)",
     date: "September 2026",
     readTime: "6 min read",
-    image: "https://images.unsplash.com/photo-1523049673857-eb18f1d7b578?auto=format&fit=crop&q=80&w=800"
+    image: "/images/seedlings/avocado-nursery.jpg"
   },
   {
     id: "guide-passion-fruit",
@@ -414,7 +414,7 @@ export const INITIAL_FARMER_RESOURCES: FarmerResource[] = [
     author: "Wesley Mage Mujenyi",
     date: "August 2026",
     readTime: "5 min read",
-    image: "https://images.unsplash.com/photo-1589131238382-7f7229a43a0e?auto=format&fit=crop&q=80&w=800"
+    image: "/images/seedlings/passion-2.jpg"
   },
   {
     id: "guide-macadamia-establishment",
@@ -431,7 +431,7 @@ export const INITIAL_FARMER_RESOURCES: FarmerResource[] = [
     author: "Farm City Eldoret Technical Team",
     date: "July 2026",
     readTime: "7 min read",
-    image: "https://images.unsplash.com/photo-1508747703725-719777637510?auto=format&fit=crop&q=80&w=800"
+    image: "/images/seedlings/macadamia.jpg"
   }
 ];
 
