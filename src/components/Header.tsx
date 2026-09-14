@@ -9,9 +9,7 @@ import {
   X,
   Phone,
   MessageSquare,
-  Sprout,
-  PhoneCall,
-  UserCheck
+  PhoneCall
 } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 
@@ -46,12 +44,6 @@ export default function Header() {
             <span className="bg-emerald-800 text-emerald-200 px-2 py-0.5 rounded text-[11px] font-semibold tracking-wider uppercase">
               From Farm to You
             </span>
-            <Link
-              href="/admin"
-              className="text-emerald-300 hover:text-white transition-colors text-xs flex items-center gap-1 underline underline-offset-2"
-            >
-              <UserCheck size={12} /> Admin Portal
-            </Link>
           </div>
         </div>
       </div>
@@ -61,18 +53,11 @@ export default function Header() {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 group">
-            <div className="bg-emerald-600 text-white p-2.5 rounded-xl shadow-md group-hover:bg-emerald-700 transition-colors">
-              <Sprout size={28} className="stroke-[2.5]" />
-            </div>
-            <div>
-              <div className="flex items-center gap-1">
-                <span className="text-2xl font-black tracking-tight text-emerald-900">FARM</span>
-                <span className="text-2xl font-black tracking-tight text-emerald-600">CITY</span>
-              </div>
-              <p className="text-[10px] font-semibold uppercase tracking-wider text-slate-500 -mt-1">
-                Agriculture Made Easy
-              </p>
-            </div>
+            <img
+              src="/images/logo.jpeg"
+              alt="Farm City Logo"
+              className="h-14 w-auto object-contain rounded-lg group-hover:scale-105 transition-transform"
+            />
           </Link>
 
           {/* Desktop Navigation */}

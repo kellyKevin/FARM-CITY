@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { Sprout, Phone, Mail, MapPin, Clock, MessageSquare } from "lucide-react";
+import { Phone, Mail, MapPin, Clock, MessageSquare } from "lucide-react";
 
 export default function Footer() {
   return (
@@ -10,12 +10,11 @@ export default function Footer() {
           {/* Brand Info */}
           <div className="space-y-4">
             <div className="flex items-center gap-2">
-              <div className="bg-emerald-600 text-white p-2 rounded-lg">
-                <Sprout size={24} />
-              </div>
-              <span className="text-2xl font-black text-white tracking-tight">
-                FARM <span className="text-emerald-500">CITY</span>
-              </span>
+              <img
+                src="/images/logo.jpeg"
+                alt="Farm City Logo"
+                className="h-12 w-auto object-contain rounded-lg bg-white p-1"
+              />
             </div>
             <p className="text-xs text-slate-400 leading-relaxed">
               Farm City brings together fresh produce delivery and high-quality seedling supply across Kenya. From our Juja/Thika fresh hub and Kapseret Eldoret nursery directly to your farm, home, or business.
@@ -127,9 +126,6 @@ export default function Footer() {
           <p>© {new Date().getFullYear()} Farm City. All rights reserved. Registered Agricultural Supplier in Kenya.</p>
           <div className="flex items-center gap-6">
             <span>Freshness • Reliability • Quality</span>
-            <Link href="/admin" className="hover:text-slate-300 transition-colors">
-              Staff Admin Portal
-            </Link>
           </div>
         </div>
       </div>

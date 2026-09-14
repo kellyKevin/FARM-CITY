@@ -87,7 +87,7 @@ export const INITIAL_FRESH_PRODUCTS: Product[] = [
     minOrder: "1 kg",
     deliveryInfo: "Delivered fresh from Juja/Thika farms daily",
     description: "Nutritious, dark green tender Sukuma Wiki leaves. Rich in iron and vitamins, staple for healthy Kenyan meals.",
-    image: "https://images.unsplash.com/photo-1628773822503-930a8583b278?auto=format&fit=crop&q=80&w=800",
+    image: "https://images.unsplash.com/photo-1524179091875-bf99a9a6af57?auto=format&fit=crop&q=80&w=800",
     featured: true
   },
   {
@@ -135,7 +135,7 @@ export const INITIAL_FRESH_PRODUCTS: Product[] = [
     minOrder: "1 kg",
     deliveryInfo: "Available for home and bulk business delivery",
     description: "High quality dry red onions with long shelf life, solid bulbs and bold flavor for everyday cooking.",
-    image: "https://images.unsplash.com/photo-1618512496248-a07fe83aa8cf?auto=format&fit=crop&q=80&w=800",
+    image: "https://images.unsplash.com/photo-1620574387735-3624d75b2dbc?auto=format&fit=crop&q=80&w=800",
     featured: true
   },
   {
