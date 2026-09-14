@@ -240,6 +240,23 @@ export const INITIAL_SEEDLING_PRODUCTS: Product[] = [
     scientificName: "Persea americana 'Hass'"
   },
   {
+    id: "sd-fuerte-avocado",
+    name: "Grafted Fuerte Avocado Seedlings",
+    category: "seedlings",
+    subCategory: "Fruit Seedlings",
+    price: 150,
+    unit: "seedling",
+    availableUnits: ["Per seedling", "Bundle of 10", "100+ Bulk"],
+    stockStatus: "In Stock",
+    stockCount: 4000,
+    minOrder: "5 seedlings",
+    deliveryInfo: "Dispatched nationwide from Kapseret Nursery, Eldoret",
+    description: "High-yielding grafted Fuerte avocado seedlings with excellent green-skin quality and rich flavor.",
+    image: "/images/seedlings/avocado-fuerte.jpg",
+    featured: false,
+    scientificName: "Persea americana 'Fuerte'"
+  },
+  {
     id: "sd-grafted-passion",
     name: "Grafted Passion Fruit Seedlings",
     category: "seedlings",
@@ -357,6 +374,23 @@ export const INITIAL_SEEDLING_PRODUCTS: Product[] = [
     image: "/images/seedlings/coffee.jpg",
     featured: true,
     scientificName: "Coffea arabica"
+  },
+  {
+    id: "sd-grafted-mango",
+    name: "Grafted Mango Seedlings",
+    category: "seedlings",
+    subCategory: "Fruit Seedlings",
+    price: 250,
+    unit: "seedling",
+    availableUnits: ["Per seedling", "Bundle of 10"],
+    stockStatus: "In Stock",
+    stockCount: 3000,
+    minOrder: "5 seedlings",
+    deliveryInfo: "Nationwide seedling delivery",
+    description: "High-yielding grafted mango seedlings (Apple, Kent, Tommy Atkins). Resistant to pests and quick to bear fruit.",
+    image: "/images/seedlings/mango.jpg",
+    featured: true,
+    scientificName: "Mangifera indica"
   }
 ];
 
