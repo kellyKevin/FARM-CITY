@@ -21,9 +21,9 @@ export const getStoredProducts = (): Product[] => {
     let updated = false;
     products = products.map(p => {
       const match = initialMap.get(p.id);
-      if (match && p.category === "seedlings" && match.image !== p.image) {
+      if (match && match.image !== p.image) {
         updated = true;
-        return { ...p, image: match.image };
+        return { ...p, image: match.image, description: match.description };
       }
       return p;
     });
@@ -60,7 +60,21 @@ export const getStoredResources = (): FarmerResource[] => {
     return INITIAL_FARMER_RESOURCES;
   }
   try {
-    return JSON.parse(saved);
+    let resources: FarmerResource[] = JSON.parse(saved);
+    const initialMap = new Map(INITIAL_FARMER_RESOURCES.map(r => [r.id, r]));
+    let updated = false;
+    resources = resources.map(r => {
+      const match = initialMap.get(r.id);
+      if (match && match.image !== r.image) {
+        updated = true;
+        return { ...r, image: match.image };
+      }
+      return r;
+    });
+    if (updated) {
+      localStorage.setItem(RESOURCES_KEY, JSON.stringify(resources));
+    }
+    return resources;
   } catch (err) {
     console.error("Error loading resources", err);
     return INITIAL_FARMER_RESOURCES;
