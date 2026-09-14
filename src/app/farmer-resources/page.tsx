@@ -130,7 +130,7 @@ export default function FarmerResourcesPage() {
 
               <div className="pt-4 border-t border-slate-100 flex items-center justify-between gap-4">
                 <Link
-                  href="/seedlings"
+                  href="/shop?tab=seedlings"
                   className="inline-flex items-center gap-2 text-xs font-bold text-emerald-800 hover:text-emerald-950"
                 >
                   <span>Order Related Seedlings</span> <ArrowRight size={14} />

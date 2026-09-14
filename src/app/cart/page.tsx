@@ -88,7 +88,7 @@ export default function CartPage() {
               Shop Fresh Produce
             </Link>
             <Link
-              href="/seedlings"
+              href="/shop?tab=seedlings"
               className="bg-emerald-900 hover:bg-slate-900 text-white font-bold px-6 py-3 rounded-xl text-xs transition-colors"
             >
               Browse Seedlings
