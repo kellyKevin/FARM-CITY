@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import {
   ShoppingBag,
@@ -53,9 +54,11 @@ export default function Header() {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 group">
-            <img
+            <Image
               src="/images/logo.jpeg"
               alt="Farm City Logo"
+              width={160}
+              height={56}
               className="h-14 w-auto object-contain rounded-lg group-hover:scale-105 transition-transform"
             />
           </Link>
