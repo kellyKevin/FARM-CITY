@@ -43,12 +43,7 @@ export default function Footer() {
             <ul className="space-y-2 text-xs">
               <li>
                 <Link href="/shop" className="hover:text-emerald-400 transition-colors">
-                  Fresh Produce Shop
-                </Link>
-              </li>
-              <li>
-                <Link href="/seedlings" className="hover:text-emerald-400 transition-colors">
-                  Quality Seedlings Catalogue
+                  Shop (Produce & Seedlings)
                 </Link>
               </li>
               <li>
@@ -68,12 +63,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link href="/about" className="hover:text-emerald-400 transition-colors">
-                  About Farm City Operations
-                </Link>
-              </li>
-              <li>
-                <Link href="/contact" className="hover:text-emerald-400 transition-colors">
-                  Contact Us & Locations
+                  About & Contact Farm City
                 </Link>
               </li>
             </ul>

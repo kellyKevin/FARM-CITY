@@ -87,7 +87,7 @@ export const INITIAL_FRESH_PRODUCTS: Product[] = [
     minOrder: "1 kg",
     deliveryInfo: "Delivered fresh from Juja/Thika farms daily",
     description: "Nutritious, dark green tender Sukuma Wiki leaves. Rich in iron and vitamins, staple for healthy Kenyan meals.",
-    image: "https://images.unsplash.com/photo-1524179091875-bf98a9a6ae57?auto=format&fit=crop&q=80&w=800",
+    image: "https://images.unsplash.com/photo-1628773822503-930a8583b278?auto=format&fit=crop&q=80&w=800",
     featured: true
   },
   {
@@ -499,7 +499,7 @@ export const INITIAL_FARMER_RESOURCES: FarmerResource[] = [
     author: "Wesley Mage Mujenyi",
     date: "August 2026",
     readTime: "5 min read",
-    image: "/images/seedlings/passion-2.jpg"
+    image: "/images/seedlings/passion.jpg"
   },
   {
     id: "guide-macadamia-establishment",

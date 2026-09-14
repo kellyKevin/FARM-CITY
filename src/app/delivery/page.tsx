@@ -2,7 +2,8 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { Truck, MapPin, Clock, ShieldCheck, CheckCircle2, Phone, MessageSquare } from "lucide-react";
+import Image from "next/image";
+import { Truck, MapPin, Clock, ShieldCheck, CheckCircle2, Phone, MessageSquare, Box } from "lucide-react";
 import { getStoredDeliveryZones } from "@/lib/storage";
 import { DeliveryZone } from "@/data/mockData";
 
@@ -62,6 +63,71 @@ export default function DeliveryPage() {
           </div>
           <h3 className="font-bold text-slate-900 text-sm">Safe Packaging</h3>
           <p className="text-xs text-slate-600">Crated packaging ensuring fresh produce and seedlings arrive intact.</p>
+        </div>
+      </div>
+
+      {/* Transportation Visual Showcase */}
+      <div className="space-y-6">
+        <div className="border-b border-slate-200 pb-4">
+          <span className="bg-emerald-100 text-emerald-800 text-xs font-bold px-3 py-1 rounded-full uppercase">
+            Logistics & Transport Solutions
+          </span>
+          <h2 className="text-2xl font-bold text-slate-900 mt-2">
+            Safe Transportation & Farm-to-Customer Logistics
+          </h2>
+          <p className="text-xs text-slate-600 mt-1">
+            We use specialized agricultural transport methods to prevent plant damage, heat stress, or bruising during distribution.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {/* Card 1 */}
+          <div className="bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+            <div className="relative h-64 w-full bg-slate-100">
+              <Image
+                src="/images/seedlings/transportation-tree-tomato.jpg"
+                alt="Safe Crated Transportation of Seedlings & Produce"
+                fill
+                className="object-cover"
+              />
+              <div className="absolute top-4 left-4 bg-emerald-900 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase">
+                Seedling & Produce Crates
+              </div>
+            </div>
+            <div className="p-6 space-y-3">
+              <h3 className="text-lg font-bold text-slate-900 flex items-center gap-2">
+                <Box size={18} className="text-emerald-700" />
+                <span>Protected Crate Transportation</span>
+              </h3>
+              <p className="text-xs text-slate-600 leading-relaxed">
+                Seedlings and fresh produce are packed in sturdy ventilated wooden and plastic crates. This keeps soil intact around roots and protects leaves from crushing during transport to all 47 counties.
+              </p>
+            </div>
+          </div>
+
+          {/* Card 2 */}
+          <div className="bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+            <div className="relative h-64 w-full bg-slate-100">
+              <Image
+                src="/images/seedlings/transportation-citrus.jpg"
+                alt="Agricultural Product Delivery Logistics Vehicles"
+                fill
+                className="object-cover"
+              />
+              <div className="absolute top-4 left-4 bg-emerald-900 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase">
+                Agricultural Delivery Fleet
+              </div>
+            </div>
+            <div className="p-6 space-y-3">
+              <h3 className="text-lg font-bold text-slate-900 flex items-center gap-2">
+                <Truck size={18} className="text-emerald-700" />
+                <span>Nationwide Farm Logistics Network</span>
+              </h3>
+              <p className="text-xs text-slate-600 leading-relaxed">
+                Our farm logistics network coordinates direct regional deliveries and verified courier transit so your seedlings or bulk produce arrive healthy, fresh, and ready for planting or consumption.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
 

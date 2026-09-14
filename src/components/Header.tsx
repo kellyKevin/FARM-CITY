@@ -23,12 +23,10 @@ export default function Header() {
   const navLinks = [
     { name: "HOME", href: "/" },
     { name: "SHOP", href: "/shop" },
-    { name: "SEEDLINGS", href: "/seedlings" },
     { name: "BULK & INSTITUTIONAL", href: "/bulk-institutional" },
     { name: "DELIVERY", href: "/delivery" },
     { name: "FARMER RESOURCES", href: "/farmer-resources" },
-    { name: "ABOUT FARM CITY", href: "/about" },
-    { name: "CONTACT", href: "/contact" },
+    { name: "ABOUT & CONTACT", href: "/about" },
   ];
 
   return (

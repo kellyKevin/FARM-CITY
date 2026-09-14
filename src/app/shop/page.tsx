@@ -18,18 +18,44 @@ export default function ShopPage() {
 
   const { addToCart } = useCart();
 
+  const [activeTab, setActiveTab] = useState<"all" | "fresh" | "seedlings">("all");
+
   useEffect(() => {
-    const all = getStoredProducts().filter((p) => p.category === "fresh");
+    const all = getStoredProducts();
     setProducts(all);
   }, []);
 
-  const categories = ["All", "Vegetables", "Leafy Greens", "Fruits", "Tubers"];
+  const categories = [
+    "All",
+    "Fresh Produce",
+    "Seedlings",
+    "Vegetables",
+    "Leafy Greens",
+    "Fruits",
+    "Fruit Seedlings",
+    "Tree & Nut Seedlings",
+    "Coffee",
+    "Herbs & Spices"
+  ];
 
   const filteredProducts = products.filter((p) => {
-    const matchesSearch = p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    const matchesTab =
+      activeTab === "all" ? true : p.category === activeTab;
+    const matchesSearch =
+      p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      (p.scientificName && p.scientificName.toLowerCase().includes(searchQuery.toLowerCase())) ||
       p.description.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesCategory = selectedSubCategory === "All" || p.subCategory === selectedSubCategory;
-    return matchesSearch && matchesCategory;
+
+    let matchesCategory = true;
+    if (selectedSubCategory === "Fresh Produce") {
+      matchesCategory = p.category === "fresh";
+    } else if (selectedSubCategory === "Seedlings") {
+      matchesCategory = p.category === "seedlings";
+    } else if (selectedSubCategory !== "All") {
+      matchesCategory = p.subCategory === selectedSubCategory;
+    }
+
+    return matchesTab && matchesSearch && matchesCategory;
   });
 
   const handleOpenModal = (product: Product) => {
@@ -86,17 +112,51 @@ export default function ShopPage() {
       )}
 
       {/* Header Banner */}
-      <div className="bg-gradient-to-r from-emerald-900 to-emerald-800 text-white p-8 rounded-3xl shadow-lg relative overflow-hidden">
-        <div className="max-w-2xl space-y-3 relative z-10">
-          <span className="bg-emerald-700/80 text-emerald-200 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
-            Farm City Fresh • Juja / Thika Hub
+      <div className="bg-gradient-to-r from-emerald-950 via-emerald-900 to-slate-900 text-white p-8 rounded-3xl shadow-lg relative overflow-hidden">
+        <div className="max-w-3xl space-y-3 relative z-10">
+          <span className="bg-emerald-800/80 text-emerald-200 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider border border-emerald-600/40">
+            Juja Fresh Hub & Kapseret Eldoret Nursery
           </span>
           <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight">
-            Fresh Produce Online Store
+            Farm City Store & Seedling Catalogue
           </h1>
           <p className="text-xs sm:text-sm text-emerald-100 leading-relaxed">
-            Order fresh fruits, vegetables, leafy greens, and tubers directly harvested from our local grower network. Flexible selling units (per kg, per bunch, per crate).
+            Order fresh fruits, vegetables, and tubers for home or business delivery, or buy certified grafted Hass avocado, passion fruit, macadamia, coffee, and herb seedlings for your farm.
           </p>
+
+          {/* Tab Selector */}
+          <div className="pt-2 flex flex-wrap gap-2">
+            <button
+              onClick={() => { setActiveTab("all"); setSelectedSubCategory("All"); }}
+              className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+                activeTab === "all"
+                  ? "bg-white text-emerald-950 shadow-md"
+                  : "bg-emerald-800/60 text-emerald-100 hover:bg-emerald-800"
+              }`}
+            >
+              All Products ({products.length})
+            </button>
+            <button
+              onClick={() => { setActiveTab("fresh"); setSelectedSubCategory("All"); }}
+              className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+                activeTab === "fresh"
+                  ? "bg-white text-emerald-950 shadow-md"
+                  : "bg-emerald-800/60 text-emerald-100 hover:bg-emerald-800"
+              }`}
+            >
+              🥑 Fresh Produce ({products.filter(p => p.category === "fresh").length})
+            </button>
+            <button
+              onClick={() => { setActiveTab("seedlings"); setSelectedSubCategory("All"); }}
+              className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+                activeTab === "seedlings"
+                  ? "bg-white text-emerald-950 shadow-md"
+                  : "bg-emerald-800/60 text-emerald-100 hover:bg-emerald-800"
+              }`}
+            >
+              🌱 Quality Seedlings ({products.filter(p => p.category === "seedlings").length})
+            </button>
+          </div>
         </div>
       </div>
 
