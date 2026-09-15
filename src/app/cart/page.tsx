@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import {
@@ -10,12 +10,15 @@ import {
   MessageSquare,
   CheckCircle2,
   CreditCard,
-  ShieldCheck
+  ShieldCheck,
+  User
 } from "lucide-react";
 import { useCart } from "@/context/CartContext";
+import { useAuth } from "@/context/AuthContext";
 
 export default function CartPage() {
   const { cart, removeFromCart, updateQuantity, clearCart, totalAmount, generateWhatsAppMessage } = useCart();
+  const { currentUser, addOrder } = useAuth();
 
   const [customerName, setCustomerName] = useState("");
   const [phone, setPhone] = useState("");
@@ -24,10 +27,40 @@ export default function CartPage() {
   const [paymentMethod, setPaymentMethod] = useState<"mpesa" | "card" | "whatsapp">("mpesa");
   const [mpesaPhone, setMpesaPhone] = useState("");
   const [orderPlaced, setOrderPlaced] = useState(false);
+  const [placedOrderNumber, setPlacedOrderNumber] = useState("");
+
+  // Pre-fill fields if user is logged in
+  useEffect(() => {
+    if (currentUser) {
+      if (currentUser.fullName) setCustomerName(currentUser.fullName);
+      if (currentUser.phone) {
+        setPhone(currentUser.phone);
+        setMpesaPhone(currentUser.phone);
+      }
+      if (currentUser.deliveryAddress) setDeliveryLocation(currentUser.deliveryAddress);
+      else if (currentUser.town) setDeliveryLocation(`${currentUser.town}${currentUser.county ? ", " + currentUser.county : ""}`);
+    }
+  }, [currentUser]);
 
   const handlePlaceOrder = (e: React.FormEvent) => {
     e.preventDefault();
     if (cart.length === 0) return;
+
+    const newOrder = addOrder({
+      items: cart.map((i) => ({
+        id: i.id,
+        name: i.name,
+        quantity: i.quantity,
+        unit: i.unit,
+        price: i.price,
+        image: i.image,
+      })),
+      totalAmount,
+      deliveryAddress: deliveryLocation || "Juja / Thika",
+      paymentMethod: paymentMethod === "mpesa" ? "M-Pesa Express" : "Card / Gateway",
+    });
+
+    setPlacedOrderNumber(newOrder.id);
     setOrderPlaced(true);
     clearCart();
   };
@@ -40,17 +73,22 @@ export default function CartPage() {
 
   if (orderPlaced) {
     return (
-      <div className="max-w-3xl mx-auto px-4 py-16 text-center space-y-6">
+      <div className="max-w-3xl mx-auto px-4 py-16 text-left space-y-6">
         <div className="bg-emerald-50 border border-emerald-200 p-8 sm:p-12 rounded-3xl space-y-4 shadow-sm">
-          <CheckCircle2 size={64} className="text-emerald-600 mx-auto" />
-          <h1 className="text-3xl font-black text-slate-900">Order Placed Successfully!</h1>
-          <p className="text-xs sm:text-sm text-slate-600 max-w-md mx-auto leading-relaxed">
+          <CheckCircle2 size={56} className="text-emerald-700" />
+          <div>
+            <span className="text-xs font-mono font-extrabold text-emerald-800 bg-emerald-100 px-3 py-1 rounded-full uppercase">
+              Order Ref: {placedOrderNumber}
+            </span>
+            <h1 className="text-2xl sm:text-3xl font-black text-slate-900 mt-2">Order Placed Successfully!</h1>
+          </div>
+          <p className="text-xs sm:text-sm text-slate-600 max-w-md leading-relaxed">
             Thank you for ordering with Farm City! Our logistics team will process your order and contact you at <strong>{phone || "your number"}</strong> for delivery confirmation.
           </p>
 
-          <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
+          <div className="pt-4 flex flex-col sm:flex-row items-center gap-4">
             <a
-              href={`https://wa.me/254711911690?text=${encodeURIComponent(`Hello Farm City, I just placed an order on the website under name: ${customerName || "Customer"}`)}`}
+              href={`https://wa.me/254711911690?text=${encodeURIComponent(`Hello Farm City, I placed order ${placedOrderNumber} on the website under name: ${customerName || "Customer"}`)}`}
               target="_blank"
               rel="noopener noreferrer"
               className="w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white font-bold px-6 py-3 rounded-xl transition-colors text-xs flex items-center justify-center gap-2"
@@ -59,7 +97,7 @@ export default function CartPage() {
             </a>
             <Link
               href="/shop"
-              className="w-full sm:w-auto bg-emerald-800 hover:bg-emerald-900 text-white font-bold px-6 py-3 rounded-xl transition-colors text-xs"
+              className="w-full sm:w-auto bg-emerald-800 hover:bg-emerald-900 text-white font-bold px-6 py-3 rounded-xl transition-colors text-xs text-center"
             >
               Back to Shop
             </Link>
@@ -71,25 +109,25 @@ export default function CartPage() {
 
   if (cart.length === 0) {
     return (
-      <div className="max-w-4xl mx-auto px-4 py-16 text-center space-y-6">
-        <div className="bg-white border border-slate-200 p-12 rounded-3xl shadow-sm space-y-4">
-          <div className="w-16 h-16 bg-emerald-100 text-emerald-800 rounded-full flex items-center justify-center mx-auto">
-            <ShoppingBag size={32} />
+      <div className="max-w-4xl mx-auto px-4 py-16 text-left space-y-6">
+        <div className="bg-white border border-slate-200 p-8 sm:p-12 rounded-3xl shadow-sm space-y-4">
+          <div className="w-14 h-14 bg-emerald-100 text-emerald-800 rounded-2xl flex items-center justify-center">
+            <ShoppingBag size={28} />
           </div>
           <h1 className="text-2xl font-bold text-slate-900">Your Shopping Cart is Empty</h1>
-          <p className="text-xs text-slate-500 max-w-sm mx-auto">
+          <p className="text-xs text-slate-500 max-w-sm">
             Explore our fresh produce or seedling catalogue to add items to your cart.
           </p>
-          <div className="pt-2 flex flex-wrap justify-center gap-4">
+          <div className="pt-2 flex flex-wrap gap-4">
             <Link
               href="/shop"
-              className="bg-emerald-700 hover:bg-emerald-800 text-white font-bold px-6 py-3 rounded-xl text-xs transition-colors"
+              className="bg-emerald-800 hover:bg-emerald-900 text-white font-bold px-6 py-3 rounded-xl text-xs transition-colors"
             >
               Shop Fresh Produce
             </Link>
             <Link
-              href="/shop?tab=seedlings"
-              className="bg-emerald-900 hover:bg-slate-900 text-white font-bold px-6 py-3 rounded-xl text-xs transition-colors"
+              href="/seedlings"
+              className="bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold px-6 py-3 rounded-xl text-xs transition-colors"
             >
               Browse Seedlings
             </Link>
@@ -100,19 +138,34 @@ export default function CartPage() {
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
-      <div className="flex items-center justify-between border-b border-slate-200 pb-4">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8 text-left">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-200 pb-4 gap-4">
         <div>
           <h1 className="text-2xl sm:text-3xl font-black text-slate-900">Your Shopping Cart</h1>
           <p className="text-xs text-slate-500">Review items and proceed with guest checkout or WhatsApp order.</p>
         </div>
         <Link
           href="/shop"
-          className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-800 hover:text-emerald-950"
+          className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-800 hover:text-emerald-950 self-start sm:self-auto"
         >
           <ArrowLeft size={16} /> Continue Shopping
         </Link>
       </div>
+
+      {!currentUser && (
+        <div className="bg-emerald-50 border border-emerald-100 p-4 rounded-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs text-emerald-900">
+          <div className="flex items-center gap-2">
+            <User size={18} className="text-emerald-700 shrink-0" />
+            <span>Have a Farm City account? Log in to auto-fill your saved delivery details.</span>
+          </div>
+          <Link
+            href="/login"
+            className="bg-emerald-800 text-white font-bold px-4 py-2 rounded-xl text-xs hover:bg-emerald-900 transition-colors whitespace-nowrap self-start sm:self-auto"
+          >
+            Log In Now
+          </Link>
+        </div>
+      )}
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         {/* Cart Items List */}
@@ -165,7 +218,7 @@ export default function CartPage() {
                   </p>
                   <button
                     onClick={() => removeFromCart(item.id)}
-                    className="text-red-500 hover:text-red-700 text-xs font-semibold flex items-center gap-1 mt-1 ml-auto"
+                    className="text-rose-600 hover:text-rose-800 text-xs font-semibold flex items-center gap-1 mt-1 ml-auto"
                     title="Remove item"
                   >
                     <Trash2 size={14} />
@@ -175,13 +228,13 @@ export default function CartPage() {
             ))}
           </div>
 
-          <div className="bg-emerald-50 p-4 rounded-2xl border border-emerald-100 flex items-center justify-between text-xs text-emerald-900 font-semibold">
+          <div className="bg-emerald-50 p-4 rounded-2xl border border-emerald-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs text-emerald-900 font-semibold">
             <span>Prefer ordering via WhatsApp?</span>
             <a
               href={whatsappMessageUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-xl flex items-center gap-1.5 font-bold transition-colors"
+              className="bg-green-600 hover:bg-green-700 text-white px-4 py-2.5 rounded-xl flex items-center justify-center gap-1.5 font-bold transition-colors"
             >
               <MessageSquare size={14} /> Send Cart to WhatsApp
             </a>
