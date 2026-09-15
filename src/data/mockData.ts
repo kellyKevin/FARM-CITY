@@ -439,7 +439,7 @@ export const INITIAL_FRESH_PRODUCTS: Product[] = [
     minOrder: "1 kg",
     deliveryInfo: "Fresh farm dispatch",
     description: "Smooth, glossy purple eggplants harvested fresh for stews and roasting.",
-    image: "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&q=80&w=800"
+    image: "https://images.unsplash.com/photo-1628773822503-930a85838501?auto=format&fit=crop&q=80&w=800"
   },
   {
     id: "fp-green-capsicum",
@@ -484,7 +484,7 @@ export const INITIAL_FRESH_PRODUCTS: Product[] = [
     minOrder: "1 kg",
     deliveryInfo: "Juja / Thika fresh delivery",
     description: "Bright yellow, sweet greenhouse bell peppers.",
-    image: "https://images.unsplash.com/photo-1525607551316-4a8e16d1f9ba?auto=format&fit=crop&q=80&w=800"
+    image: "https://images.unsplash.com/photo-1595855759920-86582396756a?auto=format&fit=crop&q=80&w=800"
   },
   {
     id: "fp-chillies",
@@ -577,7 +577,7 @@ export const INITIAL_FRESH_PRODUCTS: Product[] = [
     minOrder: "1 kg",
     deliveryInfo: "Juja, Thika & Nairobi delivery",
     description: "Smooth green-skinned Fuerte avocados with buttery texture.",
-    image: "/images/seedlings/avocado-fuerte.jpg"
+    image: "https://images.unsplash.com/photo-1601039641847-7857b994d704?auto=format&fit=crop&q=80&w=800"
   },
   {
     id: "fp-bananas-sweet",
@@ -623,7 +623,7 @@ export const INITIAL_FRESH_PRODUCTS: Product[] = [
     minOrder: "1 kg",
     deliveryInfo: "Seasonal harvest delivery",
     description: "Traditional elongated coastal Ngowe mangoes with rich tropical sweetness.",
-    image: "https://images.unsplash.com/photo-1553279768-865429fa0078?auto=format&fit=crop&q=80&w=800"
+    image: "https://images.unsplash.com/photo-1601493700631-2b16ec4b4716?auto=format&fit=crop&q=80&w=800"
   },
   {
     id: "fp-watermelon",
@@ -683,7 +683,7 @@ export const INITIAL_FRESH_PRODUCTS: Product[] = [
     minOrder: "1 kg",
     deliveryInfo: "Juja, Thika & Nairobi delivery",
     description: "Aromatic, juice-filled purple passion fruits packed with vitamin C.",
-    image: "/images/seedlings/passion.jpg"
+    image: "https://images.unsplash.com/photo-1528821128474-27f963b072b7?auto=format&fit=crop&q=80&w=800"
   },
   {
     id: "fp-strawberries-fresh",
@@ -730,7 +730,7 @@ export const INITIAL_FRESH_PRODUCTS: Product[] = [
     minOrder: "1 kg",
     deliveryInfo: "Juja & Thika fresh delivery",
     description: "High-juice content sweet Valencia oranges, ideal for fresh juicing.",
-    image: "https://images.unsplash.com/photo-1611080626919-7cf5a9dbab5b?auto=format&fit=crop&q=80&w=800"
+    image: "https://images.unsplash.com/photo-1547514701-42782101795e?auto=format&fit=crop&q=80&w=800"
   },
   {
     id: "fp-lemons",
@@ -775,7 +775,7 @@ export const INITIAL_FRESH_PRODUCTS: Product[] = [
     minOrder: "1 kg",
     deliveryInfo: "Seasonal citrus dispatch",
     description: "Easy-to-peel, sweet tangerine citrus fruits.",
-    image: "https://images.unsplash.com/photo-1611080626919-7cf5a9dbab5b?auto=format&fit=crop&q=80&w=800"
+    image: "https://images.unsplash.com/photo-1557800636-894a64c1696f?auto=format&fit=crop&q=80&w=800"
   },
 
   // TUBERS
@@ -822,7 +822,7 @@ export const INITIAL_FRESH_PRODUCTS: Product[] = [
     minOrder: "1 kg",
     deliveryInfo: "Delivered fresh from river-bank farms",
     description: "Organic, nutrient-rich Nduma arrowroots with excellent texture for breakfast boiling.",
-    image: "https://images.unsplash.com/photo-1518977676601-b53f82aba655?auto=format&fit=crop&q=80&w=800"
+    image: "https://images.unsplash.com/photo-1590868309235-ea34bed7bd7f?auto=format&fit=crop&q=80&w=800"
   }
 ];
 
@@ -879,7 +879,7 @@ export const INITIAL_SEEDLING_PRODUCTS: Product[] = [
     minOrder: "5 seedlings",
     deliveryInfo: "Kapseret Eldoret nursery nationwide dispatch",
     description: "High-yielding Pinkerton avocado variety with long necked heavy fruits and high oil ratio.",
-    image: "/images/seedlings/avocado-hass.jpg",
+    image: "/images/seedlings/avocado-nursery.jpg",
     scientificName: "Persea americana 'Pinkerton'"
   },
   {
@@ -983,7 +983,7 @@ export const INITIAL_SEEDLING_PRODUCTS: Product[] = [
     minOrder: "10 seedlings",
     deliveryInfo: "Nationwide delivery via courier / farm transport",
     description: "High juice acid content yellow passion fruit seedlings, vigorous and pest-hardy.",
-    image: "/images/seedlings/passion.jpg",
+    image: "/images/seedlings/passion-2.jpg",
     scientificName: "Passiflora edulis f. flavicarpa"
   },
   {
@@ -1018,7 +1018,7 @@ export const INITIAL_SEEDLING_PRODUCTS: Product[] = [
     minOrder: "5 seedlings",
     deliveryInfo: "Nationwide seedling supply",
     description: "High juice yield Valencia orange seedlings grafted for rapid maturity.",
-    image: "/images/seedlings/citrus-orange.jpg",
+    image: "/images/seedlings/citrus-orange-2.jpg",
     scientificName: "Citrus sinensis 'Valencia'"
   },
   {
@@ -1035,7 +1035,7 @@ export const INITIAL_SEEDLING_PRODUCTS: Product[] = [
     minOrder: "5 seedlings",
     deliveryInfo: "Nationwide seedling supply",
     description: "Large, seedless Washington Navel orange seedlings with delicious sweet flavor.",
-    image: "/images/seedlings/citrus-orange.jpg",
+    image: "/images/seedlings/transportation-citrus.jpg",
     scientificName: "Citrus sinensis 'Washington Navel'"
   },
   {
@@ -1052,7 +1052,7 @@ export const INITIAL_SEEDLING_PRODUCTS: Product[] = [
     minOrder: "5 seedlings",
     deliveryInfo: "Nationwide seedling supply",
     description: "Commercial Eureka lemon seedlings bearing bright yellow juicy lemons year-round.",
-    image: "/images/seedlings/citrus-orange-2.jpg",
+    image: "https://images.unsplash.com/photo-1534531141161-e4160401828f?auto=format&fit=crop&q=80&w=800",
     scientificName: "Citrus limon 'Eureka'"
   },
   {
@@ -1187,7 +1187,7 @@ export const INITIAL_SEEDLING_PRODUCTS: Product[] = [
     minOrder: "5 seedlings",
     deliveryInfo: "Nationwide dispatch",
     description: "High-yielding drought-hardy grafted cashew nut seedlings.",
-    image: "/images/seedlings/macadamia.jpg",
+    image: "/images/seedlings/macadamia-2.jpg",
     scientificName: "Anacardium occidentale"
   },
   {
@@ -1256,7 +1256,7 @@ export const INITIAL_SEEDLING_PRODUCTS: Product[] = [
     minOrder: "20 seedlings",
     deliveryInfo: "Bulk transport arranged to major coffee regions",
     description: "Tall, disease-resistant Batian coffee variety with early bearing and high cup quality.",
-    image: "/images/seedlings/coffee.jpg",
+    image: "/images/seedlings/coffee-2.jpg",
     featured: true,
     scientificName: "Coffea arabica 'Batian'"
   },
@@ -1325,7 +1325,7 @@ export const INITIAL_SEEDLING_PRODUCTS: Product[] = [
     minOrder: "5 seedlings",
     deliveryInfo: "Nationwide seedling delivery",
     description: "Perennial garden thyme seedlings ideal for culinary seasoning and essential oil farming.",
-    image: "https://images.unsplash.com/photo-1628556270448-4d4e4148e1b1?auto=format&fit=crop&q=80&w=800",
+    image: "https://images.unsplash.com/photo-1515586000433-45406d8e6662?auto=format&fit=crop&q=80&w=800",
     scientificName: "Thymus vulgaris"
   },
   {
@@ -1341,7 +1341,7 @@ export const INITIAL_SEEDLING_PRODUCTS: Product[] = [
     minOrder: "5 seedlings",
     deliveryInfo: "Nationwide seedling delivery",
     description: "Natural zero-calorie sweetener plant Stevia rebaudiana seedlings.",
-    image: "https://images.unsplash.com/photo-1628556270448-4d4e4148e1b1?auto=format&fit=crop&q=80&w=800",
+    image: "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&q=80&w=800",
     scientificName: "Stevia rebaudiana"
   },
 
@@ -1376,7 +1376,7 @@ export const INITIAL_SEEDLING_PRODUCTS: Product[] = [
     minOrder: "5 seedlings",
     deliveryInfo: "Nationwide seedling delivery",
     description: "Thornless blackberry plant cuttings yielding sweet dark berries in high demand.",
-    image: "https://images.unsplash.com/photo-1464965911861-746a04b4bca6?auto=format&fit=crop&q=80&w=800",
+    image: "https://images.unsplash.com/photo-1438283173091-5dbf5c5a3206?auto=format&fit=crop&q=80&w=800",
     scientificName: "Rubus fruticosus"
   },
   {
@@ -1392,7 +1392,7 @@ export const INITIAL_SEEDLING_PRODUCTS: Product[] = [
     minOrder: "2 seedlings",
     deliveryInfo: "Pre-order notification active",
     description: "Potted southern highbush blueberry seedlings suitable for acidic potted soil cultivation.",
-    image: "https://images.unsplash.com/photo-1464965911861-746a04b4bca6?auto=format&fit=crop&q=80&w=800",
+    image: "https://images.unsplash.com/photo-1498557850523-fd3d118b962e?auto=format&fit=crop&q=80&w=800",
     scientificName: "Vaccinium corymbosum"
   },
 
