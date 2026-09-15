@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { Search, ShoppingBag, MessageSquare, CheckCircle2, Filter } from "lucide-react";
+import { Search, ShoppingBag, MessageSquare, CheckCircle2, Filter, AlertCircle } from "lucide-react";
 import { getStoredProducts } from "@/lib/storage";
 import { Product } from "@/data/mockData";
 import { useCart } from "@/context/CartContext";
@@ -11,13 +11,13 @@ export default function ShopPage() {
   const [products, setProducts] = useState<Product[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedSubCategory, setSelectedSubCategory] = useState("All");
+  const [stockFilter, setStockFilter] = useState<string>("All");
   const [selectedProductModal, setSelectedProductModal] = useState<Product | null>(null);
   const [selectedUnit, setSelectedUnit] = useState<string>("");
   const [modalQty, setModalQty] = useState<number>(1);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
   const { addToCart } = useCart();
-
   const [activeTab, setActiveTab] = useState<"all" | "fresh" | "seedlings">("all");
 
   useEffect(() => {
@@ -27,35 +27,32 @@ export default function ShopPage() {
 
   const categories = [
     "All",
-    "Fresh Produce",
-    "Seedlings",
     "Vegetables",
     "Leafy Greens",
+    "Fruit Vegetables",
     "Fruits",
+    "Citrus Fruits",
+    "Tubers",
     "Fruit Seedlings",
     "Tree & Nut Seedlings",
-    "Coffee",
-    "Herbs & Spices"
+    "Coffee & Cash Crops",
+    "Herbs & Aromatics",
+    "Berry Plants",
+    "Vegetable Seedlings"
   ];
 
   const filteredProducts = products.filter((p) => {
-    const matchesTab =
-      activeTab === "all" ? true : p.category === activeTab;
+    const matchesTab = activeTab === "all" ? true : p.category === activeTab;
     const matchesSearch =
       p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       (p.scientificName && p.scientificName.toLowerCase().includes(searchQuery.toLowerCase())) ||
+      (p.variety && p.variety.toLowerCase().includes(searchQuery.toLowerCase())) ||
       p.description.toLowerCase().includes(searchQuery.toLowerCase());
 
-    let matchesCategory = true;
-    if (selectedSubCategory === "Fresh Produce") {
-      matchesCategory = p.category === "fresh";
-    } else if (selectedSubCategory === "Seedlings") {
-      matchesCategory = p.category === "seedlings";
-    } else if (selectedSubCategory !== "All") {
-      matchesCategory = p.subCategory === selectedSubCategory;
-    }
+    const matchesCategory = selectedSubCategory === "All" || p.subCategory === selectedSubCategory;
+    const matchesStock = stockFilter === "All" || p.stockStatus === stockFilter;
 
-    return matchesTab && matchesSearch && matchesCategory;
+    return matchesTab && matchesSearch && matchesCategory && matchesStock;
   });
 
   const handleOpenModal = (product: Product) => {
@@ -66,6 +63,13 @@ export default function ShopPage() {
 
   const handleAddFromModal = () => {
     if (!selectedProductModal) return;
+    if (selectedProductModal.stockStatus === "Coming Soon") {
+      setToastMessage(`Product "${selectedProductModal.name}" is coming soon. Notification request noted!`);
+      setTimeout(() => setToastMessage(null), 3500);
+      setSelectedProductModal(null);
+      return;
+    }
+
     addToCart({
       id: selectedProductModal.id,
       name: selectedProductModal.name,
@@ -81,6 +85,12 @@ export default function ShopPage() {
   };
 
   const handleQuickAdd = (product: Product) => {
+    if (product.stockStatus === "Coming Soon") {
+      setToastMessage(`"${product.name}" is coming soon! You can inquire via WhatsApp.`);
+      setTimeout(() => setToastMessage(null), 3500);
+      return;
+    }
+
     addToCart({
       id: product.id,
       name: product.name,
@@ -96,14 +106,45 @@ export default function ShopPage() {
 
   const generateWhatsAppLink = (product: Product) => {
     const msg = encodeURIComponent(
-      `Hello Farm City, I would like to order fresh produce:\n\nProduct: ${product.name}\nQuantity: 1 ${product.unit}\nPrice: KSh ${product.price}\n\nPlease confirm delivery to my location.`
+      `Hello Farm City, I am inquiring about:\n\nProduct: ${product.name}\nSubcategory: ${product.subCategory}\nAvailability: ${product.stockStatus}\nPrice: KSh ${product.price}/${product.unit}\n\nPlease confirm availability and delivery to my location.`
     );
     return `https://wa.me/254711911690?text=${msg}`;
   };
 
+  const renderStockBadge = (status: Product["stockStatus"]) => {
+    switch (status) {
+      case "In Stock":
+        return (
+          <span className="bg-emerald-700 text-white text-[10px] font-extrabold px-2.5 py-0.5 rounded-full uppercase tracking-wider">
+            Available Now
+          </span>
+        );
+      case "Low Stock":
+        return (
+          <span className="bg-amber-600 text-white text-[10px] font-extrabold px-2.5 py-0.5 rounded-full uppercase tracking-wider">
+            Low Stock
+          </span>
+        );
+      case "Seasonal":
+        return (
+          <span className="bg-blue-600 text-white text-[10px] font-extrabold px-2.5 py-0.5 rounded-full uppercase tracking-wider">
+            Seasonal
+          </span>
+        );
+      case "Coming Soon":
+        return (
+          <span className="bg-slate-700 text-white text-[10px] font-extrabold px-2.5 py-0.5 rounded-full uppercase tracking-wider">
+            Coming Soon
+          </span>
+        );
+      default:
+        return null;
+    }
+  };
+
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
-      {/* Toast */}
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8 text-left">
+      {/* Toast Notification */}
       {toastMessage && (
         <div className="fixed top-24 right-6 z-50 bg-emerald-800 text-white px-5 py-3 rounded-xl shadow-2xl flex items-center gap-3 animate-bounce border border-emerald-600">
           <CheckCircle2 size={20} className="text-emerald-300" />
@@ -112,19 +153,19 @@ export default function ShopPage() {
       )}
 
       {/* Header Banner */}
-      <div className="bg-gradient-to-r from-emerald-950 via-emerald-900 to-slate-900 text-white p-8 rounded-3xl shadow-lg relative overflow-hidden">
+      <div className="bg-gradient-to-r from-emerald-950 via-emerald-900 to-slate-900 text-white p-8 rounded-3xl shadow-lg relative overflow-hidden border border-emerald-800">
         <div className="max-w-3xl space-y-3 relative z-10">
           <span className="bg-emerald-800/80 text-emerald-200 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider border border-emerald-600/40">
             Juja Fresh Hub & Kapseret Eldoret Nursery
           </span>
           <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight">
-            Farm City Store & Seedling Catalogue
+            Farm City Agricultural Catalogue
           </h1>
           <p className="text-xs sm:text-sm text-emerald-100 leading-relaxed">
-            Order fresh fruits, vegetables, and tubers for home or business delivery, or buy certified grafted Hass avocado, passion fruit, macadamia, coffee, and herb seedlings for your farm.
+            Browse fresh vegetables, leafy greens, fruit vegetables, fresh fruits, citrus, tubers, certified fruit seedlings, cash crops, herbs, and vegetable seedlings. Products are labeled as <strong>Available Now</strong>, <strong>Seasonal</strong>, or <strong>Coming Soon</strong> for complete order clarity.
           </p>
 
-          {/* Tab Selector */}
+          {/* Main Tab Selector */}
           <div className="pt-2 flex flex-wrap gap-2">
             <button
               onClick={() => { setActiveTab("all"); setSelectedSubCategory("All"); }}
@@ -134,7 +175,7 @@ export default function ShopPage() {
                   : "bg-emerald-800/60 text-emerald-100 hover:bg-emerald-800"
               }`}
             >
-              All Products ({products.length})
+              All Catalog ({products.length})
             </button>
             <button
               onClick={() => { setActiveTab("fresh"); setSelectedSubCategory("All"); }}
@@ -154,28 +195,48 @@ export default function ShopPage() {
                   : "bg-emerald-800/60 text-emerald-100 hover:bg-emerald-800"
               }`}
             >
-              🌱 Quality Seedlings ({products.filter(p => p.category === "seedlings").length})
+              🌱 Plant & Seedlings ({products.filter(p => p.category === "seedlings").length})
             </button>
           </div>
         </div>
       </div>
 
       {/* Filter and Search Controls */}
-      <div className="flex flex-col md:flex-row items-center justify-between gap-4 bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
-        {/* Search */}
-        <div className="relative w-full md:w-80">
-          <Search size={18} className="absolute left-3.5 top-3 text-slate-400" />
-          <input
-            type="text"
-            placeholder="Search produce e.g. Tomatoes, Cabbage..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:border-emerald-600 text-slate-800"
-          />
+      <div className="space-y-4 bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+          {/* Search bar */}
+          <div className="relative w-full md:w-80">
+            <Search size={18} className="absolute left-3.5 top-3 text-slate-400" />
+            <input
+              type="text"
+              placeholder="Search products, varieties e.g. Hass, Spinach, Mango..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:border-emerald-600 text-slate-800"
+            />
+          </div>
+
+          {/* Availability Status Filter */}
+          <div className="flex items-center gap-2 w-full md:w-auto overflow-x-auto">
+            <span className="text-xs font-bold text-slate-500 whitespace-nowrap">Availability:</span>
+            {["All", "In Stock", "Seasonal", "Coming Soon"].map((st) => (
+              <button
+                key={st}
+                onClick={() => setStockFilter(st)}
+                className={`px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-colors ${
+                  stockFilter === st
+                    ? "bg-emerald-800 text-white shadow-sm"
+                    : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                }`}
+              >
+                {st === "In Stock" ? "Available Now" : st}
+              </button>
+            ))}
+          </div>
         </div>
 
-        {/* Subcategories */}
-        <div className="flex items-center gap-2 overflow-x-auto w-full md:w-auto pb-2 md:pb-0">
+        {/* Subcategories Scrollable Pill List */}
+        <div className="flex items-center gap-2 overflow-x-auto pt-2 border-t border-slate-100 pb-1">
           <Filter size={16} className="text-slate-400 shrink-0 hidden sm:block" />
           {categories.map((cat) => (
             <button
@@ -198,7 +259,7 @@ export default function ShopPage() {
         {filteredProducts.map((product) => (
           <div
             key={product.id}
-            className="bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-md transition-all flex flex-col justify-between group"
+            className="bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-md transition-all flex flex-col justify-between group text-left"
           >
             <div>
               <div
@@ -211,27 +272,32 @@ export default function ShopPage() {
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-300"
                 />
-                <div className="absolute top-3 left-3 bg-emerald-700 text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase">
-                  {product.subCategory}
+                <div className="absolute top-3 left-3 flex flex-col gap-1 items-start">
+                  <span className="bg-emerald-900/90 text-white text-[9px] font-extrabold px-2.5 py-0.5 rounded-full uppercase">
+                    {product.subCategory}
+                  </span>
+                  {renderStockBadge(product.stockStatus)}
                 </div>
               </div>
 
               <div className="p-5 space-y-3">
-                <div onClick={() => handleOpenModal(product)} className="cursor-pointer">
+                <div onClick={() => handleOpenModal(product)} className="cursor-pointer space-y-1">
                   <h3 className="font-bold text-slate-900 text-base group-hover:text-emerald-700 transition-colors">
                     {product.name}
                   </h3>
+                  {product.scientificName && (
+                    <p className="text-[11px] italic text-emerald-700 font-medium">{product.scientificName}</p>
+                  )}
+                  {product.variety && (
+                    <p className="text-[11px] font-semibold text-slate-500">Variety: {product.variety}</p>
+                  )}
                   <p className="text-xs text-slate-500 line-clamp-2 mt-1">{product.description}</p>
                 </div>
 
                 <div className="text-xs text-slate-500 bg-slate-50 p-2.5 rounded-xl space-y-1">
                   <p className="flex justify-between">
-                    <span>Stock:</span>
-                    <span className="font-semibold text-emerald-700">{product.stockStatus}</span>
-                  </p>
-                  <p className="flex justify-between">
-                    <span>Delivery:</span>
-                    <span className="font-medium text-slate-700">Juja / Thika Same-Day</span>
+                    <span>Delivery/Supply:</span>
+                    <span className="font-medium text-slate-700 truncate max-w-[140px]">{product.deliveryInfo}</span>
                   </p>
                 </div>
               </div>
@@ -249,10 +315,15 @@ export default function ShopPage() {
               <div className="grid grid-cols-2 gap-2">
                 <button
                   onClick={() => handleQuickAdd(product)}
-                  className="bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold py-2.5 rounded-xl transition-colors flex items-center justify-center gap-1"
+                  disabled={product.stockStatus === "Coming Soon"}
+                  className={`text-xs font-bold py-2.5 rounded-xl transition-colors flex items-center justify-center gap-1 ${
+                    product.stockStatus === "Coming Soon"
+                      ? "bg-slate-200 text-slate-400 cursor-not-allowed"
+                      : "bg-emerald-800 hover:bg-emerald-900 text-white"
+                  }`}
                 >
                   <ShoppingBag size={14} />
-                  <span>Add Cart</span>
+                  <span>{product.stockStatus === "Coming Soon" ? "Soon" : "Add Cart"}</span>
                 </button>
 
                 <a
@@ -262,7 +333,7 @@ export default function ShopPage() {
                   className="bg-green-600 hover:bg-green-700 text-white text-xs font-bold py-2.5 rounded-xl transition-colors flex items-center justify-center gap-1"
                 >
                   <MessageSquare size={14} />
-                  <span>WhatsApp</span>
+                  <span>Inquire</span>
                 </a>
               </div>
             </div>
@@ -271,15 +342,17 @@ export default function ShopPage() {
       </div>
 
       {filteredProducts.length === 0 && (
-        <div className="text-center py-16 bg-white rounded-3xl border border-slate-200">
-          <p className="text-slate-500 text-sm">No produce items found matching your filter criteria.</p>
+        <div className="text-center py-16 bg-white rounded-3xl border border-slate-200 space-y-2">
+          <AlertCircle size={40} className="text-slate-300 mx-auto" />
+          <p className="text-slate-700 font-bold text-base">No agricultural products found matching your filter criteria.</p>
+          <p className="text-slate-500 text-xs">Try selecting a different subcategory or clearing your search filters.</p>
         </div>
       )}
 
       {/* Product Detail Modal */}
       {selectedProductModal && (
         <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-white rounded-3xl max-w-lg w-full overflow-hidden shadow-2xl border border-slate-200 animate-in fade-in zoom-in-95">
+          <div className="bg-white rounded-3xl max-w-lg w-full overflow-hidden shadow-2xl border border-slate-200 animate-in fade-in zoom-in-95 text-left">
             <div className="relative h-64 w-full bg-slate-100">
               <Image
                 src={selectedProductModal.image}
@@ -287,6 +360,12 @@ export default function ShopPage() {
                 fill
                 className="object-cover"
               />
+              <div className="absolute top-4 left-4 flex gap-2">
+                <span className="bg-emerald-900 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase">
+                  {selectedProductModal.subCategory}
+                </span>
+                {renderStockBadge(selectedProductModal.stockStatus)}
+              </div>
               <button
                 onClick={() => setSelectedProductModal(null)}
                 className="absolute top-4 right-4 bg-black/60 hover:bg-black text-white rounded-full p-2 transition-colors text-xs font-bold"
@@ -297,11 +376,11 @@ export default function ShopPage() {
 
             <div className="p-6 space-y-4">
               <div>
-                <span className="bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2.5 py-1 rounded-full uppercase">
-                  {selectedProductModal.subCategory}
-                </span>
-                <h2 className="text-2xl font-black text-slate-900 mt-2">{selectedProductModal.name}</h2>
-                <p className="text-xs text-slate-600 mt-1 leading-relaxed">{selectedProductModal.description}</p>
+                <h2 className="text-2xl font-black text-slate-900 mt-1">{selectedProductModal.name}</h2>
+                {selectedProductModal.scientificName && (
+                  <p className="text-xs italic text-emerald-700 font-semibold">{selectedProductModal.scientificName}</p>
+                )}
+                <p className="text-xs text-slate-600 mt-2 leading-relaxed">{selectedProductModal.description}</p>
               </div>
 
               <div className="bg-slate-50 p-4 rounded-2xl space-y-3 border border-slate-100">
@@ -315,7 +394,7 @@ export default function ShopPage() {
                 {/* Available Unit Options */}
                 {selectedProductModal.availableUnits && (
                   <div>
-                    <label className="text-xs font-bold text-slate-700 block mb-1">Select Unit / Packaging:</label>
+                    <label className="text-xs font-bold text-slate-700 block mb-1">Select Packaging / Unit:</label>
                     <div className="flex flex-wrap gap-2">
                       {selectedProductModal.availableUnits.map((u) => (
                         <button
@@ -323,7 +402,7 @@ export default function ShopPage() {
                           onClick={() => setSelectedUnit(u)}
                           className={`px-3 py-1 rounded-lg text-xs font-semibold border transition-all ${
                             selectedUnit === u
-                              ? "bg-emerald-700 text-white border-emerald-700"
+                              ? "bg-emerald-800 text-white border-emerald-800"
                               : "bg-white text-slate-700 border-slate-200 hover:bg-slate-100"
                           }`}
                         >
@@ -358,9 +437,18 @@ export default function ShopPage() {
               <div className="flex gap-3 pt-2">
                 <button
                   onClick={handleAddFromModal}
-                  className="flex-1 bg-emerald-700 hover:bg-emerald-800 text-white font-extrabold py-3 rounded-2xl transition-colors text-xs sm:text-sm flex items-center justify-center gap-2"
+                  className={`flex-1 font-extrabold py-3 rounded-2xl transition-colors text-xs sm:text-sm flex items-center justify-center gap-2 ${
+                    selectedProductModal.stockStatus === "Coming Soon"
+                      ? "bg-slate-700 hover:bg-slate-800 text-white"
+                      : "bg-emerald-800 hover:bg-emerald-900 text-white"
+                  }`}
                 >
-                  <ShoppingBag size={18} /> Add to Cart (KSh {(selectedProductModal.price * modalQty).toLocaleString()})
+                  <ShoppingBag size={18} />
+                  <span>
+                    {selectedProductModal.stockStatus === "Coming Soon"
+                      ? "Notify Me When Available"
+                      : `Add to Cart (KSh ${(selectedProductModal.price * modalQty).toLocaleString()})`}
+                  </span>
                 </button>
               </div>
             </div>

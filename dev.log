@@ -1,0 +1,16 @@
+
+> farm-city@0.1.0 dev
+> next dev --turbopack
+
+ ⚠ Port 3000 is in use, trying 3001 instead.
+   ▲ Next.js 15.1.11 (Turbopack)
+   - Local:        http://localhost:3001
+   - Network:      http://192.168.0.2:3001
+
+ ✓ Starting...
+ ✓ Ready in 1466ms
+ ○ Compiling /shop ...
+ ✓ Compiled /shop in 5.9s
+ GET /shop 200 in 6747ms
+ ⨯ upstream image response failed for https://images.unsplash.com/photo-1580148442838-92986e23232d?auto=format&fit=crop&q=80&w=800 404
+ ⨯ upstream image response failed for https://images.unsplash.com/photo-1536511135882-7484d72d2426?auto=format&fit=crop&q=80&w=800 404

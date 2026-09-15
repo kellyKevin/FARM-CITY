@@ -428,7 +428,7 @@ export default function AdminPage() {
                   <input
                     type="text"
                     value={editingProduct.subCategory || ""}
-                    onChange={(e) => setEditingProduct({ ...editingProduct, subCategory: e.target.value })}
+                    onChange={(e) => setEditingProduct({ ...editingProduct, subCategory: e.target.value as Product["subCategory"] })}
                     className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl"
                   />
                 </div>
@@ -463,13 +463,13 @@ export default function AdminPage() {
                 <label className="block font-bold text-slate-700 mb-1">Stock Status</label>
                 <select
                   value={editingProduct.stockStatus}
-                  onChange={(e) => setEditingProduct({ ...editingProduct, stockStatus: e.target.value as "In Stock" | "Low Stock" | "Pre-order" | "Out of Stock" })}
+                  onChange={(e) => setEditingProduct({ ...editingProduct, stockStatus: e.target.value as Product["stockStatus"] })}
                   className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl"
                 >
                   <option value="In Stock">In Stock</option>
                   <option value="Low Stock">Low Stock</option>
-                  <option value="Pre-order">Pre-order</option>
-                  <option value="Out of Stock">Out of Stock</option>
+                  <option value="Seasonal">Seasonal</option>
+                  <option value="Coming Soon">Coming Soon</option>
                 </select>
               </div>
 
