@@ -8,31 +8,48 @@ const ZONES_KEY = "farm_city_delivery_zones";
 export const getStoredProducts = (): Product[] => {
   if (typeof window === "undefined") return [...INITIAL_FRESH_PRODUCTS, ...INITIAL_SEEDLING_PRODUCTS];
   const saved = localStorage.getItem(PRODUCTS_KEY);
+  const initialAll = [...INITIAL_FRESH_PRODUCTS, ...INITIAL_SEEDLING_PRODUCTS];
+
   if (!saved) {
-    const initial = [...INITIAL_FRESH_PRODUCTS, ...INITIAL_SEEDLING_PRODUCTS];
-    localStorage.setItem(PRODUCTS_KEY, JSON.stringify(initial));
-    return initial;
+    localStorage.setItem(PRODUCTS_KEY, JSON.stringify(initialAll));
+    return initialAll;
   }
+
   try {
     let products: Product[] = JSON.parse(saved);
-    const initialAll = [...INITIAL_FRESH_PRODUCTS, ...INITIAL_SEEDLING_PRODUCTS];
     const initialMap = new Map(initialAll.map(p => [p.id, p]));
 
     let updated = false;
+
+    // Update images, descriptions, subcategories, stockStatus for existing products
     products = products.map(p => {
       const match = initialMap.get(p.id);
-      if (match && match.image !== p.image) {
-        updated = true;
-        return { ...p, image: match.image, description: match.description };
+      if (match) {
+        if (
+          match.image !== p.image ||
+          match.subCategory !== p.subCategory ||
+          match.stockStatus !== p.stockStatus ||
+          match.description !== p.description
+        ) {
+          updated = true;
+          return {
+            ...p,
+            image: match.image,
+            subCategory: match.subCategory,
+            stockStatus: match.stockStatus,
+            description: match.description,
+            variety: match.variety || p.variety,
+          };
+        }
       }
       return p;
     });
 
-    // Also append any missing initial seedling products (such as newly added ones like mango or fuerte avocado)
+    // Append any newly added initial products that don't exist in local storage yet
     const existingIds = new Set(products.map(p => p.id));
-    for (const seedling of INITIAL_SEEDLING_PRODUCTS) {
-      if (!existingIds.has(seedling.id)) {
-        products.push(seedling);
+    for (const item of initialAll) {
+      if (!existingIds.has(item.id)) {
+        products.push(item);
         updated = true;
       }
     }
@@ -43,7 +60,7 @@ export const getStoredProducts = (): Product[] => {
     return products;
   } catch (err) {
     console.error("Error loading products from local storage", err);
-    return [...INITIAL_FRESH_PRODUCTS, ...INITIAL_SEEDLING_PRODUCTS];
+    return initialAll;
   }
 };
 
