@@ -7,8 +7,10 @@ import { Search, Sprout, MessageSquare, CheckCircle2, MapPin, Truck, ShieldCheck
 import { getStoredProducts } from "@/lib/storage";
 import { Product } from "@/data/mockData";
 import { useCart } from "@/context/CartContext";
+import { useSettings } from "@/context/SettingsContext";
 
 export default function SeedlingsPage() {
+  const { t } = useSettings();
   const [seedlings, setSeedlings] = useState<Product[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedSubCategory, setSelectedSubCategory] = useState("All");
@@ -44,7 +46,7 @@ export default function SeedlingsPage() {
 
   const handleQuickAdd = (product: Product) => {
     if (product.stockStatus === "Coming Soon") {
-      setToastMessage(`"${product.name}" is coming soon! Pre-order inquiry noted.`);
+      setToastMessage(`"${product.name}" ${t("seed.toast.soon")}`);
       setTimeout(() => setToastMessage(null), 3500);
       return;
     }
@@ -58,7 +60,7 @@ export default function SeedlingsPage() {
       quantity: 1,
       image: product.image
     });
-    setToastMessage(`Added 1 ${product.name} to cart!`);
+    setToastMessage(`${t("seed.toast.added")} ${product.name} ${t("seed.toast.toCart")}`);
     setTimeout(() => setToastMessage(null), 3000);
   };
 
@@ -74,25 +76,25 @@ export default function SeedlingsPage() {
       case "In Stock":
         return (
           <span className="bg-emerald-800 text-white text-[10px] font-extrabold px-2.5 py-0.5 rounded-full uppercase tracking-wider">
-            Available Now
+            {t("stock.available")}
           </span>
         );
       case "Low Stock":
         return (
           <span className="bg-amber-600 text-white text-[10px] font-extrabold px-2.5 py-0.5 rounded-full uppercase tracking-wider">
-            Low Stock
+            {t("stock.low")}
           </span>
         );
       case "Seasonal":
         return (
           <span className="bg-blue-600 text-white text-[10px] font-extrabold px-2.5 py-0.5 rounded-full uppercase tracking-wider">
-            Seasonal
+            {t("stock.seasonal")}
           </span>
         );
       case "Coming Soon":
         return (
           <span className="bg-slate-700 text-white text-[10px] font-extrabold px-2.5 py-0.5 rounded-full uppercase tracking-wider">
-            Coming Soon
+            {t("stock.soon")}
           </span>
         );
       default:
@@ -114,14 +116,14 @@ export default function SeedlingsPage() {
       <div className="bg-gradient-to-br from-emerald-950 via-emerald-900 to-slate-900 text-white p-8 sm:p-12 rounded-3xl shadow-xl relative overflow-hidden border border-emerald-800">
         <div className="max-w-3xl space-y-4 relative z-10">
           <div className="inline-flex items-center gap-2 bg-emerald-800/80 text-emerald-300 text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-wider border border-emerald-600/40">
-            <MapPin size={14} /> Physical Nursery: Kapseret, Eldoret • Countrywide Dispatch
+            <MapPin size={14} /> {t("seed.hero.tag")}
           </div>
           <h1 className="text-3xl sm:text-5xl font-black tracking-tight leading-tight">
-            Certified & Grafted <br />
-            <span className="text-emerald-400">Quality Seedlings Catalogue</span>
+            {t("seed.hero.title1")} <br />
+            <span className="text-emerald-400">{t("seed.hero.title2")}</span>
           </h1>
           <p className="text-xs sm:text-sm text-emerald-100 leading-relaxed max-w-2xl">
-            Supplying high-yielding Grafted Hass & Fuerte Avocado, Grafted Passion Fruit, Macadamia, Mango varieties, Coffee (Ruiru 11, Batian), Herbs, Berries, and Hybrid Vegetable seedlings across Kenya.
+            {t("seed.hero.desc")}
           </p>
           <div className="pt-2 flex flex-wrap gap-4">
             <Link
@@ -129,7 +131,7 @@ export default function SeedlingsPage() {
               className="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold px-5 py-3 rounded-xl shadow-md transition-all text-xs sm:text-sm flex items-center gap-2"
             >
               <FileText size={16} />
-              <span>REQUEST BULK SEEDLING QUOTE</span>
+              <span>{t("seed.hero.bulkQuote")}</span>
             </Link>
             <a
               href="https://wa.me/254711911690?text=Hello%20Farm%20City%20Eldoret%20Nursery%2C%20I%20need%20seedlings%20catalogue%20info"
@@ -138,7 +140,7 @@ export default function SeedlingsPage() {
               className="bg-green-600 hover:bg-green-500 text-white font-bold px-5 py-3 rounded-xl transition-all text-xs sm:text-sm flex items-center gap-2"
             >
               <MessageSquare size={16} />
-              <span>WHATSAPP SEEDLING INQUIRY</span>
+              <span>{t("seed.hero.whatsapp")}</span>
             </a>
           </div>
         </div>
@@ -150,7 +152,7 @@ export default function SeedlingsPage() {
           <Search size={18} className="absolute left-3.5 top-3 text-slate-400" />
           <input
             type="text"
-            placeholder="Search seedlings e.g. Hass, Apple Mango, Batian..."
+            placeholder={t("seed.search")}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:border-emerald-600 text-slate-800"
@@ -168,7 +170,7 @@ export default function SeedlingsPage() {
                   : "bg-slate-100 text-slate-600 hover:bg-slate-200"
               }`}
             >
-              {cat}
+              {t(`cat.${cat}`)}
             </button>
           ))}
         </div>
@@ -191,7 +193,7 @@ export default function SeedlingsPage() {
                 />
                 <div className="absolute top-3 left-3 flex flex-col gap-1 items-start">
                   <span className="bg-emerald-900/90 text-white text-[9px] font-extrabold px-2.5 py-0.5 rounded-full uppercase">
-                    {product.subCategory}
+                    {t(`cat.${product.subCategory}`)}
                   </span>
                   {renderStockBadge(product.stockStatus)}
                 </div>
@@ -204,14 +206,14 @@ export default function SeedlingsPage() {
                     <p className="text-[11px] italic text-emerald-700 font-medium">{product.scientificName}</p>
                   )}
                   {product.variety && (
-                    <p className="text-[11px] font-semibold text-slate-500">Variety: {product.variety}</p>
+                    <p className="text-[11px] font-semibold text-slate-500">{t("prod.variety")} {product.variety}</p>
                   )}
                   <p className="text-xs text-slate-600 line-clamp-3 mt-1.5">{product.description}</p>
                 </div>
 
                 <div className="text-xs bg-emerald-50/60 p-3 rounded-xl space-y-1.5 border border-emerald-100/80">
                   <p className="flex justify-between text-slate-700">
-                    <span className="font-medium">Minimum Order:</span>
+                    <span className="font-medium">{t("prod.minOrder")}</span>
                     <span className="font-semibold text-slate-800">{product.minOrder || "5 seedlings"}</span>
                   </p>
                   <p className="text-[11px] text-slate-500 pt-1 border-t border-emerald-100">
@@ -225,7 +227,7 @@ export default function SeedlingsPage() {
             <div className="p-5 pt-0 space-y-3">
               <div className="flex items-center justify-between border-t border-slate-100 pt-3">
                 <div>
-                  <span className="text-xs text-slate-400">Price: </span>
+                  <span className="text-xs text-slate-400">{t("prod.price")} </span>
                   <span className="text-xl font-black text-emerald-800">KSh {product.price}</span>
                   <span className="text-xs text-slate-500"> / {product.unit}</span>
                 </div>
@@ -242,7 +244,7 @@ export default function SeedlingsPage() {
                   }`}
                 >
                   <ShoppingBag size={14} />
-                  <span>{product.stockStatus === "Coming Soon" ? "Soon" : "Add Cart"}</span>
+                  <span>{product.stockStatus === "Coming Soon" ? t("prod.soon") : t("prod.addCart")}</span>
                 </button>
 
                 <a
@@ -252,7 +254,7 @@ export default function SeedlingsPage() {
                   className="bg-green-600 hover:bg-green-700 text-white text-xs font-bold py-2.5 rounded-xl transition-colors flex items-center justify-center gap-1"
                 >
                   <MessageSquare size={14} />
-                  <span>Inquire</span>
+                  <span>{t("prod.inquire")}</span>
                 </a>
               </div>
             </div>
@@ -264,17 +266,17 @@ export default function SeedlingsPage() {
       <div className="bg-slate-900 text-white p-8 rounded-3xl space-y-6 text-left">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 border-b border-slate-800 pb-6">
           <div>
-            <span className="text-xs font-bold text-emerald-400 uppercase tracking-widest">Kapseret Nursery Operations</span>
-            <h2 className="text-2xl font-extrabold mt-1">Nursery Assurance & Grafting Standards</h2>
+            <span className="text-xs font-bold text-emerald-400 uppercase tracking-widest">{t("seed.assure.tag")}</span>
+            <h2 className="text-2xl font-extrabold mt-1">{t("seed.assure.title")}</h2>
             <p className="text-xs text-slate-300 mt-1 max-w-2xl">
-              All seedlings at our Eldoret nursery are propagated under strict sanitary agronomic conditions. Scions are taken from verified mother orchards to ensure maximum fruit quality and early maturity.
+              {t("seed.assure.desc")}
             </p>
           </div>
           <Link
             href="/bulk-institutional"
             className="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-extrabold px-6 py-3 rounded-xl transition-colors whitespace-nowrap self-start md:self-auto"
           >
-            GET COMMERCIAL ORCHARD QUOTE
+            {t("seed.assure.cta")}
           </Link>
         </div>
 
@@ -282,24 +284,24 @@ export default function SeedlingsPage() {
           <div className="flex items-start gap-3">
             <ShieldCheck size={24} className="text-emerald-400 shrink-0" />
             <div>
-              <p className="font-bold text-white text-sm mb-1">Disease Resistant Rootstocks</p>
-              <p>Specialized rootstocks resistant to soil-borne pathogens and root rot.</p>
+              <p className="font-bold text-white text-sm mb-1">{t("seed.assure.c1.title")}</p>
+              <p>{t("seed.assure.c1.desc")}</p>
             </div>
           </div>
 
           <div className="flex items-start gap-3">
             <Truck size={24} className="text-emerald-400 shrink-0" />
             <div>
-              <p className="font-bold text-white text-sm mb-1">Countrywide Farm Dispatch</p>
-              <p>Safe packaging with protective crates ensuring arrival without root disturbance.</p>
+              <p className="font-bold text-white text-sm mb-1">{t("seed.assure.c2.title")}</p>
+              <p>{t("seed.assure.c2.desc")}</p>
             </div>
           </div>
 
           <div className="flex items-start gap-3">
             <Sprout size={24} className="text-emerald-400 shrink-0" />
             <div>
-              <p className="font-bold text-white text-sm mb-1">Field Agronomy Advisory</p>
-              <p>Free field planting guidelines provided with every seedling order.</p>
+              <p className="font-bold text-white text-sm mb-1">{t("seed.assure.c3.title")}</p>
+              <p>{t("seed.assure.c3.desc")}</p>
             </div>
           </div>
         </div>

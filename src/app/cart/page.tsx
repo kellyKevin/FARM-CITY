@@ -12,9 +12,11 @@ import {
   ShieldCheck
 } from "lucide-react";
 import { useCart } from "@/context/CartContext";
+import { useSettings } from "@/context/SettingsContext";
 
 export default function CartPage() {
   const { cart, removeFromCart, updateQuantity, clearCart, totalAmount, generateWhatsAppMessage } = useCart();
+  const { t } = useSettings();
 
   const [customerName, setCustomerName] = useState("");
   const [phone, setPhone] = useState("");
@@ -46,12 +48,12 @@ export default function CartPage() {
           <CheckCircle2 size={56} className="text-emerald-700" />
           <div>
             <span className="text-xs font-mono font-extrabold text-emerald-800 bg-emerald-100 px-3 py-1 rounded-full uppercase">
-              Order Ref: {placedOrderNumber}
+              {t("cart.ref")} {placedOrderNumber}
             </span>
-            <h1 className="text-2xl sm:text-3xl font-black text-slate-900 mt-2">Order Received!</h1>
+            <h1 className="text-2xl sm:text-3xl font-black text-slate-900 mt-2">{t("cart.received")}</h1>
           </div>
           <p className="text-xs sm:text-sm text-slate-600 max-w-md leading-relaxed">
-            Thank you for ordering with Farm City! Our team will confirm stock and delivery fees, then contact you at <strong>{phone || "your number"}</strong> to arrange delivery and payment.
+            {t("cart.thanks.a")} <strong>{phone || t("cart.yourNumber")}</strong> {t("cart.thanks.b")}
           </p>
 
           <div className="pt-4 flex flex-col sm:flex-row items-center gap-4">
@@ -61,13 +63,13 @@ export default function CartPage() {
               rel="noopener noreferrer"
               className="w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white font-bold px-6 py-3 rounded-xl transition-colors text-xs flex items-center justify-center gap-2"
             >
-              <MessageSquare size={16} /> Confirm on WhatsApp
+              <MessageSquare size={16} /> {t("cart.confirmWhatsapp")}
             </a>
             <Link
               href="/shop"
               className="w-full sm:w-auto bg-emerald-800 hover:bg-emerald-900 text-white font-bold px-6 py-3 rounded-xl transition-colors text-xs text-center"
             >
-              Back to Shop
+              {t("cart.backToShop")}
             </Link>
           </div>
         </div>
@@ -82,22 +84,22 @@ export default function CartPage() {
           <div className="w-14 h-14 bg-emerald-100 text-emerald-800 rounded-2xl flex items-center justify-center">
             <ShoppingBag size={28} />
           </div>
-          <h1 className="text-2xl font-bold text-slate-900">Your Shopping Cart is Empty</h1>
+          <h1 className="text-2xl font-bold text-slate-900">{t("cart.empty.title")}</h1>
           <p className="text-xs text-slate-500 max-w-sm">
-            Explore our fresh produce or seedling catalogue to add items to your cart.
+            {t("cart.empty.desc")}
           </p>
           <div className="pt-2 flex flex-wrap gap-4">
             <Link
               href="/shop"
               className="bg-emerald-800 hover:bg-emerald-900 text-white font-bold px-6 py-3 rounded-xl text-xs transition-colors"
             >
-              Shop Fresh Produce
+              {t("cart.empty.shop")}
             </Link>
             <Link
               href="/seedlings"
               className="bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold px-6 py-3 rounded-xl text-xs transition-colors"
             >
-              Browse Seedlings
+              {t("cart.empty.seedlings")}
             </Link>
           </div>
         </div>
@@ -109,14 +111,14 @@ export default function CartPage() {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8 text-left">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-200 pb-4 gap-4">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-black text-slate-900">Your Shopping Cart</h1>
-          <p className="text-xs text-slate-500">Review your items and place your order or send it to us on WhatsApp.</p>
+          <h1 className="text-2xl sm:text-3xl font-black text-slate-900">{t("cart.title")}</h1>
+          <p className="text-xs text-slate-500">{t("cart.subtitle")}</p>
         </div>
         <Link
           href="/shop"
           className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-800 hover:text-emerald-950 self-start sm:self-auto"
         >
-          <ArrowLeft size={16} /> Continue Shopping
+          <ArrowLeft size={16} /> {t("cart.continue")}
         </Link>
       </div>
 
@@ -182,14 +184,14 @@ export default function CartPage() {
           </div>
 
           <div className="bg-emerald-50 p-4 rounded-2xl border border-emerald-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs text-emerald-900 font-semibold">
-            <span>Prefer ordering via WhatsApp?</span>
+            <span>{t("cart.preferWhatsapp")}</span>
             <a
               href={whatsappMessageUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="bg-green-600 hover:bg-green-700 text-white px-4 py-2.5 rounded-xl flex items-center justify-center gap-1.5 font-bold transition-colors"
             >
-              <MessageSquare size={14} /> Send Cart to WhatsApp
+              <MessageSquare size={14} /> {t("cart.sendWhatsapp")}
             </a>
           </div>
         </div>
@@ -198,12 +200,12 @@ export default function CartPage() {
         <div className="lg:col-span-5 space-y-6">
           <div className="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-sm space-y-6">
             <h2 className="text-xl font-extrabold text-slate-900 border-b border-slate-100 pb-3">
-              Delivery Details
+              {t("cart.deliveryDetails")}
             </h2>
 
             <form onSubmit={handlePlaceOrder} className="space-y-4">
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">Full Name *</label>
+                <label className="block text-xs font-bold text-slate-700 mb-1">{t("cart.fullName")}</label>
                 <input
                   type="text"
                   required
@@ -215,7 +217,7 @@ export default function CartPage() {
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">Phone Number *</label>
+                <label className="block text-xs font-bold text-slate-700 mb-1">{t("cart.phone")}</label>
                 <input
                   type="tel"
                   required
@@ -227,7 +229,7 @@ export default function CartPage() {
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">Delivery Town / Address *</label>
+                <label className="block text-xs font-bold text-slate-700 mb-1">{t("cart.address")}</label>
                 <input
                   type="text"
                   required
@@ -239,10 +241,10 @@ export default function CartPage() {
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">Delivery Notes / Instructions</label>
+                <label className="block text-xs font-bold text-slate-700 mb-1">{t("cart.notes")}</label>
                 <input
                   type="text"
-                  placeholder="e.g. Call upon arrival, prefer morning delivery..."
+                  placeholder={t("cart.notesPlaceholder")}
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
                   className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:border-emerald-600"
@@ -252,21 +254,21 @@ export default function CartPage() {
               {/* Order Summary Box */}
               <div className="bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-2 text-xs">
                 <div className="flex justify-between text-slate-600">
-                  <span>Subtotal:</span>
+                  <span>{t("cart.subtotal")}</span>
                   <span className="font-bold text-slate-800">KSh {totalAmount.toLocaleString()}</span>
                 </div>
                 <div className="flex justify-between text-slate-600">
-                  <span>Estimated Delivery Fee:</span>
-                  <span className="font-semibold text-emerald-800">Calculated on confirmation</span>
+                  <span>{t("cart.estFee")}</span>
+                  <span className="font-semibold text-emerald-800">{t("cart.calcConfirm")}</span>
                 </div>
                 <div className="flex justify-between text-slate-900 font-extrabold text-base border-t border-slate-200 pt-2 mt-1">
-                  <span>Total Estimated:</span>
+                  <span>{t("cart.totalEst")}</span>
                   <span className="text-emerald-800">KSh {totalAmount.toLocaleString()}</span>
                 </div>
               </div>
 
               <p className="text-[11px] text-slate-500 leading-relaxed">
-                No payment is taken online. Once you place your order, our team confirms stock and delivery fees, then arranges payment and delivery with you directly.
+                {t("cart.noPayment")}
               </p>
 
               <button
@@ -274,7 +276,7 @@ export default function CartPage() {
                 className="w-full bg-emerald-800 hover:bg-emerald-900 text-white font-black py-3.5 rounded-2xl shadow-md transition-all text-sm flex items-center justify-center gap-2"
               >
                 <ShieldCheck size={18} />
-                <span>PLACE ORDER</span>
+                <span>{t("cart.placeOrder")}</span>
               </button>
             </form>
           </div>

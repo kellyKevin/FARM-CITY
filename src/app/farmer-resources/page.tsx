@@ -6,8 +6,10 @@ import Link from "next/link";
 import { Search, BookOpen, Clock, Sprout, ArrowRight, MessageSquare } from "lucide-react";
 import { getStoredResources } from "@/lib/storage";
 import { FarmerResource } from "@/data/mockData";
+import { useSettings } from "@/context/SettingsContext";
 
 export default function FarmerResourcesPage() {
+  const { t } = useSettings();
   const [resources, setResources] = useState<FarmerResource[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -41,13 +43,13 @@ export default function FarmerResourcesPage() {
       <div className="bg-gradient-to-br from-emerald-950 via-emerald-900 to-slate-900 text-white p-8 sm:p-12 rounded-3xl shadow-xl">
         <div className="max-w-3xl space-y-4">
           <div className="inline-flex items-center gap-2 bg-emerald-800/80 text-emerald-300 text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-wider">
-            <BookOpen size={14} /> Kapseret Agronomy Center
+            <BookOpen size={14} /> {t("res.tag")}
           </div>
           <h1 className="text-3xl sm:text-5xl font-black tracking-tight leading-tight">
-            Farmer Resources & Agronomy Guides
+            {t("res.title")}
           </h1>
           <p className="text-xs sm:text-sm text-emerald-100 leading-relaxed">
-            Practical farming advice on planting, spacing, hole digging, manure preparation, grafting, pruning, pest management, and orchard establishment for fruit growers in Kenya.
+            {t("res.desc")}
           </p>
         </div>
       </div>
@@ -58,7 +60,7 @@ export default function FarmerResourcesPage() {
           <Search size={18} className="absolute left-3.5 top-3 text-slate-400" />
           <input
             type="text"
-            placeholder="Search guides e.g. Avocado spacing, pruning..."
+            placeholder={t("res.search")}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:border-emerald-600 text-slate-800"
@@ -76,7 +78,7 @@ export default function FarmerResourcesPage() {
                   : "bg-slate-100 text-slate-600 hover:bg-slate-200"
               }`}
             >
-              {cat}
+              {cat === "All" ? t("cat.All") : t(`res.cat.${cat}`)}
             </button>
           ))}
         </div>
@@ -98,7 +100,7 @@ export default function FarmerResourcesPage() {
                 className="object-cover"
               />
               <div className="absolute top-3 left-3 bg-emerald-800 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">
-                {res.category}
+                {t(`res.cat.${res.category}`)}
               </div>
             </div>
 
@@ -133,7 +135,7 @@ export default function FarmerResourcesPage() {
                   href="/shop?tab=seedlings"
                   className="inline-flex items-center gap-2 text-xs font-bold text-emerald-800 hover:text-emerald-950"
                 >
-                  <span>Order Related Seedlings</span> <ArrowRight size={14} />
+                  <span>{t("res.orderSeedlings")}</span> <ArrowRight size={14} />
                 </Link>
 
                 <a
@@ -144,7 +146,7 @@ export default function FarmerResourcesPage() {
                   rel="noopener noreferrer"
                   className="bg-green-600 hover:bg-green-700 text-white text-xs font-bold px-4 py-2 rounded-xl transition-colors flex items-center gap-1.5"
                 >
-                  <MessageSquare size={14} /> Ask Agronomist
+                  <MessageSquare size={14} /> {t("res.askAgronomist")}
                 </a>
               </div>
             </div>
@@ -154,7 +156,7 @@ export default function FarmerResourcesPage() {
 
       {filteredResources.length === 0 && (
         <div className="text-center py-16 bg-white rounded-3xl border border-slate-200">
-          <p className="text-slate-500 text-sm">No farming guides found for your search query.</p>
+          <p className="text-slate-500 text-sm">{t("res.empty")}</p>
         </div>
       )}
     </div>
