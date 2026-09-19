@@ -259,7 +259,7 @@ export default function Home() {
               </div>
               <h3 className="text-lg font-bold text-slate-900">Convenient Delivery</h3>
               <p className="text-xs text-slate-600 leading-relaxed">
-                Fast, reliable home and farm delivery network with M-Pesa payments and flexible scheduled delivery options.
+                Fast, reliable home and farm delivery network with flexible scheduled delivery options across Kenya.
               </p>
             </div>
             <Link
@@ -452,7 +452,7 @@ export default function Home() {
               <span className="text-3xl font-black text-emerald-500/30 absolute top-4 right-4">02</span>
               <h3 className="text-base font-bold mb-2 text-white">2. Order</h3>
               <p className="text-xs text-slate-300 leading-relaxed">
-                Order directly online with M-Pesa, send us a WhatsApp message, or call our customer service team.
+                Place your order online, send us a WhatsApp message, or call our customer service team.
               </p>
             </div>
 

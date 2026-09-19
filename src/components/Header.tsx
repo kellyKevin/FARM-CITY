@@ -11,17 +11,14 @@ import {
   Phone,
   MessageSquare,
   PhoneCall,
-  User,
   Sparkles
 } from "lucide-react";
 import { useCart } from "@/context/CartContext";
-import { useAuth } from "@/context/AuthContext";
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
   const { totalItems } = useCart();
-  const { currentUser } = useAuth();
 
   const navLinks = [
     { name: "HOME", href: "/" },
@@ -108,22 +105,6 @@ export default function Header() {
               <span>WhatsApp</span>
             </a>
 
-            {/* Account / Login Option */}
-            <Link
-              href={currentUser ? "/account" : "/login"}
-              className={`p-2.5 rounded-xl border text-xs font-bold transition-all flex items-center gap-1.5 ${
-                currentUser
-                  ? "bg-emerald-50 border-emerald-200 text-emerald-800 hover:bg-emerald-100"
-                  : "bg-slate-50 border-slate-200 text-slate-700 hover:text-emerald-700 hover:border-emerald-300"
-              }`}
-              title={currentUser ? `Account (${currentUser.fullName})` : "Login / Create Account"}
-            >
-              <User size={18} className={currentUser ? "text-emerald-700" : "text-slate-500"} />
-              <span className="hidden sm:inline">
-                {currentUser ? currentUser.fullName.split(" ")[0] : "Login"}
-              </span>
-            </Link>
-
             {/* Shopping Cart Button */}
             <Link
               href="/cart"
@@ -155,14 +136,6 @@ export default function Header() {
         <div className="lg:hidden bg-white border-b border-emerald-100 px-4 pt-3 pb-6 space-y-2 shadow-xl">
           <div className="flex items-center justify-between pb-2 border-b border-slate-100">
             <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Navigation Menu</span>
-            <Link
-              href={currentUser ? "/account" : "/login"}
-              onClick={() => setMobileMenuOpen(false)}
-              className="text-xs font-bold text-emerald-800 flex items-center gap-1 bg-emerald-50 px-3 py-1 rounded-full"
-            >
-              <User size={14} />
-              <span>{currentUser ? currentUser.fullName : "Login / Account"}</span>
-            </Link>
           </div>
 
           <div className="space-y-1">
