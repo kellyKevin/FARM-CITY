@@ -352,7 +352,7 @@ export default function ShopPage() {
       {/* Product Detail Modal */}
       {selectedProductModal && (
         <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-white rounded-3xl max-w-lg w-full overflow-hidden shadow-2xl border border-slate-200 animate-in fade-in zoom-in-95 text-left">
+          <div className="bg-white rounded-3xl max-w-lg w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-slate-200 animate-in fade-in zoom-in-95 text-left">
             <div className="relative h-64 w-full bg-slate-100">
               <Image
                 src={selectedProductModal.image}
