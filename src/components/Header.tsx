@@ -51,8 +51,6 @@ export default function Header() {
               <Phone size={13} className="text-emerald-400" />
               <span>0711 911 690</span>
             </a>
-            <span className="text-emerald-700">|</span>
-            <span className="text-emerald-300 font-semibold hidden md:inline">M-Pesa Accepted</span>
           </div>
         </div>
       </div>
