@@ -11,23 +11,31 @@ import {
   Phone,
   MessageSquare,
   PhoneCall,
-  Sparkles
+  Sparkles,
+  Sun,
+  Moon,
+  Languages
 } from "lucide-react";
 import { useCart } from "@/context/CartContext";
+import { useSettings } from "@/context/SettingsContext";
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
   const { totalItems } = useCart();
+  const { theme, toggleTheme, language, toggleLanguage, t } = useSettings();
 
   const navLinks = [
-    { name: "HOME", href: "/" },
-    { name: "SHOP", href: "/shop" },
-    { name: "BULK & INSTITUTIONAL", href: "/bulk-institutional" },
-    { name: "DELIVERY", href: "/delivery" },
-    { name: "FARMER RESOURCES", href: "/farmer-resources" },
-    { name: "ABOUT & CONTACT", href: "/about" },
+    { key: "nav.home", href: "/" },
+    { key: "nav.shop", href: "/shop" },
+    { key: "nav.bulk", href: "/bulk-institutional" },
+    { key: "nav.delivery", href: "/delivery" },
+    { key: "nav.resources", href: "/farmer-resources" },
+    { key: "nav.about", href: "/about" },
   ];
+
+  const controlBtn =
+    "p-2.5 rounded-xl border border-slate-200 bg-slate-100 text-slate-700 hover:text-emerald-700 hover:bg-emerald-50 transition-colors flex items-center justify-center";
 
   return (
     <header className="sticky top-0 z-40 bg-white shadow-sm border-b border-emerald-100">
@@ -36,11 +44,9 @@ export default function Header() {
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
           <div className="flex items-center gap-2 text-center sm:text-left">
             <span className="bg-emerald-500 text-slate-950 font-black px-2 py-0.5 rounded text-[10px] tracking-wider uppercase flex items-center gap-1">
-              <Sparkles size={12} /> SPECIAL OFFER
+              <Sparkles size={12} /> {t("bar.offer")}
             </span>
-            <span className="font-medium text-[11px] sm:text-xs">
-              Same-day delivery in Juja & Thika • Countrywide seedling dispatch to all 47 counties!
-            </span>
+            <span className="font-medium text-[11px] sm:text-xs">{t("bar.message")}</span>
           </div>
 
           <div className="flex items-center gap-4 text-[11px]">
@@ -75,7 +81,7 @@ export default function Header() {
               const isActive = pathname === link.href;
               return (
                 <Link
-                  key={link.name}
+                  key={link.key}
                   href={link.href}
                   className={`px-2.5 py-1.5 rounded-lg text-xs xl:text-sm font-semibold transition-colors ${
                     isActive
@@ -83,14 +89,35 @@ export default function Header() {
                       : "text-slate-700 hover:text-emerald-700 hover:bg-slate-50"
                   }`}
                 >
-                  {link.name}
+                  {t(link.key)}
                 </Link>
               );
             })}
           </nav>
 
           {/* Action Buttons */}
-          <div className="flex items-center gap-2.5 sm:gap-3">
+          <div className="flex items-center gap-2 sm:gap-2.5">
+            {/* Language Toggle */}
+            <button
+              onClick={toggleLanguage}
+              className={`${controlBtn} gap-1.5 text-xs font-bold`}
+              title={t("toggle.language")}
+              aria-label={t("toggle.language")}
+            >
+              <Languages size={18} />
+              <span className="uppercase">{language}</span>
+            </button>
+
+            {/* Theme Toggle */}
+            <button
+              onClick={toggleTheme}
+              className={controlBtn}
+              title={theme === "dark" ? t("toggle.theme.light") : t("toggle.theme.dark")}
+              aria-label={theme === "dark" ? t("toggle.theme.light") : t("toggle.theme.dark")}
+            >
+              {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
+            </button>
+
             {/* WhatsApp Quick Link */}
             <a
               href="https://wa.me/254711911690?text=Hello%20Farm%20City%2C%20I%20would%20like%20to%20make%20an%20enquiry"
@@ -100,7 +127,7 @@ export default function Header() {
               title="Instant WhatsApp Order"
             >
               <MessageSquare size={16} />
-              <span>WhatsApp</span>
+              <span>{t("action.whatsapp")}</span>
             </a>
 
             {/* Shopping Cart Button */}
@@ -133,7 +160,7 @@ export default function Header() {
       {mobileMenuOpen && (
         <div className="lg:hidden bg-white border-b border-emerald-100 px-4 pt-3 pb-6 space-y-2 shadow-xl">
           <div className="flex items-center justify-between pb-2 border-b border-slate-100">
-            <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Navigation Menu</span>
+            <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">{t("nav.menu")}</span>
           </div>
 
           <div className="space-y-1">
@@ -141,7 +168,7 @@ export default function Header() {
               const isActive = pathname === link.href;
               return (
                 <Link
-                  key={link.name}
+                  key={link.key}
                   href={link.href}
                   onClick={() => setMobileMenuOpen(false)}
                   className={`block px-3 py-2.5 rounded-xl text-xs font-bold transition-colors ${
@@ -150,7 +177,7 @@ export default function Header() {
                       : "text-slate-700 hover:text-emerald-700 hover:bg-slate-50"
                   }`}
                 >
-                  {link.name}
+                  {t(link.key)}
                 </Link>
               );
             })}
@@ -164,14 +191,14 @@ export default function Header() {
               className="w-full flex items-center justify-center gap-2 bg-green-600 hover:bg-green-700 text-white font-bold py-2.5 rounded-xl transition-colors text-xs"
             >
               <MessageSquare size={16} />
-              <span>Order via WhatsApp</span>
+              <span>{t("action.whatsappOrder")}</span>
             </a>
             <a
               href="tel:0711911690"
               className="w-full flex items-center justify-center gap-2 bg-emerald-800 hover:bg-emerald-900 text-white font-bold py-2.5 rounded-xl transition-colors text-xs"
             >
               <PhoneCall size={16} />
-              <span>Call Us: 0711 911 690</span>
+              <span>{t("action.call")}</span>
             </a>
           </div>
         </div>

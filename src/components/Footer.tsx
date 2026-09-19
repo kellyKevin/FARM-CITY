@@ -1,9 +1,14 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Phone, Mail, MapPin, Clock, MessageSquare } from "lucide-react";
+import { useSettings } from "@/context/SettingsContext";
 
 export default function Footer() {
+  const { t } = useSettings();
+
   return (
     <footer className="bg-slate-900 text-slate-300 pt-12 pb-8 border-t border-slate-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -19,15 +24,9 @@ export default function Footer() {
                 className="h-12 w-auto object-contain rounded-lg bg-white p-1"
               />
             </div>
-            <p className="text-xs text-slate-400 leading-relaxed">
-              Farm City brings together fresh produce delivery and high-quality seedling supply across Kenya. From our Juja/Thika fresh hub and Kapseret Eldoret nursery directly to your farm, home, or business.
-            </p>
-            <p className="text-xs font-semibold text-emerald-400">
-              Tagline: From Farm to You • Agriculture Made Easy
-            </p>
-            <p className="text-[11px] text-slate-500 leading-relaxed">
-              Order online or on WhatsApp — no account required. Pay on delivery or via M-Pesa once our team confirms your order.
-            </p>
+            <p className="text-xs text-slate-400 leading-relaxed">{t("footer.brand")}</p>
+            <p className="text-xs font-semibold text-emerald-400">{t("footer.tagline")}</p>
+            <p className="text-[11px] text-slate-500 leading-relaxed">{t("footer.order")}</p>
             <div className="pt-2 flex items-center gap-3">
               <a
                 href="https://wa.me/254711911690"
@@ -35,7 +34,7 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 className="bg-emerald-700 hover:bg-emerald-600 text-white p-2.5 rounded-lg text-xs flex items-center gap-2 transition-colors font-semibold"
               >
-                <MessageSquare size={16} /> WhatsApp Chat
+                <MessageSquare size={16} /> {t("footer.whatsappChat")}
               </a>
             </div>
           </div>
@@ -43,32 +42,32 @@ export default function Footer() {
           {/* Navigation Links */}
           <div>
             <h3 className="text-white font-bold text-sm uppercase tracking-wider mb-4 border-b border-slate-800 pb-2">
-              Quick Links
+              {t("footer.quickLinks")}
             </h3>
             <ul className="space-y-2 text-xs">
               <li>
                 <Link href="/shop" className="hover:text-emerald-400 transition-colors">
-                  Shop (Produce & Seedlings)
+                  {t("footer.link.shop")}
                 </Link>
               </li>
               <li>
                 <Link href="/bulk-institutional" className="hover:text-emerald-400 transition-colors">
-                  Bulk & Institutional Supply
+                  {t("footer.link.bulk")}
                 </Link>
               </li>
               <li>
                 <Link href="/delivery" className="hover:text-emerald-400 transition-colors">
-                  Delivery Information & Coverage
+                  {t("footer.link.delivery")}
                 </Link>
               </li>
               <li>
                 <Link href="/farmer-resources" className="hover:text-emerald-400 transition-colors">
-                  Farmer Resources & Guides
+                  {t("footer.link.resources")}
                 </Link>
               </li>
               <li>
                 <Link href="/about" className="hover:text-emerald-400 transition-colors">
-                  About & Contact Farm City
+                  {t("footer.link.about")}
                 </Link>
               </li>
             </ul>
@@ -77,24 +76,20 @@ export default function Footer() {
           {/* Locations */}
           <div>
             <h3 className="text-white font-bold text-sm uppercase tracking-wider mb-4 border-b border-slate-800 pb-2">
-              Physical Hubs
+              {t("footer.hubs")}
             </h3>
             <div className="space-y-4 text-xs">
               <div>
                 <p className="font-semibold text-emerald-400 flex items-center gap-1.5 mb-1">
-                  <MapPin size={14} /> Farm City – Juja / Thika
+                  <MapPin size={14} /> {t("footer.hub.juja")}
                 </p>
-                <p className="text-slate-400 pl-5">
-                  Fresh Produce & Local Distribution Hub, Kiambu County
-                </p>
+                <p className="text-slate-400 pl-5">{t("footer.hub.jujaSub")}</p>
               </div>
               <div>
                 <p className="font-semibold text-emerald-400 flex items-center gap-1.5 mb-1">
-                  <MapPin size={14} /> Seedling Nursery – Kapseret, Eldoret
+                  <MapPin size={14} /> {t("footer.hub.eldoret")}
                 </p>
-                <p className="text-slate-400 pl-5">
-                  Physical Nursery Operation & Countrywide Dispatch, Uasin Gishu County
-                </p>
+                <p className="text-slate-400 pl-5">{t("footer.hub.eldoretSub")}</p>
               </div>
             </div>
           </div>
@@ -102,14 +97,14 @@ export default function Footer() {
           {/* Contact Details */}
           <div>
             <h3 className="text-white font-bold text-sm uppercase tracking-wider mb-4 border-b border-slate-800 pb-2">
-              Contact & Hours
+              {t("footer.contact")}
             </h3>
             <ul className="space-y-3 text-xs">
               <li className="flex items-start gap-2">
                 <Phone size={14} className="text-emerald-400 shrink-0 mt-0.5" />
                 <div>
                   <p className="text-white font-medium">0711 911 690 / 0726 360 635</p>
-                  <p className="text-slate-400 text-[11px]">Wesley Mage Mujenyi / Farm City Team</p>
+                  <p className="text-slate-400 text-[11px]">{t("footer.contact.team")}</p>
                 </div>
               </li>
               <li className="flex items-center gap-2">
@@ -119,8 +114,8 @@ export default function Footer() {
               <li className="flex items-start gap-2">
                 <Clock size={14} className="text-emerald-400 shrink-0 mt-0.5" />
                 <div>
-                  <p className="text-white">Monday - Saturday: 7:00 AM - 6:30 PM</p>
-                  <p className="text-slate-400 text-[11px]">Sunday: Deliveries & Online Orders Active</p>
+                  <p className="text-white">{t("footer.hours.weekdays")}</p>
+                  <p className="text-slate-400 text-[11px]">{t("footer.hours.sunday")}</p>
                 </div>
               </li>
             </ul>
@@ -129,9 +124,9 @@ export default function Footer() {
 
         {/* Bottom Bar */}
         <div className="border-t border-slate-800 pt-6 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-slate-500">
-          <p>© {new Date().getFullYear()} Farm City. All rights reserved. Registered Agricultural Supplier in Kenya.</p>
+          <p>© {new Date().getFullYear()} Farm City. {t("footer.rights")}</p>
           <div className="flex items-center gap-6">
-            <span>Freshness • Reliability • Quality</span>
+            <span>{t("footer.values")}</span>
           </div>
         </div>
       </div>
