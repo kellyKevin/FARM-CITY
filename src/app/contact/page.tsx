@@ -2,8 +2,10 @@
 
 import React, { useState } from "react";
 import { Phone, Mail, MapPin, Clock, MessageSquare, Send, CheckCircle2, Navigation } from "lucide-react";
+import { useSettings } from "@/context/SettingsContext";
 
 export default function ContactPage() {
+  const { t } = useSettings();
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
@@ -22,13 +24,13 @@ export default function ContactPage() {
       <div className="bg-gradient-to-br from-emerald-950 via-emerald-900 to-slate-900 text-white p-8 sm:p-12 rounded-3xl shadow-xl">
         <div className="max-w-3xl space-y-4">
           <span className="bg-emerald-700 text-emerald-200 text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider">
-            Contact Farm City
+            {t("contact.tag")}
           </span>
           <h1 className="text-3xl sm:text-5xl font-black tracking-tight leading-tight">
-            We&apos;re Here to Help You Grow
+            {t("contact.title")}
           </h1>
           <p className="text-xs sm:text-sm text-emerald-100 leading-relaxed">
-            Get in touch with Farm City for fresh produce orders, seedling inquiries, bulk institutional supply quotations, or technical agronomy advice.
+            {t("contact.desc")}
           </p>
         </div>
       </div>
@@ -43,7 +45,7 @@ export default function ContactPage() {
             <Phone size={22} />
           </div>
           <div>
-            <p className="text-[10px] uppercase font-bold text-emerald-300">CALL US DIRECTLY</p>
+            <p className="text-[10px] uppercase font-bold text-emerald-300">{t("about.contact.call")}</p>
             <p className="font-extrabold text-sm">0711 911 690</p>
           </div>
         </a>
@@ -58,7 +60,7 @@ export default function ContactPage() {
             <MessageSquare size={22} />
           </div>
           <div>
-            <p className="text-[10px] uppercase font-bold text-green-200">WHATSAPP CHAT</p>
+            <p className="text-[10px] uppercase font-bold text-green-200">{t("about.contact.whatsapp")}</p>
             <p className="font-extrabold text-sm">0711 911 690 / 0726 360 635</p>
           </div>
         </a>
@@ -71,7 +73,7 @@ export default function ContactPage() {
             <Mail size={22} className="text-emerald-400" />
           </div>
           <div>
-            <p className="text-[10px] uppercase font-bold text-slate-400">SEND EMAIL</p>
+            <p className="text-[10px] uppercase font-bold text-slate-400">{t("about.contact.email")}</p>
             <p className="font-bold text-xs truncate max-w-[140px]">magewesley16@gmail.com</p>
           </div>
         </a>
@@ -81,8 +83,8 @@ export default function ContactPage() {
             <Clock size={22} />
           </div>
           <div>
-            <p className="text-[10px] uppercase font-bold text-slate-400">BUSINESS HOURS</p>
-            <p className="font-extrabold text-xs text-slate-800">Mon - Sat: 7am - 6:30pm</p>
+            <p className="text-[10px] uppercase font-bold text-slate-400">{t("about.contact.hours")}</p>
+            <p className="font-extrabold text-xs text-slate-800">{t("about.contact.hoursVal")}</p>
           </div>
         </div>
       </div>
@@ -91,32 +93,32 @@ export default function ContactPage() {
         {/* Contact Form */}
         <div className="lg:col-span-7 bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-sm space-y-6">
           <h2 className="text-2xl font-bold text-slate-900 border-b border-slate-100 pb-4">
-            Send an Online Enquiry
+            {t("contact.form.title")}
           </h2>
 
           {submitted ? (
             <div className="bg-emerald-50 border border-emerald-200 p-8 rounded-2xl text-center space-y-3">
               <CheckCircle2 size={44} className="text-emerald-600 mx-auto" />
-              <h3 className="text-xl font-bold text-slate-900">Message Received!</h3>
+              <h3 className="text-xl font-bold text-slate-900">{t("contact.form.received")}</h3>
               <p className="text-xs text-slate-600">
-                Thank you for contacting Farm City. A representative will get back to you shortly.
+                {t("contact.form.thanks")}
               </p>
               <button
                 onClick={() => setSubmitted(false)}
                 className="bg-emerald-800 text-white font-bold text-xs px-6 py-2 rounded-xl hover:bg-emerald-900 transition-colors"
               >
-                Send Another Message
+                {t("contact.form.another")}
               </button>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 mb-1">Your Full Name *</label>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">{t("contact.form.name")}</label>
                   <input
                     type="text"
                     required
-                    placeholder="e.g. John Kamau"
+                    placeholder={t("contact.form.namePh")}
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:border-emerald-600"
@@ -124,7 +126,7 @@ export default function ContactPage() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 mb-1">Phone / WhatsApp *</label>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">{t("contact.form.phone")}</label>
                   <input
                     type="tel"
                     required
@@ -138,10 +140,10 @@ export default function ContactPage() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 mb-1">Email Address</label>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">{t("contact.form.email")}</label>
                   <input
                     type="email"
-                    placeholder="e.g. john@example.com"
+                    placeholder={t("contact.form.emailPh")}
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:border-emerald-600"
@@ -149,27 +151,27 @@ export default function ContactPage() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 mb-1">Enquiry Subject</label>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">{t("contact.form.subject")}</label>
                   <select
                     value={subject}
                     onChange={(e) => setSubject(e.target.value)}
                     className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:border-emerald-600"
                   >
-                    <option value="General Inquiry">General Inquiry</option>
-                    <option value="Fresh Produce Order">Fresh Produce Order</option>
-                    <option value="Seedlings Order">Seedlings Order</option>
-                    <option value="Bulk / Institutional Supply">Bulk / Institutional Supply</option>
-                    <option value="Kapseret Nursery Visit">Kapseret Nursery Visit</option>
+                    <option value="General Inquiry">{t("contact.form.subj.general")}</option>
+                    <option value="Fresh Produce Order">{t("contact.form.subj.produce")}</option>
+                    <option value="Seedlings Order">{t("contact.form.subj.seedlings")}</option>
+                    <option value="Bulk / Institutional Supply">{t("contact.form.subj.bulk")}</option>
+                    <option value="Kapseret Nursery Visit">{t("contact.form.subj.visit")}</option>
                   </select>
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">Your Message *</label>
+                <label className="block text-xs font-bold text-slate-700 mb-1">{t("contact.form.message")}</label>
                 <textarea
                   required
                   rows={4}
-                  placeholder="Tell us what you need..."
+                  placeholder={t("contact.form.messagePh")}
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:border-emerald-600"
@@ -181,7 +183,7 @@ export default function ContactPage() {
                 className="w-full bg-emerald-800 hover:bg-emerald-900 text-white font-extrabold py-3.5 rounded-2xl shadow-md transition-colors text-xs sm:text-sm flex items-center justify-center gap-2"
               >
                 <Send size={16} />
-                <span>SEND ENQUIRY</span>
+                <span>{t("contact.form.send")}</span>
               </button>
             </form>
           )}
@@ -192,42 +194,42 @@ export default function ContactPage() {
           <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-4">
             <h3 className="font-bold text-slate-900 text-base flex items-center gap-2 border-b border-slate-100 pb-3">
               <MapPin className="text-emerald-700" size={20} />
-              <span>Physical Locations & Operations</span>
+              <span>{t("contact.loc.title")}</span>
             </h3>
 
             {/* Location 1 */}
             <div className="space-y-2 bg-emerald-50/60 p-4 rounded-2xl border border-emerald-100">
               <span className="bg-emerald-800 text-white text-[10px] font-bold px-2.5 py-0.5 rounded uppercase">
-                Juja / Thika Operation
+                {t("contact.loc1.badge")}
               </span>
-              <h4 className="font-bold text-slate-900 text-sm">Farm City Fresh Distribution Hub</h4>
-              <p className="text-xs text-slate-600">Juja Town & Thika Road, Kiambu County</p>
-              <p className="text-[11px] text-slate-500 font-medium">Contact: Wesley Mage Mujenyi (0711 911 690)</p>
+              <h4 className="font-bold text-slate-900 text-sm">{t("contact.loc1.title")}</h4>
+              <p className="text-xs text-slate-600">{t("contact.loc1.addr")}</p>
+              <p className="text-[11px] text-slate-500 font-medium">{t("contact.loc1.contact")}</p>
               <a
                 href="https://maps.google.com/?q=Juja+Kenya"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1 text-xs font-bold text-emerald-800 hover:underline pt-1"
               >
-                <Navigation size={12} /> Get Directions (Google Maps)
+                <Navigation size={12} /> {t("contact.directions")}
               </a>
             </div>
 
             {/* Location 2 */}
             <div className="space-y-2 bg-emerald-50/60 p-4 rounded-2xl border border-emerald-100">
               <span className="bg-emerald-800 text-white text-[10px] font-bold px-2.5 py-0.5 rounded uppercase">
-                Kapseret Eldoret Nursery
+                {t("contact.loc2.badge")}
               </span>
-              <h4 className="font-bold text-slate-900 text-sm">Farm City Seedling Nursery</h4>
-              <p className="text-xs text-slate-600">Kapseret, Eldoret, Uasin Gishu County</p>
-              <p className="text-[11px] text-slate-500 font-medium">WhatsApp / Sales: 0726 360 635 / 0711 911 690</p>
+              <h4 className="font-bold text-slate-900 text-sm">{t("contact.loc2.title")}</h4>
+              <p className="text-xs text-slate-600">{t("contact.loc2.addr")}</p>
+              <p className="text-[11px] text-slate-500 font-medium">{t("contact.loc2.contact")}</p>
               <a
                 href="https://maps.google.com/?q=Kapseret+Eldoret+Kenya"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1 text-xs font-bold text-emerald-800 hover:underline pt-1"
               >
-                <Navigation size={12} /> Get Directions (Google Maps)
+                <Navigation size={12} /> {t("contact.directions")}
               </a>
             </div>
           </div>

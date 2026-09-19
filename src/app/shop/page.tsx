@@ -6,8 +6,10 @@ import { Search, ShoppingBag, MessageSquare, CheckCircle2, Filter, AlertCircle }
 import { getStoredProducts } from "@/lib/storage";
 import { Product } from "@/data/mockData";
 import { useCart } from "@/context/CartContext";
+import { useSettings } from "@/context/SettingsContext";
 
 export default function ShopPage() {
+  const { t } = useSettings();
   const [products, setProducts] = useState<Product[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedSubCategory, setSelectedSubCategory] = useState("All");
@@ -64,7 +66,7 @@ export default function ShopPage() {
   const handleAddFromModal = () => {
     if (!selectedProductModal) return;
     if (selectedProductModal.stockStatus === "Coming Soon") {
-      setToastMessage(`Product "${selectedProductModal.name}" is coming soon. Notification request noted!`);
+      setToastMessage(`"${selectedProductModal.name}" ${t("shop.toast.notify")}`);
       setTimeout(() => setToastMessage(null), 3500);
       setSelectedProductModal(null);
       return;
@@ -79,14 +81,14 @@ export default function ShopPage() {
       quantity: modalQty,
       image: selectedProductModal.image
     });
-    setToastMessage(`Added ${modalQty} (${selectedUnit}) of ${selectedProductModal.name} to cart!`);
+    setToastMessage(`${t("shop.toast.added")} ${modalQty} (${selectedUnit}) — ${selectedProductModal.name} ${t("shop.toast.toCart")}`);
     setTimeout(() => setToastMessage(null), 3000);
     setSelectedProductModal(null);
   };
 
   const handleQuickAdd = (product: Product) => {
     if (product.stockStatus === "Coming Soon") {
-      setToastMessage(`"${product.name}" is coming soon! You can inquire via WhatsApp.`);
+      setToastMessage(`"${product.name}" ${t("shop.toast.soon")}`);
       setTimeout(() => setToastMessage(null), 3500);
       return;
     }
@@ -100,7 +102,7 @@ export default function ShopPage() {
       quantity: 1,
       image: product.image
     });
-    setToastMessage(`Added 1 ${product.unit} of ${product.name} to cart!`);
+    setToastMessage(`${t("shop.toast.added")} 1 ${product.unit} — ${product.name} ${t("shop.toast.toCart")}`);
     setTimeout(() => setToastMessage(null), 3000);
   };
 
@@ -116,25 +118,25 @@ export default function ShopPage() {
       case "In Stock":
         return (
           <span className="bg-emerald-700 text-white text-[10px] font-extrabold px-2.5 py-0.5 rounded-full uppercase tracking-wider">
-            Available Now
+            {t("stock.available")}
           </span>
         );
       case "Low Stock":
         return (
           <span className="bg-amber-600 text-white text-[10px] font-extrabold px-2.5 py-0.5 rounded-full uppercase tracking-wider">
-            Low Stock
+            {t("stock.low")}
           </span>
         );
       case "Seasonal":
         return (
           <span className="bg-blue-600 text-white text-[10px] font-extrabold px-2.5 py-0.5 rounded-full uppercase tracking-wider">
-            Seasonal
+            {t("stock.seasonal")}
           </span>
         );
       case "Coming Soon":
         return (
           <span className="bg-slate-700 text-white text-[10px] font-extrabold px-2.5 py-0.5 rounded-full uppercase tracking-wider">
-            Coming Soon
+            {t("stock.soon")}
           </span>
         );
       default:
@@ -156,13 +158,13 @@ export default function ShopPage() {
       <div className="bg-gradient-to-r from-emerald-950 via-emerald-900 to-slate-900 text-white p-8 rounded-3xl shadow-lg relative overflow-hidden border border-emerald-800">
         <div className="max-w-3xl space-y-3 relative z-10">
           <span className="bg-emerald-800/80 text-emerald-200 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider border border-emerald-600/40">
-            Juja Fresh Hub & Kapseret Eldoret Nursery
+            {t("shop.banner.tag")}
           </span>
           <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight">
-            Farm City Agricultural Catalogue
+            {t("shop.banner.title")}
           </h1>
           <p className="text-xs sm:text-sm text-emerald-100 leading-relaxed">
-            Browse fresh vegetables, leafy greens, fruit vegetables, fresh fruits, citrus, tubers, certified fruit seedlings, cash crops, herbs, and vegetable seedlings. Products are labeled as <strong>Available Now</strong>, <strong>Seasonal</strong>, or <strong>Coming Soon</strong> for complete order clarity.
+            {t("shop.banner.desc")}
           </p>
 
           {/* Main Tab Selector */}
@@ -175,7 +177,7 @@ export default function ShopPage() {
                   : "bg-emerald-800/60 text-emerald-100 hover:bg-emerald-800"
               }`}
             >
-              All Catalog ({products.length})
+              {t("shop.tab.all")} ({products.length})
             </button>
             <button
               onClick={() => { setActiveTab("fresh"); setSelectedSubCategory("All"); }}
@@ -185,7 +187,7 @@ export default function ShopPage() {
                   : "bg-emerald-800/60 text-emerald-100 hover:bg-emerald-800"
               }`}
             >
-              🥑 Fresh Produce ({products.filter(p => p.category === "fresh").length})
+              🥑 {t("shop.tab.fresh")} ({products.filter(p => p.category === "fresh").length})
             </button>
             <button
               onClick={() => { setActiveTab("seedlings"); setSelectedSubCategory("All"); }}
@@ -195,7 +197,7 @@ export default function ShopPage() {
                   : "bg-emerald-800/60 text-emerald-100 hover:bg-emerald-800"
               }`}
             >
-              🌱 Plant & Seedlings ({products.filter(p => p.category === "seedlings").length})
+              🌱 {t("shop.tab.seedlings")} ({products.filter(p => p.category === "seedlings").length})
             </button>
           </div>
         </div>
@@ -209,7 +211,7 @@ export default function ShopPage() {
             <Search size={18} className="absolute left-3.5 top-3 text-slate-400" />
             <input
               type="text"
-              placeholder="Search products, varieties e.g. Hass, Spinach, Mango..."
+              placeholder={t("shop.search")}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:border-emerald-600 text-slate-800"
@@ -218,7 +220,7 @@ export default function ShopPage() {
 
           {/* Availability Status Filter */}
           <div className="flex items-center gap-2 w-full md:w-auto overflow-x-auto">
-            <span className="text-xs font-bold text-slate-500 whitespace-nowrap">Availability:</span>
+            <span className="text-xs font-bold text-slate-500 whitespace-nowrap">{t("shop.availability")}</span>
             {["All", "In Stock", "Seasonal", "Coming Soon"].map((st) => (
               <button
                 key={st}
@@ -229,7 +231,7 @@ export default function ShopPage() {
                     : "bg-slate-100 text-slate-600 hover:bg-slate-200"
                 }`}
               >
-                {st === "In Stock" ? "Available Now" : st}
+                {st === "All" ? t("cat.All") : st === "In Stock" ? t("stock.available") : st === "Seasonal" ? t("stock.seasonal") : t("stock.soon")}
               </button>
             ))}
           </div>
@@ -248,7 +250,7 @@ export default function ShopPage() {
                   : "bg-slate-100 text-slate-600 hover:bg-slate-200"
               }`}
             >
-              {cat}
+              {t(`cat.${cat}`)}
             </button>
           ))}
         </div>
@@ -274,7 +276,7 @@ export default function ShopPage() {
                 />
                 <div className="absolute top-3 left-3 flex flex-col gap-1 items-start">
                   <span className="bg-emerald-900/90 text-white text-[9px] font-extrabold px-2.5 py-0.5 rounded-full uppercase">
-                    {product.subCategory}
+                    {t(`cat.${product.subCategory}`)}
                   </span>
                   {renderStockBadge(product.stockStatus)}
                 </div>
@@ -289,14 +291,14 @@ export default function ShopPage() {
                     <p className="text-[11px] italic text-emerald-700 font-medium">{product.scientificName}</p>
                   )}
                   {product.variety && (
-                    <p className="text-[11px] font-semibold text-slate-500">Variety: {product.variety}</p>
+                    <p className="text-[11px] font-semibold text-slate-500">{t("prod.variety")} {product.variety}</p>
                   )}
                   <p className="text-xs text-slate-500 line-clamp-2 mt-1">{product.description}</p>
                 </div>
 
                 <div className="text-xs text-slate-500 bg-slate-50 p-2.5 rounded-xl space-y-1">
                   <p className="flex justify-between">
-                    <span>Delivery/Supply:</span>
+                    <span>{t("shop.deliverySupply")}</span>
                     <span className="font-medium text-slate-700 truncate max-w-[140px]">{product.deliveryInfo}</span>
                   </p>
                 </div>
@@ -306,7 +308,7 @@ export default function ShopPage() {
             <div className="p-5 pt-0 space-y-3">
               <div className="flex items-center justify-between border-t border-slate-100 pt-3">
                 <div>
-                  <span className="text-xs text-slate-400">Price: </span>
+                  <span className="text-xs text-slate-400">{t("prod.price")} </span>
                   <span className="text-lg font-black text-emerald-800">KSh {product.price}</span>
                   <span className="text-xs text-slate-500"> / {product.unit}</span>
                 </div>
@@ -323,7 +325,7 @@ export default function ShopPage() {
                   }`}
                 >
                   <ShoppingBag size={14} />
-                  <span>{product.stockStatus === "Coming Soon" ? "Soon" : "Add Cart"}</span>
+                  <span>{product.stockStatus === "Coming Soon" ? t("prod.soon") : t("prod.addCart")}</span>
                 </button>
 
                 <a
@@ -333,7 +335,7 @@ export default function ShopPage() {
                   className="bg-green-600 hover:bg-green-700 text-white text-xs font-bold py-2.5 rounded-xl transition-colors flex items-center justify-center gap-1"
                 >
                   <MessageSquare size={14} />
-                  <span>Inquire</span>
+                  <span>{t("prod.inquire")}</span>
                 </a>
               </div>
             </div>
@@ -344,8 +346,8 @@ export default function ShopPage() {
       {filteredProducts.length === 0 && (
         <div className="text-center py-16 bg-white rounded-3xl border border-slate-200 space-y-2">
           <AlertCircle size={40} className="text-slate-300 mx-auto" />
-          <p className="text-slate-700 font-bold text-base">No agricultural products found matching your filter criteria.</p>
-          <p className="text-slate-500 text-xs">Try selecting a different subcategory or clearing your search filters.</p>
+          <p className="text-slate-700 font-bold text-base">{t("shop.empty.title")}</p>
+          <p className="text-slate-500 text-xs">{t("shop.empty.sub")}</p>
         </div>
       )}
 
@@ -362,7 +364,7 @@ export default function ShopPage() {
               />
               <div className="absolute top-4 left-4 flex gap-2">
                 <span className="bg-emerald-900 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase">
-                  {selectedProductModal.subCategory}
+                  {t(`cat.${selectedProductModal.subCategory}`)}
                 </span>
                 {renderStockBadge(selectedProductModal.stockStatus)}
               </div>
@@ -385,7 +387,7 @@ export default function ShopPage() {
 
               <div className="bg-slate-50 p-4 rounded-2xl space-y-3 border border-slate-100">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs text-slate-500 font-medium">Unit Price:</span>
+                  <span className="text-xs text-slate-500 font-medium">{t("prod.unitPrice")}</span>
                   <span className="text-xl font-black text-emerald-800">
                     KSh {selectedProductModal.price} / {selectedProductModal.unit}
                   </span>
@@ -394,7 +396,7 @@ export default function ShopPage() {
                 {/* Available Unit Options */}
                 {selectedProductModal.availableUnits && (
                   <div>
-                    <label className="text-xs font-bold text-slate-700 block mb-1">Select Packaging / Unit:</label>
+                    <label className="text-xs font-bold text-slate-700 block mb-1">{t("prod.selectUnit")}</label>
                     <div className="flex flex-wrap gap-2">
                       {selectedProductModal.availableUnits.map((u) => (
                         <button
@@ -415,7 +417,7 @@ export default function ShopPage() {
 
                 {/* Quantity */}
                 <div>
-                  <label className="text-xs font-bold text-slate-700 block mb-1">Select Quantity:</label>
+                  <label className="text-xs font-bold text-slate-700 block mb-1">{t("prod.selectQty")}</label>
                   <div className="flex items-center gap-3">
                     <button
                       onClick={() => setModalQty(Math.max(1, modalQty - 1))}
@@ -446,8 +448,8 @@ export default function ShopPage() {
                   <ShoppingBag size={18} />
                   <span>
                     {selectedProductModal.stockStatus === "Coming Soon"
-                      ? "Notify Me When Available"
-                      : `Add to Cart (KSh ${(selectedProductModal.price * modalQty).toLocaleString()})`}
+                      ? t("prod.notify")
+                      : `${t("prod.addToCart")} (KSh ${(selectedProductModal.price * modalQty).toLocaleString()})`}
                   </span>
                 </button>
               </div>
