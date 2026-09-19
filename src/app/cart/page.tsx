@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import {
@@ -9,58 +9,26 @@ import {
   ArrowLeft,
   MessageSquare,
   CheckCircle2,
-  CreditCard,
-  ShieldCheck,
-  User
+  ShieldCheck
 } from "lucide-react";
 import { useCart } from "@/context/CartContext";
-import { useAuth } from "@/context/AuthContext";
 
 export default function CartPage() {
   const { cart, removeFromCart, updateQuantity, clearCart, totalAmount, generateWhatsAppMessage } = useCart();
-  const { currentUser, addOrder } = useAuth();
 
   const [customerName, setCustomerName] = useState("");
   const [phone, setPhone] = useState("");
   const [deliveryLocation, setDeliveryLocation] = useState("");
   const [notes, setNotes] = useState("");
-  const [paymentMethod, setPaymentMethod] = useState<"mpesa" | "card" | "whatsapp">("mpesa");
-  const [mpesaPhone, setMpesaPhone] = useState("");
   const [orderPlaced, setOrderPlaced] = useState(false);
   const [placedOrderNumber, setPlacedOrderNumber] = useState("");
-
-  // Pre-fill fields if user is logged in
-  useEffect(() => {
-    if (currentUser) {
-      if (currentUser.fullName) setCustomerName(currentUser.fullName);
-      if (currentUser.phone) {
-        setPhone(currentUser.phone);
-        setMpesaPhone(currentUser.phone);
-      }
-      if (currentUser.deliveryAddress) setDeliveryLocation(currentUser.deliveryAddress);
-      else if (currentUser.town) setDeliveryLocation(`${currentUser.town}${currentUser.county ? ", " + currentUser.county : ""}`);
-    }
-  }, [currentUser]);
 
   const handlePlaceOrder = (e: React.FormEvent) => {
     e.preventDefault();
     if (cart.length === 0) return;
 
-    const newOrder = addOrder({
-      items: cart.map((i) => ({
-        id: i.id,
-        name: i.name,
-        quantity: i.quantity,
-        unit: i.unit,
-        price: i.price,
-        image: i.image,
-      })),
-      totalAmount,
-      deliveryAddress: deliveryLocation || "Juja / Thika",
-      paymentMethod: paymentMethod === "mpesa" ? "M-Pesa Express" : "Card / Gateway",
-    });
-
-    setPlacedOrderNumber(newOrder.id);
+    const orderNumber = "FC-" + Math.floor(1000 + Math.random() * 9000);
+    setPlacedOrderNumber(orderNumber);
     setOrderPlaced(true);
     clearCart();
   };
@@ -80,10 +48,10 @@ export default function CartPage() {
             <span className="text-xs font-mono font-extrabold text-emerald-800 bg-emerald-100 px-3 py-1 rounded-full uppercase">
               Order Ref: {placedOrderNumber}
             </span>
-            <h1 className="text-2xl sm:text-3xl font-black text-slate-900 mt-2">Order Placed Successfully!</h1>
+            <h1 className="text-2xl sm:text-3xl font-black text-slate-900 mt-2">Order Received!</h1>
           </div>
           <p className="text-xs sm:text-sm text-slate-600 max-w-md leading-relaxed">
-            Thank you for ordering with Farm City! Our logistics team will process your order and contact you at <strong>{phone || "your number"}</strong> for delivery confirmation.
+            Thank you for ordering with Farm City! Our team will confirm stock and delivery fees, then contact you at <strong>{phone || "your number"}</strong> to arrange delivery and payment.
           </p>
 
           <div className="pt-4 flex flex-col sm:flex-row items-center gap-4">
@@ -142,7 +110,7 @@ export default function CartPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-200 pb-4 gap-4">
         <div>
           <h1 className="text-2xl sm:text-3xl font-black text-slate-900">Your Shopping Cart</h1>
-          <p className="text-xs text-slate-500">Review items and proceed with guest checkout or WhatsApp order.</p>
+          <p className="text-xs text-slate-500">Review your items and place your order or send it to us on WhatsApp.</p>
         </div>
         <Link
           href="/shop"
@@ -151,21 +119,6 @@ export default function CartPage() {
           <ArrowLeft size={16} /> Continue Shopping
         </Link>
       </div>
-
-      {!currentUser && (
-        <div className="bg-emerald-50 border border-emerald-100 p-4 rounded-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs text-emerald-900">
-          <div className="flex items-center gap-2">
-            <User size={18} className="text-emerald-700 shrink-0" />
-            <span>Have a Farm City account? Log in to auto-fill your saved delivery details.</span>
-          </div>
-          <Link
-            href="/login"
-            className="bg-emerald-800 text-white font-bold px-4 py-2 rounded-xl text-xs hover:bg-emerald-900 transition-colors whitespace-nowrap self-start sm:self-auto"
-          >
-            Log In Now
-          </Link>
-        </div>
-      )}
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         {/* Cart Items List */}
@@ -245,7 +198,7 @@ export default function CartPage() {
         <div className="lg:col-span-5 space-y-6">
           <div className="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-sm space-y-6">
             <h2 className="text-xl font-extrabold text-slate-900 border-b border-slate-100 pb-3">
-              Delivery & Checkout Details
+              Delivery Details
             </h2>
 
             <form onSubmit={handlePlaceOrder} className="space-y-4">
@@ -296,53 +249,6 @@ export default function CartPage() {
                 />
               </div>
 
-              {/* Payment Method */}
-              <div className="space-y-2 pt-2">
-                <label className="block text-xs font-bold text-slate-700">Payment Option *</label>
-                <div className="grid grid-cols-2 gap-2">
-                  <button
-                    type="button"
-                    onClick={() => setPaymentMethod("mpesa")}
-                    className={`p-3 rounded-xl border text-xs font-bold transition-all flex flex-col items-center gap-1 ${
-                      paymentMethod === "mpesa"
-                        ? "bg-emerald-800 text-white border-emerald-800"
-                        : "bg-slate-50 text-slate-700 border-slate-200"
-                    }`}
-                  >
-                    <span>M-Pesa Express</span>
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => setPaymentMethod("card")}
-                    className={`p-3 rounded-xl border text-xs font-bold transition-all flex flex-col items-center gap-1 ${
-                      paymentMethod === "card"
-                        ? "bg-emerald-800 text-white border-emerald-800"
-                        : "bg-slate-50 text-slate-700 border-slate-200"
-                    }`}
-                  >
-                    <CreditCard size={14} />
-                    <span>Card / Gateways</span>
-                  </button>
-                </div>
-              </div>
-
-              {paymentMethod === "mpesa" && (
-                <div className="bg-emerald-50 p-3 rounded-xl border border-emerald-100 space-y-2 text-xs">
-                  <label className="block text-[11px] font-bold text-slate-700">M-Pesa Phone Number:</label>
-                  <input
-                    type="tel"
-                    placeholder="07XX XXX XXX"
-                    value={mpesaPhone || phone}
-                    onChange={(e) => setMpesaPhone(e.target.value)}
-                    className="w-full px-3 py-2 bg-white border border-slate-200 rounded-lg text-xs"
-                  />
-                  <p className="text-[10px] text-slate-500">
-                    An STK push or payment prompt will be initiated upon order confirmation.
-                  </p>
-                </div>
-              )}
-
               {/* Order Summary Box */}
               <div className="bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-2 text-xs">
                 <div className="flex justify-between text-slate-600">
@@ -359,12 +265,16 @@ export default function CartPage() {
                 </div>
               </div>
 
+              <p className="text-[11px] text-slate-500 leading-relaxed">
+                No payment is taken online. Once you place your order, our team confirms stock and delivery fees, then arranges payment and delivery with you directly.
+              </p>
+
               <button
                 type="submit"
                 className="w-full bg-emerald-800 hover:bg-emerald-900 text-white font-black py-3.5 rounded-2xl shadow-md transition-all text-sm flex items-center justify-center gap-2"
               >
                 <ShieldCheck size={18} />
-                <span>CONFIRM & PLACE ORDER</span>
+                <span>PLACE ORDER</span>
               </button>
             </form>
           </div>
