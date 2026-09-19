@@ -4,9 +4,11 @@ import React from "react";
 import Link from "next/link";
 import { MessageSquare, ShoppingBag, PhoneCall } from "lucide-react";
 import { useCart } from "@/context/CartContext";
+import { useSettings } from "@/context/SettingsContext";
 
 export default function FloatingActions() {
   const { totalItems } = useCart();
+  const { t } = useSettings();
 
   return (
     <div className="fixed bottom-6 right-6 z-50 flex flex-col gap-3 items-end">
@@ -44,7 +46,7 @@ export default function FloatingActions() {
         className="bg-green-500 hover:bg-green-600 text-white px-4 py-3 rounded-full shadow-xl hover:scale-105 transition-all flex items-center gap-2 border-2 border-white font-bold text-sm"
       >
         <MessageSquare size={20} className="fill-white" />
-        <span className="hidden sm:inline">WhatsApp Order</span>
+        <span className="hidden sm:inline">{t("action.whatsappOrderFloat")}</span>
       </a>
     </div>
   );
