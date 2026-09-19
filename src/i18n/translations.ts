@@ -496,6 +496,11 @@ export const translations: Record<string, { en: string; sw: string }> = {
     sw: "Asante kwa kuwasiliana na Farm City. Timu yetu ya kibiashara itakagua vipimo vyako na kutoa katalogi rasmi ya bei / ankara hivi karibuni.",
   },
   "bulk.success.another": { en: "Submit Another Request", sw: "Wasilisha Ombi Lingine" },
+  "bulk.success.whatsapp": { en: "Send via WhatsApp", sw: "Tuma kupitia WhatsApp" },
+  "bulk.success.whatsappHint": {
+    en: "Your quote request also opens in WhatsApp so our team receives it instantly. If it didn't open, tap below.",
+    sw: "Ombi lako la nukuu pia hufunguka katika WhatsApp ili timu yetu ilipokee papo hapo. Kama halikufunguka, gusa hapa chini.",
+  },
   "bulk.org.institutional": { en: "Organization / Business Name *", sw: "Jina la Shirika / Biashara *" },
   "bulk.org.seedlings": { en: "Farm / Project Name", sw: "Jina la Shamba / Mradi" },
   "bulk.orgPh.institutional": { en: "e.g. ERCEC School / Hotel Sunshine", sw: "k.m. Shule ya ERCEC / Hoteli Sunshine" },

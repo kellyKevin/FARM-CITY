@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { CheckCircle2, Building2, Sprout, Send, PhoneCall, ShieldCheck } from "lucide-react";
+import { CheckCircle2, Building2, Sprout, Send, PhoneCall, ShieldCheck, MessageSquare } from "lucide-react";
 import { saveBulkQuote } from "@/lib/storage";
 import { useSettings } from "@/context/SettingsContext";
 
@@ -22,6 +22,37 @@ export default function BulkInstitutionalPage() {
   const [additionalInfo, setAdditionalInfo] = useState("");
 
   const [submitted, setSubmitted] = useState(false);
+  const [whatsappUrl, setWhatsappUrl] = useState("");
+
+  const buildWhatsAppUrl = () => {
+    const heading =
+      formType === "institutional"
+        ? "Farm City — Bulk Fresh Produce Quote Request"
+        : "Farm City — Bulk Seedlings Quote Request";
+
+    const lines: (string | false)[] = [
+      `*${heading}*`,
+      "",
+      `${formType === "institutional" ? "Organization" : "Farm / Project"}: ${organizationName || "-"}`,
+      `Contact Person: ${contactPerson}`,
+      `Phone: ${phone}`,
+      !!whatsapp && `WhatsApp: ${whatsapp}`,
+      `Email: ${email}`,
+      `County: ${county}`,
+      `Town / Location: ${town}`,
+      formType === "institutional"
+        ? `Supply Frequency: ${frequencyOfSupply}`
+        : `Preferred Date: ${preferredDeliveryDate || "-"}`,
+      "",
+      "Products Required:",
+      productsRequired,
+      !!estimatedQuantities && `\nEstimated Quantities / Budget: ${estimatedQuantities}`,
+      !!additionalInfo && `Additional Notes: ${additionalInfo}`,
+    ];
+
+    const message = lines.filter((l): l is string => Boolean(l)).join("\n");
+    return `https://wa.me/254711911690?text=${encodeURIComponent(message)}`;
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -40,6 +71,12 @@ export default function BulkInstitutionalPage() {
       preferredDeliveryDate,
       additionalInfo
     });
+    const url = buildWhatsAppUrl();
+    setWhatsappUrl(url);
+    // Open WhatsApp with the pre-filled quote so the team receives it instantly.
+    if (typeof window !== "undefined") {
+      window.open(url, "_blank", "noopener,noreferrer");
+    }
     setSubmitted(true);
   };
 
@@ -96,12 +133,27 @@ export default function BulkInstitutionalPage() {
               <p className="text-xs text-slate-600 max-w-md mx-auto">
                 {t("bulk.success.desc")}
               </p>
-              <button
-                onClick={() => setSubmitted(false)}
-                className="bg-emerald-800 text-white font-bold text-xs px-6 py-2.5 rounded-xl hover:bg-emerald-900 transition-colors"
-              >
-                {t("bulk.success.another")}
-              </button>
+              <p className="text-[11px] text-slate-500 max-w-md mx-auto">
+                {t("bulk.success.whatsappHint")}
+              </p>
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-1">
+                {whatsappUrl && (
+                  <a
+                    href={whatsappUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-green-600 hover:bg-green-700 text-white font-bold text-xs px-6 py-2.5 rounded-xl transition-colors flex items-center gap-2"
+                  >
+                    <MessageSquare size={16} /> {t("bulk.success.whatsapp")}
+                  </a>
+                )}
+                <button
+                  onClick={() => setSubmitted(false)}
+                  className="bg-emerald-800 text-white font-bold text-xs px-6 py-2.5 rounded-xl hover:bg-emerald-900 transition-colors"
+                >
+                  {t("bulk.success.another")}
+                </button>
+              </div>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-6">
