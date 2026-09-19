@@ -25,6 +25,9 @@ export default function Footer() {
             <p className="text-xs font-semibold text-emerald-400">
               Tagline: From Farm to You • Agriculture Made Easy
             </p>
+            <p className="text-[11px] text-slate-500 leading-relaxed">
+              Order online or on WhatsApp — no account required. Pay on delivery or via M-Pesa once our team confirms your order.
+            </p>
             <div className="pt-2 flex items-center gap-3">
               <a
                 href="https://wa.me/254711911690"

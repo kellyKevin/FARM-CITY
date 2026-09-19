@@ -131,6 +131,19 @@ export default function Home() {
                 </a>
               </div>
 
+              {/* Ordering Reassurance */}
+              <div className="flex flex-wrap items-center gap-2 text-[11px] font-semibold text-emerald-200">
+                <span className="inline-flex items-center gap-1.5 bg-emerald-800/60 border border-emerald-600/40 px-3 py-1.5 rounded-full">
+                  <CheckCircle2 size={13} className="text-emerald-400" /> No account needed
+                </span>
+                <span className="inline-flex items-center gap-1.5 bg-emerald-800/60 border border-emerald-600/40 px-3 py-1.5 rounded-full">
+                  <CheckCircle2 size={13} className="text-emerald-400" /> Order in minutes
+                </span>
+                <span className="inline-flex items-center gap-1.5 bg-emerald-800/60 border border-emerald-600/40 px-3 py-1.5 rounded-full">
+                  <CheckCircle2 size={13} className="text-emerald-400" /> Pay on delivery or via M-Pesa
+                </span>
+              </div>
+
               {/* Key Trust Badges */}
               <div className="pt-6 border-t border-emerald-800/80 grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs text-emerald-200">
                 <div className="flex items-center gap-2">
