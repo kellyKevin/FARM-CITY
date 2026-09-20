@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -22,9 +22,22 @@ import { useSettings } from "@/context/SettingsContext";
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [bump, setBump] = useState(false);
   const pathname = usePathname();
   const { totalItems, openCart } = useCart();
   const { theme, toggleTheme, language, toggleLanguage, t } = useSettings();
+
+  // Bump the cart badge whenever the item count increases
+  const prevItems = useRef(totalItems);
+  useEffect(() => {
+    if (totalItems > prevItems.current) {
+      setBump(true);
+      const timer = setTimeout(() => setBump(false), 400);
+      prevItems.current = totalItems;
+      return () => clearTimeout(timer);
+    }
+    prevItems.current = totalItems;
+  }, [totalItems]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -158,7 +171,7 @@ export default function Header() {
             >
               <ShoppingBag size={20} />
               {totalItems > 0 && (
-                <span className="absolute -top-1.5 -right-1.5 bg-emerald-600 text-white text-[11px] font-bold rounded-full h-5 w-5 flex items-center justify-center shadow-md">
+                <span className={`absolute -top-1.5 -right-1.5 bg-emerald-600 text-white text-[11px] font-bold rounded-full h-5 w-5 flex items-center justify-center shadow-md ${bump ? "animate-bump" : ""}`}>
                   {totalItems}
                 </span>
               )}
