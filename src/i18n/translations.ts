@@ -314,6 +314,10 @@ export const translations: Record<string, { en: string; sw: string }> = {
     sw: "Hakuna malipo yanayochukuliwa mtandaoni. Ukishaweka agizo, timu yetu itathibitisha stoki na ada za uwasilishaji, kisha itapanga malipo na uwasilishaji nawe moja kwa moja.",
   },
   "cart.placeOrder": { en: "PLACE ORDER", sw: "WEKA AGIZO" },
+  "cart.whatsappHint": {
+    en: "Your order also opens in WhatsApp so our team receives it instantly. If it didn't open, tap Confirm on WhatsApp below.",
+    sw: "Agizo lako pia hufunguka katika WhatsApp ili timu yetu ilipokee papo hapo. Kama halikufunguka, gusa Thibitisha kwa WhatsApp hapa chini.",
+  },
   "drawer.title": { en: "Your Cart", sw: "Kikapu Chako" },
   "drawer.count": { en: "items", sw: "bidhaa" },
   "drawer.empty": { en: "Your cart is empty", sw: "Kikapu chako ni tupu" },
@@ -326,6 +330,8 @@ export const translations: Record<string, { en: string; sw: string }> = {
   "drawer.checkout": { en: "Checkout", sw: "Kamilisha Agizo" },
   "drawer.continue": { en: "Continue shopping", sw: "Endelea kununua" },
   "drawer.remove": { en: "Remove", sw: "Ondoa" },
+  "drawer.addedOne": { en: "item added to your cart", sw: "bidhaa imeongezwa kwenye kikapu" },
+  "drawer.addedMany": { en: "items added to your cart", sw: "bidhaa zimeongezwa kwenye kikapu" },
 
   // Delivery page
   "del.tag": { en: "Order Today • We Prepare • We Deliver", sw: "Agiza Leo • Tunaandaa • Tunawasilisha" },
@@ -496,6 +502,11 @@ export const translations: Record<string, { en: string; sw: string }> = {
   "contact.form.message": { en: "Your Message *", sw: "Ujumbe Wako *" },
   "contact.form.messagePh": { en: "Tell us what you need...", sw: "Tuambie unachohitaji..." },
   "contact.form.send": { en: "SEND ENQUIRY", sw: "TUMA OMBI" },
+  "contact.form.sendWhatsapp": { en: "Send via WhatsApp", sw: "Tuma kupitia WhatsApp" },
+  "contact.form.whatsappHint": {
+    en: "Your enquiry also opens in WhatsApp so our team receives it instantly. If it didn't open, tap below.",
+    sw: "Ombi lako pia hufunguka katika WhatsApp ili timu yetu ilipokee papo hapo. Kama halikufunguka, gusa hapa chini.",
+  },
   "contact.loc.title": { en: "Physical Locations & Operations", sw: "Maeneo Halisi & Utendaji" },
   "contact.loc1.badge": { en: "Juja / Thika Operation", sw: "Utendaji wa Juja / Thika" },
   "contact.loc1.title": { en: "Farm City Fresh Distribution Hub", sw: "Kituo cha Usambazaji cha Farm City" },

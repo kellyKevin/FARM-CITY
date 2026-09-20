@@ -24,13 +24,42 @@ export default function CartPage() {
   const [notes, setNotes] = useState("");
   const [orderPlaced, setOrderPlaced] = useState(false);
   const [placedOrderNumber, setPlacedOrderNumber] = useState("");
+  const [orderWhatsappUrl, setOrderWhatsappUrl] = useState("");
+
+  const buildOrderWhatsAppUrl = (orderNumber: string) => {
+    const lines: (string | false)[] = [
+      `*Farm City Order ${orderNumber}*`,
+      "",
+      "Items:",
+      ...cart.map(
+        (i, idx) =>
+          `${idx + 1}. ${i.name} — ${i.quantity} ${i.unit} (KSh ${(i.price * i.quantity).toLocaleString()})`
+      ),
+      "",
+      `Subtotal: KSh ${totalAmount.toLocaleString()}`,
+      `Name: ${customerName || "-"}`,
+      `Phone: ${phone || "-"}`,
+      `Delivery: ${deliveryLocation || "-"}`,
+      !!notes && `Notes: ${notes}`,
+      "",
+      "Please confirm stock, delivery fee and payment. (No payment made online.)",
+    ];
+    const message = lines.filter((l): l is string => Boolean(l)).join("\n");
+    return `https://wa.me/254711911690?text=${encodeURIComponent(message)}`;
+  };
 
   const handlePlaceOrder = (e: React.FormEvent) => {
     e.preventDefault();
     if (cart.length === 0) return;
 
     const orderNumber = "FC-" + Math.floor(1000 + Math.random() * 9000);
+    const url = buildOrderWhatsAppUrl(orderNumber);
     setPlacedOrderNumber(orderNumber);
+    setOrderWhatsappUrl(url);
+    // Send the order to WhatsApp so the team receives it instantly
+    if (typeof window !== "undefined") {
+      window.open(url, "_blank", "noopener,noreferrer");
+    }
     setOrderPlaced(true);
     clearCart();
   };
@@ -55,10 +84,13 @@ export default function CartPage() {
           <p className="text-xs sm:text-sm text-slate-600 max-w-md leading-relaxed">
             {t("cart.thanks.a")} <strong>{phone || t("cart.yourNumber")}</strong> {t("cart.thanks.b")}
           </p>
+          <p className="text-[11px] text-slate-500 max-w-md leading-relaxed">
+            {t("cart.whatsappHint")}
+          </p>
 
           <div className="pt-4 flex flex-col sm:flex-row items-center gap-4">
             <a
-              href={`https://wa.me/254711911690?text=${encodeURIComponent(`Hello Farm City, I placed order ${placedOrderNumber} on the website under name: ${customerName || "Customer"}`)}`}
+              href={orderWhatsappUrl || `https://wa.me/254711911690?text=${encodeURIComponent(`Hello Farm City, I placed order ${placedOrderNumber} on the website under name: ${customerName || "Customer"}`)}`}
               target="_blank"
               rel="noopener noreferrer"
               className="w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white font-bold px-6 py-3 rounded-xl transition-colors text-xs flex items-center justify-center gap-2"

@@ -3,7 +3,7 @@
 import React, { useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { X, ShoppingBag, Trash2, MessageSquare, ArrowRight } from "lucide-react";
+import { X, ShoppingBag, Trash2, MessageSquare, ArrowRight, CheckCircle2 } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 import { useSettings } from "@/context/SettingsContext";
 
@@ -17,6 +17,7 @@ export default function CartDrawer() {
     totalItems,
     totalAmount,
     generateWhatsAppMessage,
+    justAdded,
   } = useCart();
   const { t } = useSettings();
 
@@ -75,6 +76,16 @@ export default function CartDrawer() {
             <X size={22} />
           </button>
         </div>
+
+        {/* "N added" banner (shown when the drawer auto-opens after an add) */}
+        {justAdded > 0 && cart.length > 0 && (
+          <div key={totalItems} className="mx-4 mt-3 -mb-1 flex items-center gap-2 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-xl px-3.5 py-2.5 animate-toast">
+            <CheckCircle2 size={17} className="shrink-0 text-emerald-600" />
+            <span className="text-xs sm:text-[13px] font-semibold">
+              {justAdded} {justAdded === 1 ? t("drawer.addedOne") : t("drawer.addedMany")}
+            </span>
+          </div>
+        )}
 
         {/* Body */}
         {cart.length === 0 ? (
