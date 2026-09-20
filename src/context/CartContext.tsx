@@ -21,12 +21,19 @@ interface CartContextType {
   totalItems: number;
   totalAmount: number;
   generateWhatsAppMessage: (customerDetails?: { name?: string; location?: string; note?: string }) => string;
+  isCartOpen: boolean;
+  openCart: () => void;
+  closeCart: () => void;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [cart, setCart] = useState<CartItem[]>([]);
+  const [isCartOpen, setIsCartOpen] = useState(false);
+
+  const openCart = () => setIsCartOpen(true);
+  const closeCart = () => setIsCartOpen(false);
 
   useEffect(() => {
     const saved = localStorage.getItem("farm_city_cart");
@@ -102,6 +109,9 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
         totalItems,
         totalAmount,
         generateWhatsAppMessage,
+        isCartOpen,
+        openCart,
+        closeCart,
       }}
     >
       {children}

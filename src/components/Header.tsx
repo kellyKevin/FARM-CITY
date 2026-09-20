@@ -23,7 +23,7 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
-  const { totalItems } = useCart();
+  const { totalItems, openCart } = useCart();
   const { theme, toggleTheme, language, toggleLanguage, t } = useSettings();
 
   useEffect(() => {
@@ -150,11 +150,11 @@ export default function Header() {
               <span>{t("action.whatsapp")}</span>
             </a>
 
-            {/* Shopping Cart Button */}
-            <Link
-              href="/cart"
+            {/* Shopping Cart Button (opens slide-out drawer) */}
+            <button
+              onClick={openCart}
               className="relative p-2.5 text-slate-700 hover:text-emerald-700 bg-slate-100 hover:bg-emerald-50 rounded-xl transition-colors border border-slate-200"
-              aria-label="Shopping Cart"
+              aria-label="Open cart"
             >
               <ShoppingBag size={20} />
               {totalItems > 0 && (
@@ -162,7 +162,7 @@ export default function Header() {
                   {totalItems}
                 </span>
               )}
-            </Link>
+            </button>
 
             {/* Mobile menu button */}
             <button

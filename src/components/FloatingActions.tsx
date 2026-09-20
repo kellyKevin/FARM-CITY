@@ -1,13 +1,12 @@
 "use client";
 
 import React from "react";
-import Link from "next/link";
 import { MessageSquare, ShoppingBag, PhoneCall } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 import { useSettings } from "@/context/SettingsContext";
 
 export default function FloatingActions() {
-  const { totalItems } = useCart();
+  const { totalItems, openCart } = useCart();
   const { t } = useSettings();
 
   return (
@@ -22,12 +21,12 @@ export default function FloatingActions() {
         <PhoneCall size={20} />
       </a>
 
-      {/* Floating Cart (Mobile & Quick Access) */}
-      <Link
-        href="/cart"
+      {/* Floating Cart (Mobile & Quick Access) — opens the slide-out drawer */}
+      <button
+        onClick={openCart}
         className="relative bg-emerald-600 hover:bg-emerald-700 text-white p-3.5 rounded-full shadow-lg hover:scale-105 transition-all flex items-center justify-center border-2 border-white"
-        aria-label="View Shopping Cart"
-        title="View Cart"
+        aria-label="Open cart"
+        title="Open cart"
       >
         <ShoppingBag size={20} />
         {totalItems > 0 && (
@@ -35,7 +34,7 @@ export default function FloatingActions() {
             {totalItems}
           </span>
         )}
-      </Link>
+      </button>
 
       {/* Floating WhatsApp */}
       <a
