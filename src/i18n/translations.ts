@@ -502,6 +502,11 @@ export const translations: Record<string, { en: string; sw: string }> = {
   "contact.form.message": { en: "Your Message *", sw: "Ujumbe Wako *" },
   "contact.form.messagePh": { en: "Tell us what you need...", sw: "Tuambie unachohitaji..." },
   "contact.form.send": { en: "SEND ENQUIRY", sw: "TUMA OMBI" },
+  "contact.form.sendWhatsapp": { en: "Send via WhatsApp", sw: "Tuma kupitia WhatsApp" },
+  "contact.form.whatsappHint": {
+    en: "Your enquiry also opens in WhatsApp so our team receives it instantly. If it didn't open, tap below.",
+    sw: "Ombi lako pia hufunguka katika WhatsApp ili timu yetu ilipokee papo hapo. Kama halikufunguka, gusa hapa chini.",
+  },
   "contact.loc.title": { en: "Physical Locations & Operations", sw: "Maeneo Halisi & Utendaji" },
   "contact.loc1.badge": { en: "Juja / Thika Operation", sw: "Utendaji wa Juja / Thika" },
   "contact.loc1.title": { en: "Farm City Fresh Distribution Hub", sw: "Kituo cha Usambazaji cha Farm City" },

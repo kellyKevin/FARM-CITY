@@ -12,9 +12,32 @@ export default function ContactPage() {
   const [subject, setSubject] = useState("General Inquiry");
   const [message, setMessage] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [whatsappUrl, setWhatsappUrl] = useState("");
+
+  const buildWhatsAppUrl = () => {
+    const lines: (string | false)[] = [
+      "*Farm City — Website Enquiry*",
+      "",
+      `Name: ${name}`,
+      `Phone / WhatsApp: ${phone}`,
+      !!email && `Email: ${email}`,
+      `Subject: ${subject}`,
+      "",
+      "Message:",
+      message,
+    ];
+    const body = lines.filter((l): l is string => Boolean(l)).join("\n");
+    return `https://wa.me/254711911690?text=${encodeURIComponent(body)}`;
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    const url = buildWhatsAppUrl();
+    setWhatsappUrl(url);
+    // Send the enquiry to WhatsApp so our team receives it instantly
+    if (typeof window !== "undefined") {
+      window.open(url, "_blank", "noopener,noreferrer");
+    }
     setSubmitted(true);
   };
 
@@ -103,12 +126,27 @@ export default function ContactPage() {
               <p className="text-xs text-slate-600">
                 {t("contact.form.thanks")}
               </p>
-              <button
-                onClick={() => setSubmitted(false)}
-                className="bg-emerald-800 text-white font-bold text-xs px-6 py-2 rounded-xl hover:bg-emerald-900 transition-colors"
-              >
-                {t("contact.form.another")}
-              </button>
+              <p className="text-[11px] text-slate-500 max-w-md mx-auto">
+                {t("contact.form.whatsappHint")}
+              </p>
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-1">
+                {whatsappUrl && (
+                  <a
+                    href={whatsappUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-green-600 hover:bg-green-700 text-white font-bold text-xs px-6 py-2.5 rounded-xl transition-colors flex items-center gap-2"
+                  >
+                    <MessageSquare size={16} /> {t("contact.form.sendWhatsapp")}
+                  </a>
+                )}
+                <button
+                  onClick={() => setSubmitted(false)}
+                  className="bg-emerald-800 text-white font-bold text-xs px-6 py-2.5 rounded-xl hover:bg-emerald-900 transition-colors"
+                >
+                  {t("contact.form.another")}
+                </button>
+              </div>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-4">
