@@ -40,8 +40,28 @@ export const translations: Record<string, { en: string; sw: string }> = {
   "home.h1.line2": { en: "Quality Seedlings.", sw: "Miche Bora." },
   "home.h1.line3": { en: "Reliable Supply.", sw: "Ugavi wa Kuaminika." },
   "home.description": {
-    en: "Helping households, farmers, businesses, and institutions access quality agricultural produce and certified seedlings conveniently. Same-day fresh delivery in Juja & Thika with nationwide seedling dispatch from our Kapseret Eldoret nursery.",
-    sw: "Tunasaidia kaya, wakulima, biashara na taasisi kupata mazao bora ya kilimo na miche iliyothibitishwa kwa urahisi. Uwasilishaji wa siku hiyo hiyo Juja & Thika na usambazaji wa miche kote nchini kutoka kitalu chetu cha Kapseret Eldoret.",
+    en: "Healthy, farm-fresh fruits and vegetables and a wide range of certified quality seedlings — delivered conveniently to households, farmers, businesses, and institutions. Same-day fresh delivery in Juja & Thika, with nationwide seedling dispatch from our Kapseret Eldoret nursery.",
+    sw: "Matunda na mboga mabichi yenye afya na aina nyingi za miche bora iliyothibitishwa — vinavyowasilishwa kwa urahisi kwa kaya, wakulima, biashara na taasisi. Uwasilishaji wa siku hiyo hiyo Juja & Thika, na usambazaji wa miche nchini kote kutoka kitalu chetu cha Kapseret Eldoret.",
+  },
+  "home.value.fresh.title": { en: "Fresh & Healthy", sw: "Mabichi & Yenye Afya" },
+  "home.value.fresh.desc": {
+    en: "Harvested daily for peak nutrition and flavour.",
+    sw: "Huvunwa kila siku kwa lishe na ladha bora.",
+  },
+  "home.value.variety.title": { en: "Wide Variety", sw: "Aina Nyingi" },
+  "home.value.variety.desc": {
+    en: "Vegetables, fruits, herbs, and 90+ seedling types.",
+    sw: "Mboga, matunda, viungo, na aina 90+ za miche.",
+  },
+  "home.value.delivery.title": { en: "Convenient Delivery", sw: "Uwasilishaji Rahisi" },
+  "home.value.delivery.desc": {
+    en: "Same-day locally, countrywide to all 47 counties.",
+    sw: "Siku hiyo hiyo karibu, nchini kote kaunti 47.",
+  },
+  "home.value.quality.title": { en: "Quality Guaranteed", sw: "Ubora Uliohakikishwa" },
+  "home.value.quality.desc": {
+    en: "Certified, inspected produce and grafted seedlings.",
+    sw: "Mazao yaliyokaguliwa na miche iliyopandikizwa iliyothibitishwa.",
   },
   "home.chip.noAccount": { en: "No account needed", sw: "Hakuna akaunti inahitajika" },
   "home.chip.orderMinutes": { en: "Order in minutes", sw: "Agiza kwa dakika" },
@@ -183,6 +203,9 @@ export const translations: Record<string, { en: string; sw: string }> = {
     en: "Try selecting a different subcategory or clearing your search filters.",
     sw: "Jaribu kuchagua kategoria ndogo tofauti au ondoa vichujio vyako.",
   },
+  "shop.clearFilters": { en: "Clear all filters", sw: "Ondoa vichujio vyote" },
+  "shop.resultsOne": { en: "product", sw: "bidhaa" },
+  "shop.resultsMany": { en: "products", sw: "bidhaa" },
   "shop.toast.added": { en: "Added", sw: "Umeongeza" },
   "shop.toast.toCart": { en: "to cart!", sw: "kwenye kikapu!" },
   "shop.toast.soon": {

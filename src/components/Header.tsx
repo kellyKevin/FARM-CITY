@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -21,9 +21,22 @@ import { useSettings } from "@/context/SettingsContext";
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
   const { totalItems } = useCart();
   const { theme, toggleTheme, language, toggleLanguage, t } = useSettings();
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  // Close the mobile drawer whenever the route changes
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [pathname]);
 
   const navLinks = [
     { key: "nav.home", href: "/" },
@@ -38,7 +51,7 @@ export default function Header() {
     "p-2.5 rounded-xl border border-slate-200 bg-slate-100 text-slate-700 hover:text-emerald-700 hover:bg-emerald-50 transition-colors flex items-center justify-center";
 
   return (
-    <header className="sticky top-0 z-40 bg-white shadow-sm border-b border-emerald-100">
+    <header className={`sticky top-0 z-40 bg-white border-b border-emerald-100 transition-shadow duration-300 ${scrolled ? "shadow-lg" : "shadow-sm"}`}>
       {/* Customer Attraction Announcement Bar */}
       <div className="bg-emerald-950 text-emerald-100 text-xs py-2 px-4 sm:px-6 border-b border-emerald-800">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
@@ -63,16 +76,23 @@ export default function Header() {
 
       {/* Main Navigation Header */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
+        <div className={`flex items-center justify-between transition-all duration-300 ${scrolled ? "h-16" : "h-20"}`}>
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-3 group">
-            <Image
-              src="/images/logo.jpeg"
-              alt="Farm City Logo"
-              width={160}
-              height={56}
-              className="h-12 sm:h-14 w-auto object-contain rounded-lg group-hover:scale-105 transition-transform"
-            />
+          <Link href="/" className="flex items-center gap-2.5 group shrink-0" aria-label="Farm City home">
+            <span className="bg-white rounded-xl p-1 ring-1 ring-slate-200 shadow-sm inline-flex">
+              <Image
+                src="/images/logo.jpeg"
+                alt="Farm City Logo"
+                width={160}
+                height={56}
+                priority
+                className={`w-auto object-contain rounded-lg group-hover:scale-105 transition-all duration-300 ${scrolled ? "h-10 sm:h-12" : "h-12 sm:h-16"}`}
+              />
+            </span>
+            <span className="hidden sm:flex flex-col leading-none">
+              <span className="font-black tracking-tight text-emerald-800 text-lg">Farm City</span>
+              <span className="text-[11px] font-semibold text-slate-500">Fresh · Healthy · Delivered</span>
+            </span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -158,7 +178,7 @@ export default function Header() {
 
       {/* Mobile Navigation Drawer */}
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-white border-b border-emerald-100 px-4 pt-3 pb-6 space-y-2 shadow-xl">
+        <div className="lg:hidden bg-white border-b border-emerald-100 px-4 pt-3 pb-6 space-y-2 shadow-xl animate-fade-up">
           <div className="flex items-center justify-between pb-2 border-b border-slate-100">
             <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">{t("nav.menu")}</span>
           </div>

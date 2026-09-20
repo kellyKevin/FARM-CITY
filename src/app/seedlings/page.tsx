@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Search, Sprout, MessageSquare, CheckCircle2, MapPin, Truck, ShieldCheck, FileText, ShoppingBag } from "lucide-react";
+import { Search, Sprout, MessageSquare, CheckCircle2, MapPin, Truck, ShieldCheck, FileText, ShoppingBag, X } from "lucide-react";
 import { getStoredProducts } from "@/lib/storage";
 import { Product } from "@/data/mockData";
 import { useCart } from "@/context/CartContext";
@@ -12,6 +12,7 @@ import { useSettings } from "@/context/SettingsContext";
 export default function SeedlingsPage() {
   const { t } = useSettings();
   const [seedlings, setSeedlings] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedSubCategory, setSelectedSubCategory] = useState("All");
   const [toastMessage, setToastMessage] = useState<string | null>(null);
@@ -21,6 +22,7 @@ export default function SeedlingsPage() {
   useEffect(() => {
     const all = getStoredProducts().filter((p) => p.category === "seedlings");
     setSeedlings(all);
+    setLoading(false);
   }, []);
 
   const categories = [
@@ -106,9 +108,15 @@ export default function SeedlingsPage() {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-10 text-left">
       {/* Toast Notification */}
       {toastMessage && (
-        <div className="fixed top-24 right-6 z-50 bg-emerald-800 text-white px-5 py-3 rounded-xl shadow-2xl flex items-center gap-3 animate-bounce border border-emerald-600">
-          <CheckCircle2 size={20} className="text-emerald-300" />
-          <span className="font-semibold text-sm">{toastMessage}</span>
+        <div className="fixed top-24 right-4 sm:right-6 z-50 bg-emerald-800 text-white pl-4 pr-3 py-3 rounded-2xl shadow-2xl flex items-center gap-3 animate-toast border border-emerald-600 max-w-[calc(100vw-2rem)]">
+          <CheckCircle2 size={20} className="text-emerald-300 shrink-0" />
+          <span className="font-semibold text-xs sm:text-sm">{toastMessage}</span>
+          <Link
+            href="/cart"
+            className="ml-1 bg-white/15 hover:bg-white/25 text-white text-[11px] font-bold px-3 py-1.5 rounded-lg transition-colors whitespace-nowrap shrink-0"
+          >
+            {t("cart.title")}
+          </Link>
         </div>
       )}
 
@@ -155,11 +163,20 @@ export default function SeedlingsPage() {
             placeholder={t("seed.search")}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:border-emerald-600 text-slate-800"
+            className="w-full pl-10 pr-9 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:border-emerald-600 focus:ring-2 focus:ring-emerald-600/20 text-slate-800 transition-shadow"
           />
+          {searchQuery && (
+            <button
+              onClick={() => setSearchQuery("")}
+              aria-label="Clear search"
+              className="absolute right-2.5 top-2 p-1 rounded-full text-slate-400 hover:text-slate-700 hover:bg-slate-200 transition-colors"
+            >
+              <X size={16} />
+            </button>
+          )}
         </div>
 
-        <div className="flex items-center gap-2 overflow-x-auto w-full md:w-auto pb-2 md:pb-0">
+        <div className="flex items-center gap-2 overflow-x-auto no-scrollbar w-full md:w-auto pb-2 md:pb-0">
           {categories.map((cat) => (
             <button
               key={cat}
@@ -176,12 +193,38 @@ export default function SeedlingsPage() {
         </div>
       </div>
 
+      {/* Results count */}
+      {!loading && (
+        <p className="text-xs text-slate-500 -mt-4">
+          <span className="font-bold text-slate-700">{filteredSeedlings.length}</span>{" "}
+          {filteredSeedlings.length === 1 ? t("shop.resultsOne") : t("shop.resultsMany")}
+        </p>
+      )}
+
+      {/* Loading Skeleton */}
+      {loading && (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {Array.from({ length: 8 }).map((_, i) => (
+            <div key={i} className="bg-white rounded-2xl overflow-hidden border border-emerald-100 shadow-sm">
+              <div className="skeleton h-56 w-full" />
+              <div className="p-5 space-y-3">
+                <div className="skeleton h-4 w-3/4 rounded" />
+                <div className="skeleton h-3 w-1/2 rounded" />
+                <div className="skeleton h-12 w-full rounded-xl" />
+                <div className="skeleton h-9 w-full rounded-xl" />
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
       {/* Seedlings Catalogue Grid */}
+      {!loading && (
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {filteredSeedlings.map((product) => (
           <div
             key={product.id}
-            className="bg-white rounded-2xl overflow-hidden border border-emerald-100 shadow-sm hover:shadow-md transition-all flex flex-col justify-between group text-left"
+            className="bg-white rounded-2xl overflow-hidden border border-emerald-100 shadow-sm hover:shadow-lg lift flex flex-col justify-between group text-left"
           >
             <div>
               <div className="relative h-56 w-full bg-slate-100 overflow-hidden">
@@ -189,6 +232,7 @@ export default function SeedlingsPage() {
                   src={product.image}
                   alt={product.name}
                   fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                   className="object-cover group-hover:scale-105 transition-transform duration-300"
                 />
                 <div className="absolute top-3 left-3 flex flex-col gap-1 items-start">
@@ -261,6 +305,20 @@ export default function SeedlingsPage() {
           </div>
         ))}
       </div>
+      )}
+
+      {!loading && filteredSeedlings.length === 0 && (
+        <div className="text-center py-16 bg-white rounded-3xl border border-slate-200 space-y-3">
+          <Sprout size={40} className="text-slate-300 mx-auto" />
+          <p className="text-slate-700 font-bold text-base">{t("shop.empty.title")}</p>
+          <button
+            onClick={() => { setSearchQuery(""); setSelectedSubCategory("All"); }}
+            className="mt-1 inline-flex items-center gap-1.5 bg-emerald-800 hover:bg-emerald-900 text-white text-xs font-bold px-5 py-2.5 rounded-xl transition-colors"
+          >
+            <X size={14} /> {t("shop.clearFilters")}
+          </button>
+        </div>
+      )}
 
       {/* Nursery Quality Assurance */}
       <div className="bg-slate-900 text-white p-8 rounded-3xl space-y-6 text-left">
