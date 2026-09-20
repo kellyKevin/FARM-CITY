@@ -314,6 +314,10 @@ export const translations: Record<string, { en: string; sw: string }> = {
     sw: "Hakuna malipo yanayochukuliwa mtandaoni. Ukishaweka agizo, timu yetu itathibitisha stoki na ada za uwasilishaji, kisha itapanga malipo na uwasilishaji nawe moja kwa moja.",
   },
   "cart.placeOrder": { en: "PLACE ORDER", sw: "WEKA AGIZO" },
+  "cart.whatsappHint": {
+    en: "Your order also opens in WhatsApp so our team receives it instantly. If it didn't open, tap Confirm on WhatsApp below.",
+    sw: "Agizo lako pia hufunguka katika WhatsApp ili timu yetu ilipokee papo hapo. Kama halikufunguka, gusa Thibitisha kwa WhatsApp hapa chini.",
+  },
   "drawer.title": { en: "Your Cart", sw: "Kikapu Chako" },
   "drawer.count": { en: "items", sw: "bidhaa" },
   "drawer.empty": { en: "Your cart is empty", sw: "Kikapu chako ni tupu" },
