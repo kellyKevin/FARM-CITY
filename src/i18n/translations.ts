@@ -314,6 +314,18 @@ export const translations: Record<string, { en: string; sw: string }> = {
     sw: "Hakuna malipo yanayochukuliwa mtandaoni. Ukishaweka agizo, timu yetu itathibitisha stoki na ada za uwasilishaji, kisha itapanga malipo na uwasilishaji nawe moja kwa moja.",
   },
   "cart.placeOrder": { en: "PLACE ORDER", sw: "WEKA AGIZO" },
+  "drawer.title": { en: "Your Cart", sw: "Kikapu Chako" },
+  "drawer.count": { en: "items", sw: "bidhaa" },
+  "drawer.empty": { en: "Your cart is empty", sw: "Kikapu chako ni tupu" },
+  "drawer.emptyHint": {
+    en: "Add fresh produce or seedlings to get started.",
+    sw: "Ongeza mazao mabichi au miche ili kuanza.",
+  },
+  "drawer.startShopping": { en: "Start Shopping", sw: "Anza Kununua" },
+  "drawer.subtotal": { en: "Subtotal", sw: "Jumla ndogo" },
+  "drawer.checkout": { en: "Checkout", sw: "Kamilisha Agizo" },
+  "drawer.continue": { en: "Continue shopping", sw: "Endelea kununua" },
+  "drawer.remove": { en: "Remove", sw: "Ondoa" },
 
   // Delivery page
   "del.tag": { en: "Order Today • We Prepare • We Deliver", sw: "Agiza Leo • Tunaandaa • Tunawasilisha" },

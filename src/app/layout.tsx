@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import FloatingActions from "@/components/FloatingActions";
+import CartDrawer from "@/components/CartDrawer";
 import { CartProvider } from "@/context/CartContext";
 import { SettingsProvider } from "@/context/SettingsContext";
 
@@ -46,6 +47,7 @@ export default function RootLayout({
             <main className="flex-grow">{children}</main>
             <Footer />
             <FloatingActions />
+            <CartDrawer />
           </CartProvider>
         </SettingsProvider>
       </body>

@@ -17,7 +17,7 @@ export default function SeedlingsPage() {
   const [selectedSubCategory, setSelectedSubCategory] = useState("All");
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
-  const { addToCart } = useCart();
+  const { addToCart, openCart } = useCart();
 
   useEffect(() => {
     const all = getStoredProducts().filter((p) => p.category === "seedlings");
@@ -62,8 +62,7 @@ export default function SeedlingsPage() {
       quantity: 1,
       image: product.image
     });
-    setToastMessage(`${t("seed.toast.added")} ${product.name} ${t("seed.toast.toCart")}`);
-    setTimeout(() => setToastMessage(null), 3000);
+    openCart();
   };
 
   const generateWhatsAppLink = (product: Product) => {
@@ -106,17 +105,11 @@ export default function SeedlingsPage() {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-10 text-left">
-      {/* Toast Notification */}
+      {/* Toast Notification (pre-order / coming-soon notices) */}
       {toastMessage && (
-        <div className="fixed top-24 right-4 sm:right-6 z-50 bg-emerald-800 text-white pl-4 pr-3 py-3 rounded-2xl shadow-2xl flex items-center gap-3 animate-toast border border-emerald-600 max-w-[calc(100vw-2rem)]">
+        <div className="fixed top-24 right-4 sm:right-6 z-50 bg-emerald-800 text-white pl-4 pr-4 py-3 rounded-2xl shadow-2xl flex items-center gap-3 animate-toast border border-emerald-600 max-w-[calc(100vw-2rem)]">
           <CheckCircle2 size={20} className="text-emerald-300 shrink-0" />
           <span className="font-semibold text-xs sm:text-sm">{toastMessage}</span>
-          <Link
-            href="/cart"
-            className="ml-1 bg-white/15 hover:bg-white/25 text-white text-[11px] font-bold px-3 py-1.5 rounded-lg transition-colors whitespace-nowrap shrink-0"
-          >
-            {t("cart.title")}
-          </Link>
         </div>
       )}
 
