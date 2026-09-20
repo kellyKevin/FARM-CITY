@@ -326,6 +326,8 @@ export const translations: Record<string, { en: string; sw: string }> = {
   "drawer.checkout": { en: "Checkout", sw: "Kamilisha Agizo" },
   "drawer.continue": { en: "Continue shopping", sw: "Endelea kununua" },
   "drawer.remove": { en: "Remove", sw: "Ondoa" },
+  "drawer.addedOne": { en: "item added to your cart", sw: "bidhaa imeongezwa kwenye kikapu" },
+  "drawer.addedMany": { en: "items added to your cart", sw: "bidhaa zimeongezwa kwenye kikapu" },
 
   // Delivery page
   "del.tag": { en: "Order Today • We Prepare • We Deliver", sw: "Agiza Leo • Tunaandaa • Tunawasilisha" },

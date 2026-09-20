@@ -24,6 +24,7 @@ interface CartContextType {
   isCartOpen: boolean;
   openCart: () => void;
   closeCart: () => void;
+  justAdded: number;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -31,9 +32,11 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [cart, setCart] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [justAdded, setJustAdded] = useState(0);
 
-  const openCart = () => setIsCartOpen(true);
-  const closeCart = () => setIsCartOpen(false);
+  // openCart is the "review" entry point (header / floating button): no banner
+  const openCart = () => { setJustAdded(0); setIsCartOpen(true); };
+  const closeCart = () => { setIsCartOpen(false); setJustAdded(0); };
 
   useEffect(() => {
     const saved = localStorage.getItem("farm_city_cart");
@@ -62,6 +65,9 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
       }
       return [...prev, newItem];
     });
+    // Record how many were just added and reveal the drawer with a banner
+    setJustAdded(newItem.quantity);
+    setIsCartOpen(true);
   };
 
   const removeFromCart = (id: string) => {
@@ -112,6 +118,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
         isCartOpen,
         openCart,
         closeCart,
+        justAdded,
       }}
     >
       {children}

@@ -17,7 +17,7 @@ export default function SeedlingsPage() {
   const [selectedSubCategory, setSelectedSubCategory] = useState("All");
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
-  const { addToCart, openCart } = useCart();
+  const { addToCart } = useCart();
 
   useEffect(() => {
     const all = getStoredProducts().filter((p) => p.category === "seedlings");
@@ -62,7 +62,6 @@ export default function SeedlingsPage() {
       quantity: 1,
       image: product.image
     });
-    openCart();
   };
 
   const generateWhatsAppLink = (product: Product) => {

@@ -20,7 +20,7 @@ export default function ShopPage() {
   const [modalQty, setModalQty] = useState<number>(1);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
-  const { addToCart, openCart } = useCart();
+  const { addToCart } = useCart();
   const [activeTab, setActiveTab] = useState<"all" | "fresh" | "seedlings">("all");
 
   useEffect(() => {
@@ -90,7 +90,6 @@ export default function ShopPage() {
       image: selectedProductModal.image
     });
     setSelectedProductModal(null);
-    openCart();
   };
 
   const handleQuickAdd = (product: Product) => {
@@ -109,7 +108,6 @@ export default function ShopPage() {
       quantity: 1,
       image: product.image
     });
-    openCart();
   };
 
   const generateWhatsAppLink = (product: Product) => {
