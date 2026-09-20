@@ -19,9 +19,9 @@ export default function Footer() {
               <Image
                 src="/images/logo.jpeg"
                 alt="Farm City Logo"
-                width={140}
-                height={48}
-                className="h-12 w-auto object-contain rounded-lg bg-white p-1"
+                width={180}
+                height={64}
+                className="h-14 sm:h-16 w-auto object-contain rounded-xl bg-white p-1.5 ring-1 ring-slate-200/40 shadow-sm"
               />
             </div>
             <p className="text-xs text-slate-400 leading-relaxed">{t("footer.brand")}</p>

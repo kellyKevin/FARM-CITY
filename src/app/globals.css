@@ -65,10 +65,120 @@ html.dark textarea::placeholder { color: #64748b; }
 html {
   overflow-x: hidden;
   scroll-behavior: smooth;
+  /* Offset in-page anchor jumps so they clear the sticky header */
+  scroll-padding-top: 6rem;
+  -webkit-text-size-adjust: 100%;
+  /* Comfortable base size so the many rem-based text utilities read larger */
+  font-size: 16.5px;
 }
+
+body {
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Keep the tiniest utility labels legible (badges, meta) */
+.text-\[9px\] { font-size: 10px !important; }
+.text-\[10px\] { font-size: 11px !important; }
+.text-\[11px\] { font-size: 12px !important; }
 
 /* Image fallback utilities */
 img {
   max-width: 100%;
   height: auto;
+}
+
+/* ---------- Modern interaction polish ---------- */
+
+/* Consistent, accessible keyboard focus ring */
+:focus-visible {
+  outline: 2px solid #10b981;
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+:focus:not(:focus-visible) { outline: none; }
+
+/* Refined, theme-aware scrollbars */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 transparent;
+}
+html.dark * { scrollbar-color: #334155 transparent; }
+::-webkit-scrollbar { width: 9px; height: 9px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+::-webkit-scrollbar-thumb:hover { background: #94a3b8; background-clip: content-box; }
+html.dark ::-webkit-scrollbar-thumb { background: #334155; background-clip: content-box; }
+
+/* Hide scrollbars on horizontal chip/filter rows for a cleaner look */
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+
+/* Smooth, non-jarring toast entrance (replaces animate-bounce) */
+@keyframes toastIn {
+  from { opacity: 0; transform: translateY(-10px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.animate-toast { animation: toastIn 0.28s cubic-bezier(0.16, 1, 0.3, 1) both; }
+
+/* Gentle fade-up for content sections */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-up { animation: fadeUp 0.45s cubic-bezier(0.16, 1, 0.3, 1) both; }
+
+/* Modal backdrop fade + dialog pop */
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.animate-fade { animation: fadeIn 0.2s ease both; }
+@keyframes popIn {
+  from { opacity: 0; transform: translateY(8px) scale(0.96); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.animate-pop { animation: popIn 0.28s cubic-bezier(0.16, 1, 0.3, 1) both; }
+
+/* Loading skeleton shimmer */
+.skeleton {
+  position: relative;
+  overflow: hidden;
+  background: #e2e8f0;
+}
+html.dark .skeleton { background: #1e293b; }
+.skeleton::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.45), transparent);
+  animation: shimmer 1.5s infinite;
+}
+html.dark .skeleton::after {
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.07), transparent);
+}
+@keyframes shimmer { 100% { transform: translateX(100%); } }
+
+/* Card lift utility for product/info cards */
+.lift { transition: transform 0.22s ease, box-shadow 0.22s ease; }
+.lift:hover { transform: translateY(-4px); }
+
+/* Larger, comfortable tap targets on touch devices */
+@media (hover: none) and (pointer: coarse) {
+  button, a[role="button"], .tap-target { min-height: 44px; }
+}
+
+/* Respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
 }

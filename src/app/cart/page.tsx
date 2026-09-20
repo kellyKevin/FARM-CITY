@@ -197,7 +197,7 @@ export default function CartPage() {
         </div>
 
         {/* Checkout Form & Summary */}
-        <div className="lg:col-span-5 space-y-6">
+        <div className="lg:col-span-5 space-y-6 lg:sticky lg:top-24 lg:self-start">
           <div className="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-sm space-y-6">
             <h2 className="text-xl font-extrabold text-slate-900 border-b border-slate-100 pb-3">
               {t("cart.deliveryDetails")}

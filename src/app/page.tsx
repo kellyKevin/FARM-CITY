@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { ShoppingBag, Sprout, CheckCircle2, MessageSquare } from "lucide-react";
+import { ShoppingBag, Sprout, CheckCircle2, MessageSquare, Leaf, Layers, Truck, Award } from "lucide-react";
 import { useSettings } from "@/context/SettingsContext";
 
 export default function Home() {
@@ -19,7 +19,7 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
 
             {/* Left Column (Brand, Headline, Description, CTAs) */}
-            <div className="lg:col-span-7 space-y-6 text-left">
+            <div className="lg:col-span-7 space-y-6 text-left animate-fade-up">
               {/* Brand Statement Badge */}
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-800/80 border border-emerald-600/40 text-emerald-300 text-xs font-bold tracking-wider uppercase">
                 <Sprout size={16} className="text-emerald-400" />
@@ -129,6 +129,29 @@ export default function Home() {
             </div>
 
           </div>
+        </div>
+      </section>
+
+      {/* Marketing value propositions */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8 relative z-20">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+          {[
+            { icon: <Leaf size={22} />, title: t("home.value.fresh.title"), desc: t("home.value.fresh.desc") },
+            { icon: <Layers size={22} />, title: t("home.value.variety.title"), desc: t("home.value.variety.desc") },
+            { icon: <Truck size={22} />, title: t("home.value.delivery.title"), desc: t("home.value.delivery.desc") },
+            { icon: <Award size={22} />, title: t("home.value.quality.title"), desc: t("home.value.quality.desc") },
+          ].map((v, i) => (
+            <div
+              key={i}
+              className="bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md lift p-5 flex flex-col gap-2"
+            >
+              <span className="w-11 h-11 rounded-xl bg-emerald-100 text-emerald-800 flex items-center justify-center">
+                {v.icon}
+              </span>
+              <h3 className="font-bold text-slate-900 text-sm sm:text-base leading-snug">{v.title}</h3>
+              <p className="text-xs sm:text-[13px] text-slate-600 leading-relaxed">{v.desc}</p>
+            </div>
+          ))}
         </div>
       </section>
     </div>
