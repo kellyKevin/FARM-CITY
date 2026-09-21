@@ -69,6 +69,26 @@ export const saveProducts = (products: Product[]) => {
   localStorage.setItem(PRODUCTS_KEY, JSON.stringify(products));
 };
 
+/**
+ * Load the live catalogue from the database (/api/catalog), so prices, stock,
+ * availability and products added in the dashboard are reflected on the site.
+ * Falls back to the local/seed catalogue if the API is unreachable.
+ */
+export const loadCatalog = async (): Promise<Product[]> => {
+  try {
+    const res = await fetch("/api/catalog", { cache: "no-store" });
+    if (res.ok) {
+      const data = await res.json();
+      if (Array.isArray(data.products) && data.products.length > 0) {
+        return data.products as Product[];
+      }
+    }
+  } catch {
+    /* fall through to the local catalogue */
+  }
+  return getStoredProducts();
+};
+
 export const getStoredResources = (): FarmerResource[] => {
   if (typeof window === "undefined") return INITIAL_FARMER_RESOURCES;
   const saved = localStorage.getItem(RESOURCES_KEY);

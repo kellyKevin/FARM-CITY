@@ -93,8 +93,11 @@ Legend: **FC** = FARM-CITY repo (site), **AUT** = automation repo (dashboard),
       restrictions still to add
 - [x] AUT: **Inbox** for handed-over chats — the bot goes quiet on handover, and
       staff reply (in-window) then resolve to resume the bot
-- [x] AUT: products editor (price / stock / available) — `/products` + guarded
-      `GET /api/products` & `PATCH /api/products/[slug]`; the bot prices from these
+- [x] AUT: products editor (price / stock / available) + **add product** —
+      `/products` + guarded `GET/POST /api/products` & `PATCH /api/products/[slug]`
+- [x] FC: **storefront reads the live catalogue from the DB** (`/api/catalog`
+      merges DB price/stock/availability + new products with mockData display
+      metadata), so dashboard edits and new products show on the site
 - [ ] AUT: delivery editor + printable rider/dispatch lists
 - [ ] AUT: quotes, customers, reports (sales, best sellers, unpaid)
 
