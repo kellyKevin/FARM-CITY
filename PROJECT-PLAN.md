@@ -32,8 +32,11 @@ Legend: **FC** = FARM-CITY repo (site), **AUT** = automation repo (dashboard),
       (`createLinkedOrders`), each with its own delivery + fee
 
 ### Part 3 — Bulk & contract customers
-- [~] FC: bulk/institution path — bot gathers basics then hands over; the
-      website quote form still needs to **save to the DB + alert staff**
+- [x] FC: website quote form saves to the DB (`POST /api/quotes`) + alerts
+      staff on WhatsApp; validated + mapped by `src/lib/quotes/quote.ts`
+- [x] AUT: dashboard **Quotes** page — assign, record quoted amount, move
+      through NEW → QUOTED → WON / LOST (`PATCH /api/quotes/:id`)
+- [ ] FC: bot bulk/institution path — gather basics then hand over to a person
 - [ ] Phase 2: contract customers, price lists, standing orders, invoices
 
 ### Part 4 — WhatsApp Cloud API setup  📖
