@@ -46,7 +46,11 @@ Legend: **FC** = FARM-CITY repo (site), **AUT** = automation repo (dashboard),
 - [x] FC: webhook with signature verification + fast ack
 - [x] FC: **idempotency** — `ProcessedMessage` dedupes resent webhooks
 - [x] FC: track delivery-status events (sent/delivered/read/failed) → `MessageLog.status`
+- [x] AUT: **Connect** dashboard page + `/api/whatsapp/status` (credential check,
+      never leaks secrets) + `/api/whatsapp/test` (send a test message); shows the
+      exact webhook Callback URL to paste into Meta
 - [ ] client: Meta business verification, real number, permanent token, billing
+      (manual — use the Connect page to confirm each step)
 
 ### Part 5 — Message templates
 - [x] FC/AUT: template registry + `sendTemplate` + status→template mapping
