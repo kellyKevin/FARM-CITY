@@ -89,7 +89,9 @@ Legend: **FC** = FARM-CITY repo (site), **AUT** = automation repo (dashboard),
 
 ### Part 13 — Hosting, domain, subscriptions
 - [x] Vercel deployments (site + dashboard)
-- [ ] **Postgres** for production (both apps → same `DATABASE_URL`)
+- [~] **Supabase Postgres** (both apps → same DB): schema switched to postgres,
+      initial migration committed, docs in `docs/database-supabase.md` — pending
+      the Supabase project + connection strings, then `migrate deploy` + seed
 - [ ] domain, business email, monitoring/uptime alerts, subscription register
 
 ### Part 14 — Legal & compliance
