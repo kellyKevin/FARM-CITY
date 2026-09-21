@@ -1,0 +1,120 @@
+# Farm City — project breakdown & build roadmap
+
+This tracks the whole project against **Farm City Project Breakdown v1.0**
+(Parts 0–17). It is the working checklist: `[x]` done, `[~]` partial, `[ ]` to
+do. Phase 1 = the working launch; Phase 2 = follows once real orders flow.
+
+Legend: **FC** = FARM-CITY repo (site), **AUT** = automation repo (dashboard),
+**client** = a Farm City business decision/action, not code.
+
+---
+
+## Status by part
+
+### Part 0 — Foundation & decisions
+- [ ] client: confirm WhatsApp number, final catalogue prices/units/min-orders,
+      delivery zones + fees + cutoffs, seedling dispatch counties/couriers,
+      launch payment method + who verifies, staff roles, COD policy
+- [ ] client: create accounts in the business name (Meta, Vercel, DB, domain,
+      Safaricom/M-Pesa, business email) and add developer as collaborator
+
+### Part 1 — The website  ✅
+- [x] FC: storefront (home, shop, seedlings, bulk, delivery, resources, about,
+      contact, cart)
+- [ ] FC: legal pages (privacy, terms, refund/cancellation) — see Part 14
+
+### Part 2 — Selling to retail customers
+- [x] FC: produce & seedling cart handoff (message format the bot reads)
+- [x] FC/AUT: bot reads prices from the DB, never the message text
+- [ ] FC: cart saved **server-side** with an expiring `CART-xxxx` reference
+- [ ] FC: mixed cart **split into two linked orders** (today: handed to a person)
+
+### Part 3 — Bulk & contract customers
+- [~] FC: bulk/institution path — bot gathers basics then hands over; the
+      website quote form still needs to **save to the DB + alert staff**
+- [ ] Phase 2: contract customers, price lists, standing orders, invoices
+
+### Part 4 — WhatsApp Cloud API setup  📖
+- [x] docs: full setup guide (`docs/whatsapp-setup.md`)
+- [x] FC: webhook with signature verification + fast ack
+- [ ] FC: **idempotency** — store message IDs, ignore duplicate/resent webhooks
+- [ ] FC: track delivery-status events (sent/delivered/read/failed)
+- [ ] client: Meta business verification, real number, permanent token, billing
+
+### Part 5 — Message templates
+- [ ] FC/AUT: template registry + `sendTemplate` (order_received, payment_*,
+      order_packed, out_for_delivery, seedlings_dispatched, order_delivered,
+      quote_ready, standing_order_confirm)
+- [ ] client: submit templates for approval
+
+### Part 6 — The 24-hour conversation plan
+- [ ] store `last_customer_message_at` per customer
+- [ ] window-aware send: open → free-form, closed → template, else queue + alert
+
+### Part 7 — The backend  ✅ (foundation)
+- [x] Next.js + Prisma, webhook + bot + DB in one codebase
+- [x] session state (`ConversationSession`), rules-first bot, secrets in env
+- [~] error handling (polite fallback exists; staff-alert queue to add with Part 6)
+
+### Part 8 — The bot
+- [x] core order flow (greet, confirm, name, delivery, summary, confirm, payment)
+- [x] side paths: out-of-stock, cancel, unclear→handover, opt-out, media→handover
+- [~] human handoff: alerts the team, but needs the **dashboard Inbox** (Part 11)
+- [ ] Swahili / mixed-language support (Phase 2, AI-assisted)
+
+### Part 9 — Payments
+- [x] Phase 1 manual: bot sends till/paybill + order ref; records M-Pesa code;
+      staff mark Paid; COD supported
+- [ ] Phase 2: M-Pesa STK push + C2B callbacks (Safaricom Daraja)
+- [ ] client: payment policies (deadline, refunds, double/wrong payment, deposits)
+
+### Part 10 — The database  ✅
+- [x] all Phase-1 tables + sequential order numbers + status history + price copy
+- [~] stock: deducted on order create — move to **reserve on confirm, deduct on
+      packed, release on unpaid timeout**
+- [ ] daily automated backups + tested restore
+- [ ] Phase 2 tables: contract customers, price lists, standing orders, invoices
+
+### Part 11 — Owner dashboard  (AUT)
+- [x] AUT: orders list + one-click status advance (notifies customer, logged)
+- [ ] AUT: staff **login + roles** (owner/packer/dispatcher/rider)
+- [ ] AUT: **Inbox** for handed-over chats (reply + resume the bot)
+- [ ] AUT: products editor (price/stock/available), delivery editor + rider lists
+- [ ] AUT: quotes, customers, reports (sales, best sellers, unpaid)
+
+### Part 12 — Testing
+- [x] unit tests for parser, numbering, pricing, engine, WhatsApp helpers (46)
+- [ ] full scenario suite (mixed cart, duplicate webhook, window expiry, …)
+- [ ] staged testing: test number → real number → 10–20 customer pilot
+
+### Part 13 — Hosting, domain, subscriptions
+- [x] Vercel deployments (site + dashboard)
+- [ ] **Postgres** for production (both apps → same `DATABASE_URL`)
+- [ ] domain, business email, monitoring/uptime alerts, subscription register
+
+### Part 14 — Legal & compliance
+- [ ] privacy policy + terms + refund policy; opt-in/opt-out handling; DPA review
+
+### Part 15 — Launch, training, support
+- [ ] go-live checklist, staff training, hypercare (first two weeks)
+
+---
+
+## Phase 1 build order (what we do next, in sequence)
+
+1. **Production database** — switch Prisma to Postgres; point **both** apps at
+   one `DATABASE_URL`; migrate + seed. *(Unblocks the shared-DB architecture.)*
+2. **Messaging reliability (Parts 4.6 + 6)** — webhook idempotency, delivery
+   statuses, `last_customer_message_at`, and window-aware sending.
+3. **Message templates (Part 5)** — registry + `sendTemplate`, wired into the
+   status-update path so out-of-window updates use approved templates.
+4. **Dashboard depth (Part 11)** — staff auth + roles, the handover **Inbox**,
+   and the products/stock editor.
+5. **Mixed-cart split + server-saved cart (Part 2.3/2.4)**.
+6. **Stock lifecycle (Part 10)** — reserve on confirm, deduct on packed, release
+   on unpaid timeout.
+7. **Payments Phase 2 (Part 9.2)** — M-Pesa STK push + C2B callbacks.
+8. **Legal pages + monitoring + go-live checklist (Parts 13–15)**.
+
+Each step is built, tested, and pushed on its own branch. Schema changes are
+mirrored in both repos (see `ARCHITECTURE.md`).
