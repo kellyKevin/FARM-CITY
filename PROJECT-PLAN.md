@@ -36,7 +36,9 @@ Legend: **FC** = FARM-CITY repo (site), **AUT** = automation repo (dashboard),
       staff on WhatsApp; validated + mapped by `src/lib/quotes/quote.ts`
 - [x] AUT: dashboard **Quotes** page — assign, record quoted amount, move
       through NEW → QUOTED → WON / LOST (`PATCH /api/quotes/:id`)
-- [ ] FC: bot bulk/institution path — gather basics then hand over to a person
+- [x] Bot bulk/institution path — the "Bulk / institution" menu button gathers
+      org, items, quantity/frequency and location, saves a BulkQuote and hands
+      the chat to a person (`CREATE_BULK_QUOTE` effect)
 - [ ] Phase 2: contract customers, price lists, standing orders, invoices
 
 ### Part 4 — WhatsApp Cloud API setup  📖
@@ -44,15 +46,28 @@ Legend: **FC** = FARM-CITY repo (site), **AUT** = automation repo (dashboard),
 - [x] FC: webhook with signature verification + fast ack
 - [x] FC: **idempotency** — `ProcessedMessage` dedupes resent webhooks
 - [x] FC: track delivery-status events (sent/delivered/read/failed) → `MessageLog.status`
+- [x] AUT: **Connect** dashboard page + `/api/whatsapp/status` (credential check,
+      never leaks secrets) + `/api/whatsapp/test` (send a test message); shows the
+      exact webhook Callback URL to paste into Meta
 - [ ] client: Meta business verification, real number, permanent token, billing
+      (manual — use the Connect page to confirm each step)
 
 ### Part 5 — Message templates
 - [x] FC/AUT: template registry + `sendTemplate` + status→template mapping
       (payment_received, order_packed, out_for_delivery, seedlings_dispatched,
       order_delivered)
-- [ ] FC/AUT: remaining templates (order_received, payment_reminder,
-      quote_ready, standing_order_confirm) wired to their triggers
-- [ ] client: submit templates for approval
+- [x] FC/AUT: `order_received` wired to the CONFIRMED status (out-of-window
+      acknowledgement, carries the order total)
+- [x] FC/AUT: `payment_reminder` wired to a job (`/api/jobs/payment-reminders`):
+      window-aware, reminds each unpaid order once (`Order.remindedAt`)
+- [x] FC/AUT: `quote_ready` wired to the Quotes PATCH → QUOTED trigger (notifies
+      the customer with the quoted amount, window-aware)
+- [x] FC/AUT: shared `notifyCustomer()` helper — one tested window-aware
+      send/template/queue path used by all triggers
+- [~] `standing_order_confirm` — template builder ready; trigger is Phase 2
+      (needs the standing-orders model)
+- [ ] client: submit templates for approval in Meta (order_received,
+      payment_reminder, quote_ready + the 5 status templates)
 
 ### Part 6 — The 24-hour conversation plan  ✅
 - [x] store `lastInboundAt` per customer (stamped on every inbound message)
