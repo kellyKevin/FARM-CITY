@@ -80,8 +80,11 @@ Legend: **FC** = FARM-CITY repo (site), **AUT** = automation repo (dashboard),
 
 ### Part 11 — Owner dashboard  (AUT)
 - [x] AUT: orders list + one-click status advance (notifies customer, logged)
-- [ ] AUT: staff **login + roles** (owner/packer/dispatcher/rider)
-- [ ] AUT: **Inbox** for handed-over chats (reply + resume the bot)
+- [x] AUT: staff **login** (scrypt password + signed cookie); protected dashboard
+      pages and order/inbox APIs. Role column stored (owner/packer/…); per-role
+      restrictions still to add
+- [x] AUT: **Inbox** for handed-over chats — the bot goes quiet on handover, and
+      staff reply (in-window) then resolve to resume the bot
 - [ ] AUT: products editor (price/stock/available), delivery editor + rider lists
 - [ ] AUT: quotes, customers, reports (sales, best sellers, unpaid)
 

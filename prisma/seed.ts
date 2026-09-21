@@ -3,6 +3,7 @@
 // exact products the bot prices and reserves stock against.
 
 import { PrismaClient } from "@prisma/client";
+import { hashPassword } from "../src/lib/auth/password";
 import {
   INITIAL_FRESH_PRODUCTS,
   INITIAL_SEEDLING_PRODUCTS,
@@ -69,10 +70,13 @@ async function main() {
     update: {},
   });
 
+  // Owner login for the dashboard. Set STAFF_DEFAULT_PASSWORD in the env;
+  // defaults to "farmcity" for local dev — change it before launch.
+  const ownerPassword = hashPassword(process.env.STAFF_DEFAULT_PASSWORD || "farmcity");
   await prisma.staffUser.upsert({
     where: { phone: "254711911690" },
-    create: { name: "Farm City Owner", role: "owner", phone: "254711911690" },
-    update: {},
+    create: { name: "Farm City Owner", role: "owner", phone: "254711911690", passwordHash: ownerPassword },
+    update: { passwordHash: ownerPassword },
   });
 
   console.log(
