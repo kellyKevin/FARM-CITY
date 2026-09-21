@@ -1,8 +1,8 @@
 import { describe, it, expect } from "vitest";
 import crypto from "node:crypto";
 import { verifySignature, verifyWebhookChallenge } from "./verify";
-import { parseInbound } from "./inbound";
-import { toCloudApiPayload } from "./client";
+import { parseInbound, parseStatuses } from "./inbound";
+import { toCloudApiPayload, toTemplatePayload } from "./client";
 import { text, buttons, list } from "./messages";
 
 describe("verifySignature", () => {
@@ -111,6 +111,58 @@ describe("toCloudApiPayload", () => {
         type: "list",
         action: { sections: [{ rows: [{ id: "z" }] }] },
       },
+    });
+  });
+});
+
+describe("parseStatuses", () => {
+  it("extracts delivery receipts", () => {
+    const body = {
+      entry: [
+        {
+          changes: [
+            {
+              value: {
+                statuses: [
+                  { id: "wamid.9", status: "delivered", recipient_id: "254712345678", timestamp: "123" },
+                ],
+              },
+            },
+          ],
+        },
+      ],
+    };
+    expect(parseStatuses(body)).toEqual([
+      { id: "wamid.9", status: "delivered", recipient: "254712345678", timestamp: "123" },
+    ]);
+  });
+
+  it("returns [] for a message payload", () => {
+    const body = {
+      entry: [{ changes: [{ value: { messages: [{ from: "1", id: "x", type: "text" }] } }] }],
+    };
+    expect(parseStatuses(body)).toEqual([]);
+  });
+});
+
+describe("toTemplatePayload", () => {
+  it("builds a template payload with ordered body params", () => {
+    expect(toTemplatePayload("254", "payment_received", ["FC-0007"])).toMatchObject({
+      messaging_product: "whatsapp",
+      to: "254",
+      type: "template",
+      template: {
+        name: "payment_received",
+        language: { code: "en" },
+        components: [{ type: "body", parameters: [{ type: "text", text: "FC-0007" }] }],
+      },
+    });
+  });
+
+  it("omits components when the template has no variables", () => {
+    expect(toTemplatePayload("254", "order_delivered")).toMatchObject({
+      type: "template",
+      template: { name: "order_delivered", components: [] },
     });
   });
 });
