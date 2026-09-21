@@ -85,7 +85,9 @@ Legend: **FC** = FARM-CITY repo (site), **AUT** = automation repo (dashboard),
       restrictions still to add
 - [x] AUT: **Inbox** for handed-over chats — the bot goes quiet on handover, and
       staff reply (in-window) then resolve to resume the bot
-- [ ] AUT: products editor (price/stock/available), delivery editor + rider lists
+- [x] AUT: products editor (price / stock / available) — `/products` + guarded
+      `GET /api/products` & `PATCH /api/products/[slug]`; the bot prices from these
+- [ ] AUT: delivery editor + printable rider/dispatch lists
 - [ ] AUT: quotes, customers, reports (sales, best sellers, unpaid)
 
 ### Part 12 — Testing
