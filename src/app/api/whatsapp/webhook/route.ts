@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { verifySignature, verifyWebhookChallenge } from "@/lib/whatsapp/verify";
-import { parseInbound } from "@/lib/whatsapp/inbound";
-import { processInbound } from "@/lib/bot/runtime";
+import { parseInbound, parseStatuses } from "@/lib/whatsapp/inbound";
+import { processInbound, recordDeliveryStatuses } from "@/lib/bot/runtime";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -34,6 +34,13 @@ export async function POST(req: NextRequest) {
     body = JSON.parse(rawBody);
   } catch {
     return new NextResponse("Bad request", { status: 400 });
+  }
+
+  // Delivery-status receipts (sent/delivered/read/failed) for messages we sent.
+  try {
+    await recordDeliveryStatuses(parseStatuses(body));
+  } catch (err) {
+    console.error("[whatsapp] failed to record delivery statuses", err);
   }
 
   const messages = parseInbound(body);

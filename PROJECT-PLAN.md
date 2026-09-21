@@ -37,19 +37,22 @@ Legend: **FC** = FARM-CITY repo (site), **AUT** = automation repo (dashboard),
 ### Part 4 — WhatsApp Cloud API setup  📖
 - [x] docs: full setup guide (`docs/whatsapp-setup.md`)
 - [x] FC: webhook with signature verification + fast ack
-- [ ] FC: **idempotency** — store message IDs, ignore duplicate/resent webhooks
-- [ ] FC: track delivery-status events (sent/delivered/read/failed)
+- [x] FC: **idempotency** — `ProcessedMessage` dedupes resent webhooks
+- [x] FC: track delivery-status events (sent/delivered/read/failed) → `MessageLog.status`
 - [ ] client: Meta business verification, real number, permanent token, billing
 
 ### Part 5 — Message templates
-- [ ] FC/AUT: template registry + `sendTemplate` (order_received, payment_*,
-      order_packed, out_for_delivery, seedlings_dispatched, order_delivered,
-      quote_ready, standing_order_confirm)
+- [x] FC/AUT: template registry + `sendTemplate` + status→template mapping
+      (payment_received, order_packed, out_for_delivery, seedlings_dispatched,
+      order_delivered)
+- [ ] FC/AUT: remaining templates (order_received, payment_reminder,
+      quote_ready, standing_order_confirm) wired to their triggers
 - [ ] client: submit templates for approval
 
-### Part 6 — The 24-hour conversation plan
-- [ ] store `last_customer_message_at` per customer
-- [ ] window-aware send: open → free-form, closed → template, else queue + alert
+### Part 6 — The 24-hour conversation plan  ✅
+- [x] store `lastInboundAt` per customer (stamped on every inbound message)
+- [x] window-aware send: open → free-form, closed → template, else queue
+      (`OutboundQueue`) + team alert — used by the status-update endpoint
 
 ### Part 7 — The backend  ✅ (foundation)
 - [x] Next.js + Prisma, webhook + bot + DB in one codebase
