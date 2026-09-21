@@ -75,8 +75,10 @@ Legend: **FC** = FARM-CITY repo (site), **AUT** = automation repo (dashboard),
 
 ### Part 10 — The database  ✅
 - [x] all Phase-1 tables + sequential order numbers + status history + price copy
-- [~] stock: deducted on order create — move to **reserve on confirm, deduct on
-      packed, release on unpaid timeout**
+- [x] stock lifecycle: **reserve** on order create (`Product.reserved`), **deduct**
+      on packed, **release** on cancel and on unpaid timeout
+      (`releaseUnpaidOrders` via `POST /api/jobs/release-unpaid`); the bot sells
+      `stock − reserved`
 - [ ] daily automated backups + tested restore
 - [ ] Phase 2 tables: contract customers, price lists, standing orders, invoices
 
