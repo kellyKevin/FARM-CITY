@@ -56,7 +56,7 @@ export default function BulkInstitutionalPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    saveBulkQuote({
+    const quote = {
       type: formType,
       organizationName,
       contactPerson,
@@ -69,8 +69,17 @@ export default function BulkInstitutionalPage() {
       estimatedQuantities,
       frequencyOfSupply,
       preferredDeliveryDate,
-      additionalInfo
-    });
+      additionalInfo,
+    };
+    // Keep the local copy as an offline fallback.
+    saveBulkQuote(quote);
+    // Save to the shared database and alert staff (best effort — never blocks the
+    // WhatsApp handoff below, which stays the customer's instant confirmation).
+    fetch("/api/quotes", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(quote),
+    }).catch(() => {});
     const url = buildWhatsAppUrl();
     setWhatsappUrl(url);
     // Open WhatsApp with the pre-filled quote so the team receives it instantly.
