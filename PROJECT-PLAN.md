@@ -36,7 +36,9 @@ Legend: **FC** = FARM-CITY repo (site), **AUT** = automation repo (dashboard),
       staff on WhatsApp; validated + mapped by `src/lib/quotes/quote.ts`
 - [x] AUT: dashboard **Quotes** page — assign, record quoted amount, move
       through NEW → QUOTED → WON / LOST (`PATCH /api/quotes/:id`)
-- [ ] FC: bot bulk/institution path — gather basics then hand over to a person
+- [x] Bot bulk/institution path — the "Bulk / institution" menu button gathers
+      org, items, quantity/frequency and location, saves a BulkQuote and hands
+      the chat to a person (`CREATE_BULK_QUOTE` effect)
 - [ ] Phase 2: contract customers, price lists, standing orders, invoices
 
 ### Part 4 — WhatsApp Cloud API setup  📖
