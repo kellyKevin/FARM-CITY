@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Search, Sprout, MessageSquare, CheckCircle2, MapPin, Truck, ShieldCheck, FileText, ShoppingBag, X } from "lucide-react";
-import { getStoredProducts } from "@/lib/storage";
+import { loadCatalog } from "@/lib/storage";
 import { Product } from "@/data/mockData";
 import { useCart } from "@/context/CartContext";
 import { useSettings } from "@/context/SettingsContext";
@@ -20,9 +20,10 @@ export default function SeedlingsPage() {
   const { addToCart } = useCart();
 
   useEffect(() => {
-    const all = getStoredProducts().filter((p) => p.category === "seedlings");
-    setSeedlings(all);
-    setLoading(false);
+    loadCatalog().then((all) => {
+      setSeedlings(all.filter((p) => p.category === "seedlings"));
+      setLoading(false);
+    });
   }, []);
 
   const categories = [

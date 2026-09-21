@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { Search, ShoppingBag, MessageSquare, CheckCircle2, Filter, AlertCircle, X } from "lucide-react";
-import { getStoredProducts } from "@/lib/storage";
+import { loadCatalog } from "@/lib/storage";
 import { Product } from "@/data/mockData";
 import { useCart } from "@/context/CartContext";
 import { useSettings } from "@/context/SettingsContext";
@@ -24,9 +24,10 @@ export default function ShopPage() {
   const [activeTab, setActiveTab] = useState<"all" | "fresh" | "seedlings">("all");
 
   useEffect(() => {
-    const all = getStoredProducts();
-    setProducts(all);
-    setLoading(false);
+    loadCatalog().then((all) => {
+      setProducts(all);
+      setLoading(false);
+    });
   }, []);
 
   // Lock body scroll while the product modal is open
