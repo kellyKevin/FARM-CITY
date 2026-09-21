@@ -27,7 +27,9 @@ Legend: **FC** = FARM-CITY repo (site), **AUT** = automation repo (dashboard),
 - [x] FC: produce & seedling cart handoff (message format the bot reads)
 - [x] FC/AUT: bot reads prices from the DB, never the message text
 - [ ] FC: cart saved **server-side** with an expiring `CART-xxxx` reference
-- [ ] FC: mixed cart **split into two linked orders** (today: handed to a person)
+- [x] FC: mixed cart **split into two linked orders** — the bot collects the
+      produce, then the seedlings, then creates two cross-linked orders
+      (`createLinkedOrders`), each with its own delivery + fee
 
 ### Part 3 — Bulk & contract customers
 - [~] FC: bulk/institution path — bot gathers basics then hands over; the
@@ -80,9 +82,14 @@ Legend: **FC** = FARM-CITY repo (site), **AUT** = automation repo (dashboard),
 
 ### Part 11 — Owner dashboard  (AUT)
 - [x] AUT: orders list + one-click status advance (notifies customer, logged)
-- [ ] AUT: staff **login + roles** (owner/packer/dispatcher/rider)
-- [ ] AUT: **Inbox** for handed-over chats (reply + resume the bot)
-- [ ] AUT: products editor (price/stock/available), delivery editor + rider lists
+- [x] AUT: staff **login** (scrypt password + signed cookie); protected dashboard
+      pages and order/inbox APIs. Role column stored (owner/packer/…); per-role
+      restrictions still to add
+- [x] AUT: **Inbox** for handed-over chats — the bot goes quiet on handover, and
+      staff reply (in-window) then resolve to resume the bot
+- [x] AUT: products editor (price / stock / available) — `/products` + guarded
+      `GET /api/products` & `PATCH /api/products/[slug]`; the bot prices from these
+- [ ] AUT: delivery editor + printable rider/dispatch lists
 - [ ] AUT: quotes, customers, reports (sales, best sellers, unpaid)
 
 ### Part 12 — Testing
