@@ -27,7 +27,9 @@ Legend: **FC** = FARM-CITY repo (site), **AUT** = automation repo (dashboard),
 - [x] FC: produce & seedling cart handoff (message format the bot reads)
 - [x] FC/AUT: bot reads prices from the DB, never the message text
 - [ ] FC: cart saved **server-side** with an expiring `CART-xxxx` reference
-- [ ] FC: mixed cart **split into two linked orders** (today: handed to a person)
+- [x] FC: mixed cart **split into two linked orders** — the bot collects the
+      produce, then the seedlings, then creates two cross-linked orders
+      (`createLinkedOrders`), each with its own delivery + fee
 
 ### Part 3 — Bulk & contract customers
 - [~] FC: bulk/institution path — bot gathers basics then hands over; the
