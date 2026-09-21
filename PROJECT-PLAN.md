@@ -70,8 +70,12 @@ Legend: **FC** = FARM-CITY repo (site), **AUT** = automation repo (dashboard),
 ### Part 9 — Payments
 - [x] Phase 1 manual: bot sends till/paybill + order ref; records M-Pesa code;
       staff mark Paid; COD supported
-- [ ] Phase 2: M-Pesa STK push + C2B callbacks (Safaricom Daraja)
-- [ ] client: payment policies (deadline, refunds, double/wrong payment, deposits)
+- [x] M-Pesa **STK push** (Safaricom Daraja): auto-prompt on order create,
+      async callback marks the order paid — `src/lib/mpesa/*`,
+      `POST /api/mpesa/stk` + `/api/mpesa/callback`; dry-run without credentials
+- [ ] Phase 2: C2B confirmations (Paybill) + reconciliation report
+- [ ] client: Daraja go-live (approved Till/Paybill), payment policies
+      (deadline, refunds, double/wrong payment, deposits)
 
 ### Part 10 — The database  ✅
 - [x] all Phase-1 tables + sequential order numbers + status history + price copy
