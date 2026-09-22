@@ -125,7 +125,9 @@ Legend: **FC** = FARM-CITY repo (site), **AUT** = automation repo (dashboard),
 - [x] AUT: **quotes** dashboard (Part 3) + **reports** — sales summary
       (collected / outstanding / order value), best sellers, and outstanding
       payments over a chosen period (`/reports`, `GET /api/reports`)
-- [ ] AUT: customers list/history
+- [x] AUT: **customers** — searchable list (orders, spend, outstanding, last
+      order) + per-customer detail (order history, bulk quotes, 24h window
+      status) — `/customers`, `GET /api/customers` & `/api/customers/[phone]`
 
 ### Part 12 — Testing
 - [x] unit tests for parser, numbering, pricing, engine, WhatsApp helpers (46)
