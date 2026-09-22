@@ -117,7 +117,10 @@ Legend: **FC** = FARM-CITY repo (site), **AUT** = automation repo (dashboard),
       merges DB price/stock/availability + new products with mockData display
       metadata), so dashboard edits and new products show on the site
 - [ ] AUT: delivery editor + printable rider/dispatch lists
-- [ ] AUT: quotes, customers, reports (sales, best sellers, unpaid)
+- [x] AUT: **quotes** dashboard (Part 3) + **reports** — sales summary
+      (collected / outstanding / order value), best sellers, and outstanding
+      payments over a chosen period (`/reports`, `GET /api/reports`)
+- [ ] AUT: customers list/history
 
 ### Part 12 — Testing
 - [x] unit tests for parser, numbering, pricing, engine, WhatsApp helpers (46)
