@@ -144,7 +144,7 @@ export default function AboutPage() {
         {/* Contact Info Badges */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <a
-            href="tel:0711911690"
+            href="tel:0701645029"
             className="bg-emerald-800 hover:bg-emerald-900 text-white p-5 rounded-2xl shadow-sm transition-all flex items-center gap-4"
           >
             <div className="bg-emerald-700 p-3 rounded-xl shrink-0">
@@ -152,12 +152,12 @@ export default function AboutPage() {
             </div>
             <div>
               <p className="text-[10px] uppercase font-bold text-emerald-300">{t("about.contact.call")}</p>
-              <p className="font-extrabold text-xs sm:text-sm">0711 911 690 / 0726 360 635</p>
+              <p className="font-extrabold text-xs sm:text-sm">0701 645 029</p>
             </div>
           </a>
 
           <a
-            href="https://wa.me/254711911690?text=Hello%20Farm%20City%2C%20I%20would%20like%20to%20make%20an%20enquiry"
+            href="https://wa.me/254701645029?text=Hello%20Farm%20City%2C%20I%20would%20like%20to%20make%20an%20enquiry"
             target="_blank"
             rel="noopener noreferrer"
             className="bg-green-600 hover:bg-green-700 text-white p-5 rounded-2xl shadow-sm transition-all flex items-center gap-4"
@@ -167,7 +167,7 @@ export default function AboutPage() {
             </div>
             <div>
               <p className="text-[10px] uppercase font-bold text-green-200">{t("about.contact.whatsapp")}</p>
-              <p className="font-extrabold text-xs sm:text-sm">0711 911 690</p>
+              <p className="font-extrabold text-xs sm:text-sm">0701 645 029</p>
             </div>
           </a>
 

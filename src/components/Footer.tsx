@@ -29,7 +29,7 @@ export default function Footer() {
             <p className="text-[11px] text-slate-500 leading-relaxed">{t("footer.order")}</p>
             <div className="pt-2 flex items-center gap-3">
               <a
-                href="https://wa.me/254711911690"
+                href="https://wa.me/254701645029"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-emerald-700 hover:bg-emerald-600 text-white p-2.5 rounded-lg text-xs flex items-center gap-2 transition-colors font-semibold"
@@ -103,7 +103,7 @@ export default function Footer() {
               <li className="flex items-start gap-2">
                 <Phone size={14} className="text-emerald-400 shrink-0 mt-0.5" />
                 <div>
-                  <p className="text-white font-medium">0711 911 690 / 0726 360 635</p>
+                  <p className="text-white font-medium">0701 645 029</p>
                   <p className="text-slate-400 text-[11px]">{t("footer.contact.team")}</p>
                 </div>
               </li>

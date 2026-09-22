@@ -51,7 +51,7 @@ export default function BulkInstitutionalPage() {
     ];
 
     const message = lines.filter((l): l is string => Boolean(l)).join("\n");
-    return `https://wa.me/254711911690?text=${encodeURIComponent(message)}`;
+    return `https://wa.me/254701645029?text=${encodeURIComponent(message)}`;
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -198,7 +198,7 @@ export default function BulkInstitutionalPage() {
                   <input
                     type="tel"
                     required
-                    placeholder="e.g. 0711 911 690"
+                    placeholder="e.g. 0701 645 029"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:border-emerald-600"
@@ -209,7 +209,7 @@ export default function BulkInstitutionalPage() {
                   <label className="block text-xs font-bold text-slate-700 mb-1">{t("bulk.whatsapp")}</label>
                   <input
                     type="tel"
-                    placeholder="e.g. 0726 360 635"
+                    placeholder="e.g. 0701 645 029"
                     value={whatsapp}
                     onChange={(e) => setWhatsapp(e.target.value)}
                     className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:border-emerald-600"
@@ -346,7 +346,7 @@ export default function BulkInstitutionalPage() {
             </p>
             <div className="bg-emerald-950 p-4 rounded-2xl space-y-2 text-xs border border-emerald-800">
               <p><strong className="text-emerald-400">{t("bulk.side.rep")}</strong> Wesley Mage Mujenyi</p>
-              <p><strong className="text-emerald-400">{t("bulk.side.tel")}</strong> 0711 911 690 / 0726 360 635</p>
+              <p><strong className="text-emerald-400">{t("bulk.side.tel")}</strong> 0701 645 029</p>
               <p><strong className="text-emerald-400">{t("bulk.side.email")}</strong> magewesley16@gmail.com</p>
               <p><strong className="text-emerald-400">{t("bulk.side.pin")}</strong> A011080564G</p>
             </div>

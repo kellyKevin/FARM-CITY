@@ -45,7 +45,7 @@ export default function CartPage() {
       "Please confirm stock, delivery fee and payment. (No payment made online.)",
     ];
     const message = lines.filter((l): l is string => Boolean(l)).join("\n");
-    return `https://wa.me/254711911690?text=${encodeURIComponent(message)}`;
+    return `https://wa.me/254701645029?text=${encodeURIComponent(message)}`;
   };
 
   const handlePlaceOrder = (e: React.FormEvent) => {
@@ -64,7 +64,7 @@ export default function CartPage() {
     clearCart();
   };
 
-  const whatsappMessageUrl = `https://wa.me/254711911690?text=${generateWhatsAppMessage({
+  const whatsappMessageUrl = `https://wa.me/254701645029?text=${generateWhatsAppMessage({
     name: customerName,
     location: deliveryLocation,
     note: notes
@@ -90,7 +90,7 @@ export default function CartPage() {
 
           <div className="pt-4 flex flex-col sm:flex-row items-center gap-4">
             <a
-              href={orderWhatsappUrl || `https://wa.me/254711911690?text=${encodeURIComponent(`Hello Farm City, I placed order ${placedOrderNumber} on the website under name: ${customerName || "Customer"}`)}`}
+              href={orderWhatsappUrl || `https://wa.me/254701645029?text=${encodeURIComponent(`Hello Farm City, I placed order ${placedOrderNumber} on the website under name: ${customerName || "Customer"}`)}`}
               target="_blank"
               rel="noopener noreferrer"
               className="w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white font-bold px-6 py-3 rounded-xl transition-colors text-xs flex items-center justify-center gap-2"
@@ -253,7 +253,7 @@ export default function CartPage() {
                 <input
                   type="tel"
                   required
-                  placeholder="e.g. 0711 911 690"
+                  placeholder="e.g. 0701 645 029"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                   className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:border-emerald-600"

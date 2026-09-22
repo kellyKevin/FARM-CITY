@@ -115,7 +115,7 @@ export default function ShopPage() {
     const msg = encodeURIComponent(
       `Hello Farm City, I am inquiring about:\n\nProduct: ${product.name}\nSubcategory: ${product.subCategory}\nAvailability: ${product.stockStatus}\nPrice: KSh ${product.price}/${product.unit}\n\nPlease confirm availability and delivery to my location.`
     );
-    return `https://wa.me/254711911690?text=${msg}`;
+    return `https://wa.me/254701645029?text=${msg}`;
   };
 
   const renderStockBadge = (status: Product["stockStatus"]) => {

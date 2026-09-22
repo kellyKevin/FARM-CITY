@@ -69,7 +69,7 @@ export default function SeedlingsPage() {
     const msg = encodeURIComponent(
       `Hello Farm City Eldoret Nursery, I am interested in ordering seedlings:\n\nSeedling: ${product.name}\nSubcategory: ${product.subCategory}\nPrice: KSh ${product.price}/seedling\nStatus: ${product.stockStatus}\n\nPlease advise on delivery schedule and bulk availability.`
     );
-    return `https://wa.me/254711911690?text=${msg}`;
+    return `https://wa.me/254701645029?text=${msg}`;
   };
 
   const renderStockBadge = (status: Product["stockStatus"]) => {
@@ -135,7 +135,7 @@ export default function SeedlingsPage() {
               <span>{t("seed.hero.bulkQuote")}</span>
             </Link>
             <a
-              href="https://wa.me/254711911690?text=Hello%20Farm%20City%20Eldoret%20Nursery%2C%20I%20need%20seedlings%20catalogue%20info"
+              href="https://wa.me/254701645029?text=Hello%20Farm%20City%20Eldoret%20Nursery%2C%20I%20need%20seedlings%20catalogue%20info"
               target="_blank"
               rel="noopener noreferrer"
               className="bg-green-600 hover:bg-green-500 text-white font-bold px-5 py-3 rounded-xl transition-all text-xs sm:text-sm flex items-center gap-2"
