@@ -20,7 +20,7 @@ export const translations: Record<string, { en: string; sw: string }> = {
   // Common actions
   "action.whatsapp": { en: "WhatsApp", sw: "WhatsApp" },
   "action.whatsappOrder": { en: "Order via WhatsApp", sw: "Agiza kupitia WhatsApp" },
-  "action.call": { en: "Call Us: 0711 911 690", sw: "Tupigie: 0711 911 690" },
+  "action.call": { en: "Call Us: 0701 645 029", sw: "Tupigie: 0701 645 029" },
   "action.shopNow": { en: "SHOP NOW", sw: "NUNUA SASA" },
   "action.buySeedlings": { en: "BUY SEEDLINGS", sw: "NUNUA MICHE" },
   "action.orderWhatsapp": { en: "ORDER ON WHATSAPP", sw: "AGIZA KWA WHATSAPP" },
@@ -404,7 +404,7 @@ export const translations: Record<string, { en: string; sw: string }> = {
     en: "Need delivery to an unlisted area or bulk transport arrangement?",
     sw: "Unahitaji uwasilishaji kwa eneo lisiloorodheshwa au mpango wa usafirishaji wa jumla?",
   },
-  "del.q.call": { en: "Call 0711 911 690", sw: "Piga 0711 911 690" },
+  "del.q.call": { en: "Call 0701 645 029", sw: "Piga 0701 645 029" },
   "del.q.whatsapp": { en: "WhatsApp Inquiries", sw: "Maswali kwa WhatsApp" },
   "zone.Fresh Produce": { en: "Fresh Produce", sw: "Mazao Mabichi" },
   "zone.Seedlings": { en: "Seedlings", sw: "Miche" },
@@ -512,15 +512,15 @@ export const translations: Record<string, { en: string; sw: string }> = {
   "contact.loc1.title": { en: "Farm City Fresh Distribution Hub", sw: "Kituo cha Usambazaji cha Farm City" },
   "contact.loc1.addr": { en: "Juja Town & Thika Road, Kiambu County", sw: "Mji wa Juja & Barabara ya Thika, Kaunti ya Kiambu" },
   "contact.loc1.contact": {
-    en: "Contact: Wesley Mage Mujenyi (0711 911 690)",
-    sw: "Mawasiliano: Wesley Mage Mujenyi (0711 911 690)",
+    en: "Contact: Wesley Mage Mujenyi (0701 645 029)",
+    sw: "Mawasiliano: Wesley Mage Mujenyi (0701 645 029)",
   },
   "contact.loc2.badge": { en: "Kapseret Eldoret Nursery", sw: "Kitalu cha Kapseret Eldoret" },
   "contact.loc2.title": { en: "Farm City Seedling Nursery", sw: "Kitalu cha Miche cha Farm City" },
   "contact.loc2.addr": { en: "Kapseret, Eldoret, Uasin Gishu County", sw: "Kapseret, Eldoret, Kaunti ya Uasin Gishu" },
   "contact.loc2.contact": {
-    en: "WhatsApp / Sales: 0726 360 635 / 0711 911 690",
-    sw: "WhatsApp / Mauzo: 0726 360 635 / 0711 911 690",
+    en: "WhatsApp / Sales: 0701 645 029",
+    sw: "WhatsApp / Mauzo: 0701 645 029",
   },
   "contact.directions": { en: "Get Directions (Google Maps)", sw: "Pata Maelekezo (Google Maps)" },
 

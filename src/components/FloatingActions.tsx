@@ -13,10 +13,10 @@ export default function FloatingActions() {
     <div className="fixed bottom-6 right-6 z-50 flex flex-col gap-3 items-end">
       {/* Quick Call */}
       <a
-        href="tel:0711911690"
+        href="tel:0701645029"
         aria-label="Call Farm City"
         className="bg-emerald-800 hover:bg-emerald-900 text-white p-3.5 rounded-full shadow-lg hover:scale-105 transition-all flex items-center justify-center border-2 border-white"
-        title="Call 0711 911 690"
+        title="Call 0701 645 029"
       >
         <PhoneCall size={20} />
       </a>

@@ -253,7 +253,7 @@ export default function CartPage() {
                 <input
                   type="tel"
                   required
-                  placeholder="e.g. 0711 911 690"
+                  placeholder="e.g. 0701 645 029"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                   className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:border-emerald-600"

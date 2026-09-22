@@ -202,7 +202,7 @@ export default function DeliveryPage() {
           <p className="text-xs text-slate-600">{t("del.q.desc")}</p>
           <div className="space-y-2 pt-1">
             <a
-              href="tel:0711911690"
+              href="tel:0701645029"
               className="w-full bg-emerald-800 text-white font-bold py-2 rounded-xl text-xs flex items-center justify-center gap-2 hover:bg-emerald-900 transition-colors"
             >
               <Phone size={14} /> {t("del.q.call")}

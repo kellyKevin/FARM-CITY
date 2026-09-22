@@ -77,11 +77,11 @@ export default function Header() {
 
           <div className="flex items-center gap-4 text-[11px]">
             <a
-              href="tel:0711911690"
+              href="tel:0701645029"
               className="hover:text-emerald-300 transition-colors flex items-center gap-1 font-semibold"
             >
               <Phone size={13} className="text-emerald-400" />
-              <span>0711 911 690</span>
+              <span>0701 645 029</span>
             </a>
           </div>
         </div>
@@ -227,7 +227,7 @@ export default function Header() {
               <span>{t("action.whatsappOrder")}</span>
             </a>
             <a
-              href="tel:0711911690"
+              href="tel:0701645029"
               className="w-full flex items-center justify-center gap-2 bg-emerald-800 hover:bg-emerald-900 text-white font-bold py-2.5 rounded-xl transition-colors text-xs"
             >
               <PhoneCall size={16} />
