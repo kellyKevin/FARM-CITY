@@ -39,7 +39,12 @@ Legend: **FC** = FARM-CITY repo (site), **AUT** = automation repo (dashboard),
 - [x] Bot bulk/institution path — the "Bulk / institution" menu button gathers
       org, items, quantity/frequency and location, saves a BulkQuote and hands
       the chat to a person (`CREATE_BULK_QUOTE` effect)
-- [ ] Phase 2: contract customers, price lists, standing orders, invoices
+- [x] Phase 2: **contract customers + standing orders** — recurring orders that
+      auto-generate via `/api/jobs/standing-orders` (reusing the normal order
+      pipeline) and confirm to the customer with `standing_order_confirm`;
+      `/contracts` dashboard to create contracts, add/pause/delete standing
+      orders, and run due ones now (`ContractCustomer` / `StandingOrder` models)
+- [ ] Phase 2: price lists (per-contract pricing) + invoices
 
 ### Part 4 — WhatsApp Cloud API setup  📖
 - [x] docs: full setup guide (`docs/whatsapp-setup.md`)
