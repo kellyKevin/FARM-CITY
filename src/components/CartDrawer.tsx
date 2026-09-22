@@ -35,7 +35,7 @@ export default function CartDrawer() {
     };
   }, [isCartOpen, closeCart]);
 
-  const whatsappUrl = `https://wa.me/254711911690?text=${generateWhatsAppMessage()}`;
+  const whatsappUrl = `https://wa.me/254701645029?text=${generateWhatsAppMessage()}`;
 
   return (
     <>

@@ -139,7 +139,7 @@ export default function FarmerResourcesPage() {
                 </Link>
 
                 <a
-                  href={`https://wa.me/254711911690?text=Hello%20Farm%20City%20Agronomist%2C%20I%20have%20a%20question%20regarding%20${encodeURIComponent(
+                  href={`https://wa.me/254701645029?text=Hello%20Farm%20City%20Agronomist%2C%20I%20have%20a%20question%20regarding%20${encodeURIComponent(
                     res.title
                   )}`}
                   target="_blank"

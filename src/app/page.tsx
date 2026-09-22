@@ -57,7 +57,7 @@ export default function Home() {
                 </Link>
 
                 <a
-                  href="https://wa.me/254711911690?text=Hello%20Farm%20City%2C%20I%20would%20like%20to%20place%20an%20order"
+                  href="https://wa.me/254701645029?text=Hello%20Farm%20City%2C%20I%20would%20like%20to%20place%20an%20order"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="bg-green-600 hover:bg-green-500 text-white font-bold px-5 py-3.5 rounded-xl shadow-md transition-all flex items-center gap-2 text-xs sm:text-sm"

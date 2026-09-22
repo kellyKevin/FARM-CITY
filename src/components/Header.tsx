@@ -153,7 +153,7 @@ export default function Header() {
 
             {/* WhatsApp Quick Link */}
             <a
-              href="https://wa.me/254711911690?text=Hello%20Farm%20City%2C%20I%20would%20like%20to%20make%20an%20enquiry"
+              href="https://wa.me/254701645029?text=Hello%20Farm%20City%2C%20I%20would%20like%20to%20make%20an%20enquiry"
               target="_blank"
               rel="noopener noreferrer"
               className="hidden xl:inline-flex items-center gap-1.5 bg-green-600 hover:bg-green-700 text-white text-xs font-bold px-3 py-2 rounded-xl transition-all shadow-sm"
@@ -218,7 +218,7 @@ export default function Header() {
 
           <div className="pt-3 border-t border-slate-100 flex flex-col gap-2">
             <a
-              href="https://wa.me/254711911690?text=Hello%20Farm%20City%2C%20I%20would%20like%20to%20make%20an%20enquiry"
+              href="https://wa.me/254701645029?text=Hello%20Farm%20City%2C%20I%20would%20like%20to%20make%20an%20enquiry"
               target="_blank"
               rel="noopener noreferrer"
               className="w-full flex items-center justify-center gap-2 bg-green-600 hover:bg-green-700 text-white font-bold py-2.5 rounded-xl transition-colors text-xs"

@@ -51,7 +51,7 @@ export default function BulkInstitutionalPage() {
     ];
 
     const message = lines.filter((l): l is string => Boolean(l)).join("\n");
-    return `https://wa.me/254711911690?text=${encodeURIComponent(message)}`;
+    return `https://wa.me/254701645029?text=${encodeURIComponent(message)}`;
   };
 
   const handleSubmit = (e: React.FormEvent) => {

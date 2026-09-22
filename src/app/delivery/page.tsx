@@ -208,7 +208,7 @@ export default function DeliveryPage() {
               <Phone size={14} /> {t("del.q.call")}
             </a>
             <a
-              href="https://wa.me/254711911690?text=Hello%20Farm%20City%2C%20I%20have%20a%20delivery%20inquiry"
+              href="https://wa.me/254701645029?text=Hello%20Farm%20City%2C%20I%20have%20a%20delivery%20inquiry"
               target="_blank"
               rel="noopener noreferrer"
               className="w-full bg-green-600 text-white font-bold py-2 rounded-xl text-xs flex items-center justify-center gap-2 hover:bg-green-700 transition-colors"

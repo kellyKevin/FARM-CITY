@@ -27,7 +27,7 @@ export default function ContactPage() {
       message,
     ];
     const body = lines.filter((l): l is string => Boolean(l)).join("\n");
-    return `https://wa.me/254711911690?text=${encodeURIComponent(body)}`;
+    return `https://wa.me/254701645029?text=${encodeURIComponent(body)}`;
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -74,7 +74,7 @@ export default function ContactPage() {
         </a>
 
         <a
-          href="https://wa.me/254711911690?text=Hello%20Farm%20City%2C%20I%20would%20like%20to%20make%20an%20enquiry"
+          href="https://wa.me/254701645029?text=Hello%20Farm%20City%2C%20I%20would%20like%20to%20make%20an%20enquiry"
           target="_blank"
           rel="noopener noreferrer"
           className="bg-green-600 hover:bg-green-700 text-white p-5 rounded-2xl shadow-sm transition-all flex items-center gap-4"

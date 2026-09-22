@@ -38,7 +38,7 @@ export default function FloatingActions() {
 
       {/* Floating WhatsApp */}
       <a
-        href="https://wa.me/254711911690?text=Hello%20Farm%20City%2C%20I%20would%20like%20to%20order%20or%20make%20an%20enquiry."
+        href="https://wa.me/254701645029?text=Hello%20Farm%20City%2C%20I%20would%20like%20to%20order%20or%20make%20an%20enquiry."
         target="_blank"
         rel="noopener noreferrer"
         aria-label="WhatsApp Order"
