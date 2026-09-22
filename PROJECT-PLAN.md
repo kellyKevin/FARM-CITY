@@ -93,7 +93,11 @@ Legend: **FC** = FARM-CITY repo (site), **AUT** = automation repo (dashboard),
 - [x] core order flow (greet, confirm, name, delivery, summary, confirm, payment)
 - [x] side paths: out-of-stock, cancel, unclear→handover, opt-out, media→handover
 - [~] human handoff: alerts the team, but needs the **dashboard Inbox** (Part 11)
-- [ ] Swahili / mixed-language support (Phase 2, AI-assisted)
+- [x] Swahili / mixed-language support (v1, rules-based): detects Swahili from
+      the customer's messages (sticky), understands commands in both languages
+      (yes/no/cancel/stop/change), and replies bilingually across the core order
+      flow via `src/lib/bot/i18n.ts`. (Out-of-window **templates** still need
+      Swahili versions approved in Meta; the order-confirmation text is English.)
 
 ### Part 9 — Payments
 - [x] Phase 1 manual: bot sends till/paybill + order ref; records M-Pesa code;
