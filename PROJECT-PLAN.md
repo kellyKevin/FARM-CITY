@@ -39,7 +39,17 @@ Legend: **FC** = FARM-CITY repo (site), **AUT** = automation repo (dashboard),
 - [x] Bot bulk/institution path — the "Bulk / institution" menu button gathers
       org, items, quantity/frequency and location, saves a BulkQuote and hands
       the chat to a person (`CREATE_BULK_QUOTE` effect)
-- [ ] Phase 2: contract customers, price lists, standing orders, invoices
+- [x] Phase 2: **contract customers + standing orders** — recurring orders that
+      auto-generate via `/api/jobs/standing-orders` (reusing the normal order
+      pipeline) and confirm to the customer with `standing_order_confirm`;
+      `/contracts` dashboard to create contracts, add/pause/delete standing
+      orders, and run due ones now (`ContractCustomer` / `StandingOrder` models)
+- [x] Phase 2: **price lists** (per-contract agreed prices that override the
+      catalogue when standing orders generate) + **invoices** (generate a DRAFT
+      invoice for a contract's un-invoiced orders in a period, one line per
+      order, then mark sent/paid; printable) — `ContractPrice` / `Invoice` /
+      `InvoiceLine`, `/invoices` dashboard, `/api/contracts/[id]/prices`,
+      `/api/invoices` (+ `/[id]`)
 
 ### Part 4 — WhatsApp Cloud API setup  📖
 - [x] docs: full setup guide (`docs/whatsapp-setup.md`)
@@ -116,13 +126,27 @@ Legend: **FC** = FARM-CITY repo (site), **AUT** = automation repo (dashboard),
 - [x] FC: **storefront reads the live catalogue from the DB** (`/api/catalog`
       merges DB price/stock/availability + new products with mockData display
       metadata), so dashboard edits and new products show on the site
-- [ ] AUT: delivery editor + printable rider/dispatch lists
-- [ ] AUT: quotes, customers, reports (sales, best sellers, unpaid)
+- [x] AUT: **printable rider/dispatch lists** — `/dispatch` groups orders being
+      fulfilled into rider runs (by zone) and courier/seedling runs (by method +
+      region), with per-run pack totals and print CSS (`GET /api/dispatch`)
+- [x] AUT: delivery editor — assign rider/courier + tracking (and method,
+      time window, requested date) inline on `/dispatch`; the assignee/tracking
+      then print on the run sheet (`PATCH /api/orders/[id]/delivery`)
+- [x] AUT: **quotes** dashboard (Part 3) + **reports** — sales summary
+      (collected / outstanding / order value), best sellers, and outstanding
+      payments over a chosen period (`/reports`, `GET /api/reports`)
+- [x] AUT: **customers** — searchable list (orders, spend, outstanding, last
+      order) + per-customer detail (order history, bulk quotes, 24h window
+      status) — `/customers`, `GET /api/customers` & `/api/customers/[phone]`
 
 ### Part 12 — Testing
-- [x] unit tests for parser, numbering, pricing, engine, WhatsApp helpers (46)
-- [ ] full scenario suite (mixed cart, duplicate webhook, window expiry, …)
-- [ ] staged testing: test number → real number → 10–20 customer pilot
+- [x] unit tests for parser, numbering, pricing, engine, WhatsApp helpers,
+      quotes, reports, dispatch, customers, delivery (130)
+- [x] **scenario suite** (`src/lib/bot/scenarios.test.ts`): single produce order
+      end-to-end, mixed-cart → two linked orders, out-of-stock drop + all-out
+      handover, cancel, opt-out, unclear→handover, returning customer, and the
+      24-hour window decision (free-form / template / queue)
+- [ ] staged testing: test number → real number → 10–20 customer pilot (client)
 
 ### Part 13 — Hosting, domain, subscriptions
 - [x] Vercel deployments (site + dashboard)
