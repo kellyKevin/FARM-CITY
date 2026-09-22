@@ -119,7 +119,9 @@ Legend: **FC** = FARM-CITY repo (site), **AUT** = automation repo (dashboard),
 - [x] AUT: **printable rider/dispatch lists** — `/dispatch` groups orders being
       fulfilled into rider runs (by zone) and courier/seedling runs (by method +
       region), with per-run pack totals and print CSS (`GET /api/dispatch`)
-- [ ] AUT: delivery editor (assign rider/courier, tracking, dates)
+- [x] AUT: delivery editor — assign rider/courier + tracking (and method,
+      time window, requested date) inline on `/dispatch`; the assignee/tracking
+      then print on the run sheet (`PATCH /api/orders/[id]/delivery`)
 - [x] AUT: **quotes** dashboard (Part 3) + **reports** — sales summary
       (collected / outstanding / order value), best sellers, and outstanding
       payments over a chosen period (`/reports`, `GET /api/reports`)
