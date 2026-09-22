@@ -130,9 +130,13 @@ Legend: **FC** = FARM-CITY repo (site), **AUT** = automation repo (dashboard),
       status) — `/customers`, `GET /api/customers` & `/api/customers/[phone]`
 
 ### Part 12 — Testing
-- [x] unit tests for parser, numbering, pricing, engine, WhatsApp helpers (46)
-- [ ] full scenario suite (mixed cart, duplicate webhook, window expiry, …)
-- [ ] staged testing: test number → real number → 10–20 customer pilot
+- [x] unit tests for parser, numbering, pricing, engine, WhatsApp helpers,
+      quotes, reports, dispatch, customers, delivery (130)
+- [x] **scenario suite** (`src/lib/bot/scenarios.test.ts`): single produce order
+      end-to-end, mixed-cart → two linked orders, out-of-stock drop + all-out
+      handover, cancel, opt-out, unclear→handover, returning customer, and the
+      24-hour window decision (free-form / template / queue)
+- [ ] staged testing: test number → real number → 10–20 customer pilot (client)
 
 ### Part 13 — Hosting, domain, subscriptions
 - [x] Vercel deployments (site + dashboard)
