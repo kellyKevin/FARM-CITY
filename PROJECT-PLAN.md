@@ -116,7 +116,10 @@ Legend: **FC** = FARM-CITY repo (site), **AUT** = automation repo (dashboard),
 - [x] FC: **storefront reads the live catalogue from the DB** (`/api/catalog`
       merges DB price/stock/availability + new products with mockData display
       metadata), so dashboard edits and new products show on the site
-- [ ] AUT: delivery editor + printable rider/dispatch lists
+- [x] AUT: **printable rider/dispatch lists** — `/dispatch` groups orders being
+      fulfilled into rider runs (by zone) and courier/seedling runs (by method +
+      region), with per-run pack totals and print CSS (`GET /api/dispatch`)
+- [ ] AUT: delivery editor (assign rider/courier, tracking, dates)
 - [x] AUT: **quotes** dashboard (Part 3) + **reports** — sales summary
       (collected / outstanding / order value), best sellers, and outstanding
       payments over a chosen period (`/reports`, `GET /api/reports`)
