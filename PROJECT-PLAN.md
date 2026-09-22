@@ -44,7 +44,12 @@ Legend: **FC** = FARM-CITY repo (site), **AUT** = automation repo (dashboard),
       pipeline) and confirm to the customer with `standing_order_confirm`;
       `/contracts` dashboard to create contracts, add/pause/delete standing
       orders, and run due ones now (`ContractCustomer` / `StandingOrder` models)
-- [ ] Phase 2: price lists (per-contract pricing) + invoices
+- [x] Phase 2: **price lists** (per-contract agreed prices that override the
+      catalogue when standing orders generate) + **invoices** (generate a DRAFT
+      invoice for a contract's un-invoiced orders in a period, one line per
+      order, then mark sent/paid; printable) — `ContractPrice` / `Invoice` /
+      `InvoiceLine`, `/invoices` dashboard, `/api/contracts/[id]/prices`,
+      `/api/invoices` (+ `/[id]`)
 
 ### Part 4 — WhatsApp Cloud API setup  📖
 - [x] docs: full setup guide (`docs/whatsapp-setup.md`)
