@@ -167,6 +167,11 @@ Legend: **FC** = FARM-CITY repo (site), **AUT** = automation repo (dashboard),
 - [ ] advocate review before commercial reliance; register with the ODPC if required
 
 ### Part 15 — Launch, training, support
+- [x] **Go-live checklist** (`docs/go-live-checklist.md`) — DB, env vars,
+      WhatsApp, M-Pesa, publish, domain, legal, staged testing, daily ops
+- [x] **Staff guide** (`docs/staff-guide.md`) — how to run each dashboard page
+      and a suggested daily rhythm
+- [ ] client: staff training session + hypercare during the first two weeks
 - [ ] go-live checklist, staff training, hypercare (first two weeks)
 
 ---
