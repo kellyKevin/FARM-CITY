@@ -269,17 +269,21 @@ export const translations: Record<string, { en: string; sw: string }> = {
 
   // Cart page
   "cart.ref": { en: "Order Ref:", sw: "Kumbukumbu ya Agizo:" },
-  "cart.received": { en: "Order Received!", sw: "Agizo Limepokelewa!" },
+  "cart.received": { en: "One last step — send it on WhatsApp", sw: "Hatua ya mwisho — ituma kwa WhatsApp" },
   "cart.thanks.a": {
-    en: "Thank you for ordering with Farm City! Our team will confirm stock and delivery fees, then contact you at",
-    sw: "Asante kwa kuagiza na Farm City! Timu yetu itathibitisha stoki na ada za uwasilishaji, kisha itawasiliana nawe kupitia",
+    en: "We've opened WhatsApp with your order ready to go. Tap the send button there to submit it — our bot replies with",
+    sw: "Tumefungua WhatsApp na agizo lako liko tayari. Gusa kitufe cha kutuma ili uliwasilishe — boti yetu itajibu",
+  },
+  "cart.received.bot": {
+    en: "“Order received” and your official order number",
+    sw: "“Agizo limepokelewa” na nambari rasmi ya agizo lako",
   },
   "cart.thanks.b": {
-    en: "to arrange delivery and payment.",
-    sw: "kupanga uwasilishaji na malipo.",
+    en: "right in the chat. Your order is only placed once you send that message.",
+    sw: "papo hapo kwenye mazungumzo. Agizo lako litawekwa tu baada ya kutuma ujumbe huo.",
   },
   "cart.yourNumber": { en: "your number", sw: "nambari yako" },
-  "cart.confirmWhatsapp": { en: "Confirm on WhatsApp", sw: "Thibitisha kwa WhatsApp" },
+  "cart.confirmWhatsapp": { en: "Open WhatsApp to send", sw: "Fungua WhatsApp kutuma" },
   "cart.backToShop": { en: "Back to Shop", sw: "Rudi Dukani" },
   "cart.empty.title": { en: "Your Shopping Cart is Empty", sw: "Kikapu chako cha Ununuzi ni Tupu" },
   "cart.empty.desc": {
@@ -315,8 +319,8 @@ export const translations: Record<string, { en: string; sw: string }> = {
   },
   "cart.placeOrder": { en: "PLACE ORDER", sw: "WEKA AGIZO" },
   "cart.whatsappHint": {
-    en: "Your order also opens in WhatsApp so our team receives it instantly. If it didn't open, tap Confirm on WhatsApp below.",
-    sw: "Agizo lako pia hufunguka katika WhatsApp ili timu yetu ilipokee papo hapo. Kama halikufunguka, gusa Thibitisha kwa WhatsApp hapa chini.",
+    en: "Didn't WhatsApp open? Tap the button below to open it, then press send. No order number is created until you send the message on WhatsApp.",
+    sw: "WhatsApp haikufunguka? Gusa kitufe hapa chini kuifungua, kisha bonyeza tuma. Hakuna nambari ya agizo inayotengenezwa hadi utume ujumbe kwenye WhatsApp.",
   },
   "drawer.title": { en: "Your Cart", sw: "Kikapu Chako" },
   "drawer.count": { en: "items", sw: "bidhaa" },

@@ -8,7 +8,6 @@ import {
   Trash2,
   ArrowLeft,
   MessageSquare,
-  CheckCircle2,
   ShieldCheck
 } from "lucide-react";
 import { useCart } from "@/context/CartContext";
@@ -23,14 +22,17 @@ export default function CartPage() {
   const [deliveryLocation, setDeliveryLocation] = useState("");
   const [notes, setNotes] = useState("");
   const [orderPlaced, setOrderPlaced] = useState(false);
-  const [placedOrderNumber, setPlacedOrderNumber] = useState("");
   const [orderWhatsappUrl, setOrderWhatsappUrl] = useState("");
 
-  const buildOrderWhatsAppUrl = (orderNumber: string) => {
+  // Build the pre-filled WhatsApp message. NOTE: the website deliberately does
+  // NOT invent an order number here. The customer sends this message inside
+  // WhatsApp; our bot reads it, creates the order in the database, and replies
+  // with the real, sequential order number ("Order received — FC-0142"). That
+  // keeps the number the customer sees and the number in our system in sync.
+  const buildOrderWhatsAppUrl = () => {
     const lines: (string | false)[] = [
-      `*Farm City Order ${orderNumber}*`,
+      "Hello Farm City, I would like to place an order:",
       "",
-      "Items:",
       ...cart.map(
         (i, idx) =>
           `${idx + 1}. ${i.name} — ${i.quantity} ${i.unit} (KSh ${(i.price * i.quantity).toLocaleString()})`
@@ -52,11 +54,12 @@ export default function CartPage() {
     e.preventDefault();
     if (cart.length === 0) return;
 
-    const orderNumber = "FC-" + Math.floor(1000 + Math.random() * 9000);
-    const url = buildOrderWhatsAppUrl(orderNumber);
-    setPlacedOrderNumber(orderNumber);
+    const url = buildOrderWhatsAppUrl();
     setOrderWhatsappUrl(url);
-    // Send the order to WhatsApp so the team receives it instantly
+    // Hand the order off to WhatsApp. The customer still has to press "send"
+    // there — that is what actually places the order (the bot then confirms
+    // and issues the order number). Clearing the cart here reflects that the
+    // order has left the website and now lives in the WhatsApp conversation.
     if (typeof window !== "undefined") {
       window.open(url, "_blank", "noopener,noreferrer");
     }
@@ -74,15 +77,12 @@ export default function CartPage() {
     return (
       <div className="max-w-3xl mx-auto px-4 py-16 text-left space-y-6">
         <div className="bg-emerald-50 border border-emerald-200 p-8 sm:p-12 rounded-3xl space-y-4 shadow-sm">
-          <CheckCircle2 size={56} className="text-emerald-700" />
+          <MessageSquare size={56} className="text-emerald-700" />
           <div>
-            <span className="text-xs font-mono font-extrabold text-emerald-800 bg-emerald-100 px-3 py-1 rounded-full uppercase">
-              {t("cart.ref")} {placedOrderNumber}
-            </span>
             <h1 className="text-2xl sm:text-3xl font-black text-slate-900 mt-2">{t("cart.received")}</h1>
           </div>
           <p className="text-xs sm:text-sm text-slate-600 max-w-md leading-relaxed">
-            {t("cart.thanks.a")} <strong>{phone || t("cart.yourNumber")}</strong> {t("cart.thanks.b")}
+            {t("cart.thanks.a")} <strong>{t("cart.received.bot")}</strong> {t("cart.thanks.b")}
           </p>
           <p className="text-[11px] text-slate-500 max-w-md leading-relaxed">
             {t("cart.whatsappHint")}
@@ -90,7 +90,7 @@ export default function CartPage() {
 
           <div className="pt-4 flex flex-col sm:flex-row items-center gap-4">
             <a
-              href={orderWhatsappUrl || `https://wa.me/254701645029?text=${encodeURIComponent(`Hello Farm City, I placed order ${placedOrderNumber} on the website under name: ${customerName || "Customer"}`)}`}
+              href={orderWhatsappUrl || "https://wa.me/254701645029"}
               target="_blank"
               rel="noopener noreferrer"
               className="w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white font-bold px-6 py-3 rounded-xl transition-colors text-xs flex items-center justify-center gap-2"
