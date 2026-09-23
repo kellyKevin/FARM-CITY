@@ -160,7 +160,11 @@ Legend: **FC** = FARM-CITY repo (site), **AUT** = automation repo (dashboard),
 - [ ] domain, business email, monitoring/uptime alerts, subscription register
 
 ### Part 14 — Legal & compliance
-- [ ] privacy policy + terms + refund policy; opt-in/opt-out handling; DPA review
+- [x] FC: **Privacy Policy** (`/privacy`), **Terms of Service** (`/terms`) and
+      **Refund & Returns Policy** (`/refund-policy`), linked in the footer —
+      cover WhatsApp opt-in/opt-out, M-Pesa, delivery, Kenya DPA 2019. (Privacy
+      URL is required to publish the Meta app.)
+- [ ] advocate review before commercial reliance; register with the ODPC if required
 
 ### Part 15 — Launch, training, support
 - [ ] go-live checklist, staff training, hypercare (first two weeks)
