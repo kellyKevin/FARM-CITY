@@ -17,11 +17,11 @@ export default function Footer() {
           <div className="space-y-4">
             <div className="flex items-center gap-2">
               <Image
-                src="/images/logo.jpeg"
-                alt="Farm City Logo"
-                width={180}
-                height={64}
-                className="h-14 sm:h-16 w-auto object-contain rounded-xl bg-white p-1.5 ring-1 ring-slate-200/40 shadow-sm"
+                src="/images/logo.png"
+                alt="Farm City — Good Food, Better Life"
+                width={200}
+                height={170}
+                className="h-16 sm:h-20 w-auto object-contain rounded-2xl bg-white p-2.5 ring-1 ring-slate-200/40 shadow-sm"
               />
             </div>
             <p className="text-xs text-slate-400 leading-relaxed">{t("footer.brand")}</p>
