@@ -125,8 +125,10 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="border-t border-slate-800 pt-6 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-slate-500">
           <p>© {new Date().getFullYear()} Farm City. {t("footer.rights")}</p>
-          <div className="flex items-center gap-6">
-            <span>{t("footer.values")}</span>
+          <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
+            <Link href="/privacy" className="hover:text-emerald-400 transition-colors">Privacy Policy</Link>
+            <Link href="/terms" className="hover:text-emerald-400 transition-colors">Terms of Service</Link>
+            <Link href="/refund-policy" className="hover:text-emerald-400 transition-colors">Refunds &amp; Returns</Link>
           </div>
         </div>
       </div>
