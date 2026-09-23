@@ -87,6 +87,24 @@ export default function BulkInstitutionalPage() {
       window.open(url, "_blank", "noopener,noreferrer");
     }
     setSubmitted(true);
+    // Clear the form once the request has left the site for WhatsApp, so a
+    // fresh, empty form is ready if they submit another quote.
+    resetForm();
+  };
+
+  const resetForm = () => {
+    setOrganizationName("");
+    setContactPerson("");
+    setPhone("");
+    setWhatsapp("");
+    setEmail("");
+    setCounty("");
+    setTown("");
+    setProductsRequired("");
+    setEstimatedQuantities("");
+    setFrequencyOfSupply("Weekly");
+    setPreferredDeliveryDate("");
+    setAdditionalInfo("");
   };
 
   return (
