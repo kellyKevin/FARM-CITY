@@ -91,21 +91,15 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className={`flex items-center justify-between transition-all duration-300 ${scrolled ? "h-16" : "h-20"}`}>
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2.5 group shrink-0" aria-label="Farm City home">
-            <span className="bg-white rounded-xl p-1 ring-1 ring-slate-200 shadow-sm inline-flex">
-              <Image
-                src="/images/logo.jpeg"
-                alt="Farm City Logo"
-                width={160}
-                height={56}
-                priority
-                className={`w-auto object-contain rounded-lg group-hover:scale-105 transition-all duration-300 ${scrolled ? "h-10 sm:h-12" : "h-12 sm:h-16"}`}
-              />
-            </span>
-            <span className="hidden sm:flex flex-col leading-none">
-              <span className="font-black tracking-tight text-emerald-800 text-lg">Farm City</span>
-              <span className="text-[11px] font-semibold text-slate-500">Fresh · Healthy · Delivered</span>
-            </span>
+          <Link href="/" className="flex items-center group shrink-0" aria-label="Farm City home">
+            <Image
+              src="/images/logo.png"
+              alt="Farm City — Good Food, Better Life"
+              width={220}
+              height={186}
+              priority
+              className={`w-auto object-contain group-hover:scale-105 transition-all duration-300 ${scrolled ? "h-11 sm:h-12" : "h-14 sm:h-16"}`}
+            />
           </Link>
 
           {/* Desktop Navigation */}

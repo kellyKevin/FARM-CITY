@@ -16,8 +16,25 @@ html.dark {
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  font-family: var(--font-sans), system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* --- Brand typography: modern-classic serif headlines ------------------- */
+h1, h2, .font-display {
+  font-family: var(--font-display), Georgia, "Times New Roman", serif;
+  letter-spacing: -0.02em;
+  font-optical-sizing: auto;
+}
+
+/* Refined selection + keyboard focus in the brand green */
+::selection { background: rgba(4, 120, 87, 0.18); }
+:where(a, button, input, select, textarea):focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(4, 120, 87, 0.35);
+  border-radius: 6px;
 }
 
 /*
